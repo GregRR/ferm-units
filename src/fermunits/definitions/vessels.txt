@@ -16,3 +16,6 @@ brewing_hogshead = 54 * imperial_gallon
 
 brewing_puncheon = 72 * imperial_gallon
 brewing_butt = 108 * imperial_gallon
+
+# Explicit alias for Pint's 31-US-gallon beer barrel
+us_beer_barrel = beer_barrel
