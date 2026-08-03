@@ -13,3 +13,6 @@ pin_cask = 4.5 * imperial_gallon
 # Explicit hogshead names
 wine_hogshead = hogshead
 brewing_hogshead = 54 * imperial_gallon
+
+brewing_puncheon = 72 * imperial_gallon
+brewing_butt = 108 * imperial_gallon

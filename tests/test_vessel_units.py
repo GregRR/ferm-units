@@ -23,3 +23,13 @@ def test_pin_cask_is_half_firkin() -> None:
 def test_pint_beer_barrel_exact_liter_definition() -> None:
     result = Q_(1, "beer_barrel").to("liter")
     assert result.magnitude == pytest.approx(117.347765304)
+
+
+def test_brewing_puncheon_equals_72_imperial_gallons() -> None:
+    result = Q_(1, "brewing_puncheon").to("imperial_gallon")
+    assert result.magnitude == pytest.approx(72)
+
+
+def test_brewing_butt_equals_108_imperial_gallons() -> None:
+    result = Q_(1, "brewing_butt").to("imperial_gallon")
+    assert result.magnitude == pytest.approx(108)
