@@ -1,19 +1,55 @@
 """Conversions for brewing gravity and extract measurements."""
 
+import math
+
 _PLATO_INVERSION_LOWER_SG = 0.5
 _PLATO_INVERSION_UPPER_SG = 2.0
 _PLATO_INVERSION_TOLERANCE = 1e-12
 _PLATO_INVERSION_MAX_ITERATIONS = 100
 
 
+def _require_finite(value: float, name: str) -> None:
+    """Raise ValueError when a numeric input is NaN or infinite."""
+    if not math.isfinite(value):
+        raise ValueError(f"{name} must be finite")
+
+
+def _require_positive_specific_gravity(specific_gravity: float) -> None:
+    """Validate a specific-gravity value."""
+    _require_finite(specific_gravity, "Specific gravity")
+
+    if specific_gravity <= 0.0:
+        raise ValueError("Specific gravity must be greater than zero")
+
+
+def _require_positive_correction_factor(wort_correction_factor: float) -> None:
+    """Validate a wort refractometer correction factor."""
+    _require_finite(wort_correction_factor, "Wort correction factor")
+
+    if wort_correction_factor <= 0.0:
+        raise ValueError("Wort correction factor must be greater than zero")
+
+
 def sg_to_gravity_points(specific_gravity: float) -> float:
     """Convert specific gravity to gravity points."""
+    _require_positive_specific_gravity(specific_gravity)
+
     return (specific_gravity - 1.0) * 1000.0
 
 
 def gravity_points_to_sg(gravity_points: float) -> float:
     """Convert gravity points to specific gravity."""
-    return 1.0 + (gravity_points / 1000.0)
+    _require_finite(gravity_points, "Gravity points")
+
+    specific_gravity = 1.0 + (gravity_points / 1000.0)
+
+    if specific_gravity <= 0.0:
+        raise ValueError(
+            "Gravity points must correspond to a specific gravity "
+            "greater than zero"
+        )
+
+    return specific_gravity
 
 
 def sg_to_plato(specific_gravity: float) -> float:
@@ -21,7 +57,12 @@ def sg_to_plato(specific_gravity: float) -> float:
 
     This polynomial is provisional pending verification against an
     authoritative ASBC method or extract table.
+
+    No scientific validity range is asserted yet. The input must be finite and
+    greater than zero.
     """
+    _require_positive_specific_gravity(specific_gravity)
+
     return (
         -616.868
         + (1111.14 * specific_gravity)
@@ -36,7 +77,13 @@ def plato_to_sg(plato: float) -> float:
     This function numerically inverts ``sg_to_plato`` so the two provisional
     conversions remain internally consistent. The underlying polynomial is
     pending verification against an authoritative ASBC method or extract table.
+
+    The current numerical search interval is SG 0.5 through 2.0. This is an
+    implementation limit and must not be interpreted as an ASBC-approved
+    measurement range.
     """
+    _require_finite(plato, "Plato")
+
     lower_sg = _PLATO_INVERSION_LOWER_SG
     upper_sg = _PLATO_INVERSION_UPPER_SG
     lower_plato = sg_to_plato(lower_sg)
@@ -44,7 +91,8 @@ def plato_to_sg(plato: float) -> float:
 
     if not lower_plato <= plato <= upper_plato:
         raise ValueError(
-            f"Plato value must be between {lower_plato} and {upper_plato}"
+            "Plato value is outside the current numerical inversion range "
+            f"of {lower_plato} to {upper_plato}"
         )
 
     for _ in range(_PLATO_INVERSION_MAX_ITERATIONS):
@@ -72,8 +120,8 @@ def wort_refractometer_brix_to_plato(
     between the Brix and Plato scales. No default correction factor is provided
     while the appropriate value remains pending ASBC verification.
     """
-    if wort_correction_factor <= 0.0:
-        raise ValueError("Wort correction factor must be greater than zero")
+    _require_finite(apparent_brix, "Apparent Brix")
+    _require_positive_correction_factor(wort_correction_factor)
 
     return apparent_brix / wort_correction_factor
 
@@ -87,7 +135,7 @@ def plato_to_wort_refractometer_brix(
     This is the inverse of ``wort_refractometer_brix_to_plato`` and remains
     a wort-specific correction rather than a general scale conversion.
     """
-    if wort_correction_factor <= 0.0:
-        raise ValueError("Wort correction factor must be greater than zero")
+    _require_finite(plato, "Plato")
+    _require_positive_correction_factor(wort_correction_factor)
 
     return plato * wort_correction_factor

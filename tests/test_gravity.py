@@ -1,3 +1,5 @@
+import math
+
 import pytest
 
 from fermunits.gravity import (
@@ -28,11 +30,29 @@ def test_sg_to_gravity_points(
 
 
 @pytest.mark.parametrize(
+    "specific_gravity",
+    [
+        0.0,
+        -1.0,
+        math.nan,
+        math.inf,
+        -math.inf,
+    ],
+)
+def test_sg_to_gravity_points_rejects_invalid_sg(
+    specific_gravity: float,
+) -> None:
+    with pytest.raises(ValueError):
+        sg_to_gravity_points(specific_gravity)
+
+
+@pytest.mark.parametrize(
     ("gravity_points", "expected_sg"),
     [
         (0.0, 1.000),
         (46.0, 1.046),
         (80.0, 1.080),
+        (-2.0, 0.998),
     ],
 )
 def test_gravity_points_to_sg(
@@ -42,6 +62,23 @@ def test_gravity_points_to_sg(
     result = gravity_points_to_sg(gravity_points)
 
     assert result == pytest.approx(expected_sg)
+
+
+@pytest.mark.parametrize(
+    "gravity_points",
+    [
+        -1000.0,
+        -1001.0,
+        math.nan,
+        math.inf,
+        -math.inf,
+    ],
+)
+def test_gravity_points_to_sg_rejects_invalid_points(
+    gravity_points: float,
+) -> None:
+    with pytest.raises(ValueError):
+        gravity_points_to_sg(gravity_points)
 
 
 def test_gravity_point_conversion_round_trip() -> None:
@@ -67,6 +104,23 @@ def test_sg_to_plato(
     result = sg_to_plato(specific_gravity)
 
     assert result == pytest.approx(expected_plato)
+
+
+@pytest.mark.parametrize(
+    "specific_gravity",
+    [
+        0.0,
+        -1.0,
+        math.nan,
+        math.inf,
+        -math.inf,
+    ],
+)
+def test_sg_to_plato_rejects_invalid_sg(
+    specific_gravity: float,
+) -> None:
+    with pytest.raises(ValueError):
+        sg_to_plato(specific_gravity)
 
 
 @pytest.mark.parametrize(
@@ -102,9 +156,19 @@ def test_plato_conversion_round_trip(specific_gravity: float) -> None:
     assert result == pytest.approx(specific_gravity)
 
 
-def test_plato_to_sg_rejects_value_outside_search_range() -> None:
-    with pytest.raises(ValueError, match="Plato value must be between"):
-        plato_to_sg(200.0)
+@pytest.mark.parametrize(
+    "plato",
+    [
+        -300.0,
+        200.0,
+        math.nan,
+        math.inf,
+        -math.inf,
+    ],
+)
+def test_plato_to_sg_rejects_invalid_value(plato: float) -> None:
+    with pytest.raises(ValueError):
+        plato_to_sg(plato)
 
 
 @pytest.mark.parametrize(
@@ -128,14 +192,35 @@ def test_wort_refractometer_brix_to_plato(
     assert result == pytest.approx(expected_plato)
 
 
-@pytest.mark.parametrize("correction_factor", [0.0, -1.0])
+@pytest.mark.parametrize(
+    "apparent_brix",
+    [
+        math.nan,
+        math.inf,
+        -math.inf,
+    ],
+)
+def test_wort_refractometer_brix_to_plato_rejects_nonfinite_brix(
+    apparent_brix: float,
+) -> None:
+    with pytest.raises(ValueError, match="Apparent Brix must be finite"):
+        wort_refractometer_brix_to_plato(apparent_brix, 1.04)
+
+
+@pytest.mark.parametrize(
+    "correction_factor",
+    [
+        0.0,
+        -1.0,
+        math.nan,
+        math.inf,
+        -math.inf,
+    ],
+)
 def test_wort_refractometer_brix_to_plato_rejects_invalid_factor(
     correction_factor: float,
 ) -> None:
-    with pytest.raises(
-        ValueError,
-        match="Wort correction factor must be greater than zero",
-    ):
+    with pytest.raises(ValueError):
         wort_refractometer_brix_to_plato(12.0, correction_factor)
 
 
@@ -160,14 +245,35 @@ def test_plato_to_wort_refractometer_brix(
     assert result == pytest.approx(expected_apparent_brix)
 
 
-@pytest.mark.parametrize("correction_factor", [0.0, -1.0])
+@pytest.mark.parametrize(
+    "plato",
+    [
+        math.nan,
+        math.inf,
+        -math.inf,
+    ],
+)
+def test_plato_to_wort_refractometer_brix_rejects_nonfinite_plato(
+    plato: float,
+) -> None:
+    with pytest.raises(ValueError, match="Plato must be finite"):
+        plato_to_wort_refractometer_brix(plato, 1.04)
+
+
+@pytest.mark.parametrize(
+    "correction_factor",
+    [
+        0.0,
+        -1.0,
+        math.nan,
+        math.inf,
+        -math.inf,
+    ],
+)
 def test_plato_to_wort_refractometer_brix_rejects_invalid_factor(
     correction_factor: float,
 ) -> None:
-    with pytest.raises(
-        ValueError,
-        match="Wort correction factor must be greater than zero",
-    ):
+    with pytest.raises(ValueError):
         plato_to_wort_refractometer_brix(12.0, correction_factor)
 
 
