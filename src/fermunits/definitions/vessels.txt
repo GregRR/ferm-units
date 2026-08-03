@@ -1,16 +1,10 @@
-# FermUnits vessel-volume definitions
-#
-# Bare names such as "barrel" are deliberately omitted because they are
-# ambiguous across countries, industries, and historical periods.
-#
-# Exact SI values are used here so these definitions do not depend on Pint's
-# spelling or aliases for US and Imperial gallons.
+# Brewing vessel volumes
 
-# Modern British brewery cask system
-imperial_beer_barrel = 163.65924 * liter = UK_beer_bbl
-kilderkin = 81.82962 * liter
-firkin = 40.91481 * liter
-pin_cask = 20.457405 * liter
+# Pint already defines:
+# beer_barrel = 31 US liquid gallons
+# imperial_gallon = 4.54609 liters
 
-# Modern United States beer barrel: 31 US liquid gallons
-us_beer_barrel = 117.347765304 * liter = US_beer_bbl
+imperial_beer_barrel = 36 * imperial_gallon
+kilderkin = 18 * imperial_gallon
+firkin = 9 * imperial_gallon
+pin_cask = 4.5 * imperial_gallon
