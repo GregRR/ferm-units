@@ -1,5 +1,9 @@
 """Fermentation-industry units and conversions built on Pint."""
 
+from fermunits.bitterness import (
+    absorbance_275nm_to_bitterness_units,
+    bitterness_units_to_absorbance_275nm,
+)
 from fermunits.carbonation import (
     co2_grams_per_liter_to_volumes,
     co2_volumes_to_grams_per_liter,
@@ -26,6 +30,8 @@ from fermunits.registry import Q_, create_registry, ureg
 
 __all__ = [
     "Q_",
+    "absorbance_275nm_to_bitterness_units",
+    "bitterness_units_to_absorbance_275nm",
     "co2_grams_per_liter_to_volumes",
     "co2_volumes_to_grams_per_liter",
     "create_registry",
