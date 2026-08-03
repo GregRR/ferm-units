@@ -5,6 +5,7 @@ from fermunits.gravity import (
     plato_to_sg,
     sg_to_gravity_points,
     sg_to_plato,
+    wort_refractometer_brix_to_plato,
 )
 
 
@@ -103,3 +104,35 @@ def test_plato_conversion_round_trip(specific_gravity: float) -> None:
 def test_plato_to_sg_rejects_value_outside_search_range() -> None:
     with pytest.raises(ValueError, match="Plato value must be between"):
         plato_to_sg(200.0)
+
+
+@pytest.mark.parametrize(
+    ("apparent_brix", "correction_factor", "expected_plato"),
+    [
+        (12.48, 1.04, 12.0),
+        (20.80, 1.04, 20.0),
+        (13.00, 1.00, 13.0),
+    ],
+)
+def test_wort_refractometer_brix_to_plato(
+    apparent_brix: float,
+    correction_factor: float,
+    expected_plato: float,
+) -> None:
+    result = wort_refractometer_brix_to_plato(
+        apparent_brix,
+        correction_factor,
+    )
+
+    assert result == pytest.approx(expected_plato)
+
+
+@pytest.mark.parametrize("correction_factor", [0.0, -1.0])
+def test_wort_refractometer_brix_to_plato_rejects_invalid_factor(
+    correction_factor: float,
+) -> None:
+    with pytest.raises(
+        ValueError,
+        match="Wort correction factor must be greater than zero",
+    ):
+        wort_refractometer_brix_to_plato(12.0, correction_factor)

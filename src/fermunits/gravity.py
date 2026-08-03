@@ -60,3 +60,19 @@ def plato_to_sg(plato: float) -> float:
             upper_sg = midpoint_sg
 
     return (lower_sg + upper_sg) / 2.0
+
+
+def wort_refractometer_brix_to_plato(
+    apparent_brix: float,
+    wort_correction_factor: float,
+) -> float:
+    """Correct an apparent wort Brix reading to estimated degrees Plato.
+
+    This is a wort-specific refractometer correction, not a general conversion
+    between the Brix and Plato scales. No default correction factor is provided
+    while the appropriate value remains pending ASBC verification.
+    """
+    if wort_correction_factor <= 0.0:
+        raise ValueError("Wort correction factor must be greater than zero")
+
+    return apparent_brix / wort_correction_factor
