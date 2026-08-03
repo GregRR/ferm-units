@@ -1,0 +1,103 @@
+================================================================================
+          MASTER FERMENTATION CALCULATOR SPECIFICATION - PART 4: SAKE
+================================================================================
+A technical backend manual covering the Nihonshudo dryness index, traditional
+Japanese volumetric units, rice polishing metrics, and titration acidity math
+mapped directly to standard SI metric base and derived units.
+================================================================================
+
+--------------------------------------------------------------------------------
+1. DRYNESS INDICES & THE NIHONSHUDO SCALE
+--------------------------------------------------------------------------------
+
+*   Nihonshudo (Sake Meter Value - SMV)
+    - Description: A custom specific gravity scale indicating the dryness or
+      sweetness of the sake. It measures the density of finished sake compared
+      to pure water at 15°C (59°F). Because alcohol is lighter than water,
+      positive values (+4) signify lower density (drier sake), while negative
+      values (-2) signify higher residual sugars (sweeter sake).
+    - Core Users: Universal across all premium sake breweries (Kura), export
+      traders, and consumer labeling.
+    - Metric / SI Baseline Value: Inverse density-derived index. At a reference
+      water density of 1.000 (1,000 kg/m³), the SMV value is exactly 0.
+
+*   HIGH-PRECISION CONVERSION FORMULAS:
+    - Specific Gravity (SG) to Nihonshudo (SMV):
+        SMV = (1443 / SG) - 1443
+    - Nihonshudo (SMV) to Specific Gravity (SG):
+        SG = 1443 / (SMV + 1443)
+    - Example Application: An SG of 0.9972 maps to an SMV of +4.0 (Bone Dry).
+      An SG of 1.0020 maps to an SMV of -2.8 (Sweet).
+
+--------------------------------------------------------------------------------
+2. TECHNICAL ACIDITY BALANCING (SANDO & AMANDO)
+--------------------------------------------------------------------------------
+
+*   Sando (Sake Acidity Metric)
+    - Description: Measures the concentration of organic acids (succinic, lactic,
+      and malic) in sake. Distinct from wine titratable acidity, Sando is reported
+      as a raw titration factor rather than a mass-per-liter value.
+    - Calculation: The volume (in milliliters) of a 0.1M Sodium Hydroxide (NaOH)
+      chemical solution required to neutralize exactly 10 mL of filtered sake.
+    - Metric / SI Baseline Value: Volumetric titration index ($10^{-5}\text{ m}^3$ solution titration ratio).
+      An average premium sake features a Sando value between 1.2 and 1.7.
+
+*   Amando (Sweetness-Acidity Ratio Index)
+    - Description: A calculated balance value used by brewers to evaluate the
+      perceived balance between sugar concentration and structural tartness.
+    - High-Precision Balance Formula:
+        Amando = (Nihonshudo / 10) - Sando
+    - Metric / SI Baseline Value: Dimensionless sensory tracking balance index.
+
+--------------------------------------------------------------------------------
+3. RICE ARCHITECTURE & PRODUCTION METRICS
+--------------------------------------------------------------------------------
+
+*   Seimaibuai (Rice Polishing Ratio)
+    - Description: Measures the mass percentage of the raw sake rice grain that
+      remains after the outer layers of fat and protein are milled away.
+    - Core Users: Absolute classification standard. Determines legal grades
+      like Honjozo ($\le$ 70%), Ginjo ($\le$ 60%), and Daiginjo ($\le$ 50%).
+    - Metric / SI Baseline Value: Mass fraction percentage unit. Calculated as:
+      (Milled Grain Mass in kg / Raw Grain Mass in kg) * 100 (SI Base: kg).
+
+--------------------------------------------------------------------------------
+4. TRADITIONAL JAPANESE CAPACITY & BOTTLING VOLUMES
+--------------------------------------------------------------------------------
+Sake brewing facilities evaluate batch capacities, raw water requirements, and
+production tax compliance using legacy volumetric units dating back to the Edo period.
+
+*   Koku (石)
+    - Volumetric Size: Exactly 180.39 Liters / 47.65 US Gallons.
+    - Description: The bedrock commercial volume unit used to measure total cellar
+      capacity, government facility licenses, and yearly production output.
+    - Metric / SI Baseline Value: Volume unit. Exactly 180.39 Liters ($0.18039\text{ m}^3$).
+
+*   To (斗)
+    - Volumetric Size: Exactly 18.039 Liters / 4.76 US Gallons.
+    - Description: Equivalent to exactly one-tenth of a Koku.
+    - Metric / SI Baseline Value: Volume unit. Exactly 18.039 Liters ($0.018039\text{ m}^3$).
+
+*   Sho (升)
+    - Volumetric Size: Exactly 1.8039 Liters / 0.476 US Gallons.
+    - Description: Equivalent to exactly one-hundredth of a Koku.
+    - Metric / SI Baseline Value: Volume unit. Exactly 1.8039 Liters ($0.0018039\text{ m}^3$).
+
+*   Gou (合)
+    - Volumetric Size: Exactly 180.39 Milliliters / 6.10 US Fluid Ounces.
+    - Description: Equivalent to exactly one-thousandth of a Koku. It is the single
+      serving size standard for traditional wooden sake cups (Masu).
+    - Metric / SI Baseline Value: Volume unit. Exactly 180.39 mL ($0.00018039\text{ m}^3$).
+
+*   Isshobin (一升瓶)
+    - Volumetric Size: Exactly 1.8 Liters.
+    - Description: The universal glass bottle size used for packing premium sake.
+      Loosely derived from the historical Sho unit but rounded to a clean metric standard.
+    - Metric / SI Baseline Value: Accepted Non-SI Metric Volume unit. Exactly 1.8 L ($0.0018\text{ m}^3$).
+
+*   CONVERSION MATRIX FOR SAKE VOLUMES:
+    - 1 Koku = 10 To = 100 Sho = 1,000 Gou
+    - 1 To   = 0.1 Koku = 10 Sho  = 100 Gou
+    - 1 Sho  = 0.01 Koku = 0.1 To  = 10 Gou
+    - 1 Gou  = 0.001 Koku = 0.01 To = 0.1 Sho
+================================================================================

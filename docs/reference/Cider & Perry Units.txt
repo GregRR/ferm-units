@@ -1,0 +1,93 @@
+================================================================================
+       MASTER FERMENTATION CALCULATOR SPECIFICATION - PART 5: CIDER & PERRY
+================================================================================
+A technical backend manual covering non-fermentable sugar-alcohol tracking,
+phenolic concentrations, total sulfur dioxide management, apple classification
+metrics, and industrial volume indicators mapped directly to standard SI units.
+================================================================================
+
+--------------------------------------------------------------------------------
+1. NON-FERMENTABLE FRUIT METRICS & EXTRACT DENSITY
+--------------------------------------------------------------------------------
+
+*   Sorbitol Mass Tracking (g/L)
+    - Description: Sorbitol is a natural, six-carbon sugar alcohol found inside
+      apples and pears. Because standard cider and wine yeasts lack the enzymes
+      to digest it, sorbitol passes through fermentation entirely intact. Cidermakers
+      must track its concentration to explain why a cider's Final Gravity remains
+      unusually high even when all primary sugars have depleted.
+    - Core Users: Industrial Cidermakers and advanced Craft/Micro Perry producers.
+    - Metric / SI Baseline Value: Mass concentration per volume unit.
+      Expressed as: 1 g/L = 1 kg/m³ (SI Base: kg, m).
+
+*   Apparent Attenuation vs. Fruit Attenuation (%)
+    - Description: A calculated percentage tracking sugar consumption that factors
+      in the unfermentable sorbitol offset to find the true yeast efficiency.
+    - High-Precision Multi-Variable Equation:
+        True Fruit Attenuation = [(OG_GU - FG_GU) / (OG_GU - Sorbitol_GU)] * 100
+        *(Where GU is Gravity Points and Sorbitol_GU represents the gravity density
+        imparted solely by residual sorbitol mass, roughly 0.0037 SG points per g/L).*
+
+--------------------------------------------------------------------------------
+2. PHENOLIC CHEMISTRY & FRUIT GRADUATION MATRIX
+--------------------------------------------------------------------------------
+
+*   Total Phenolics (Tannin Percentage)
+    - Description: Measures the mass percentage of polyphenols and astringent tannins
+      extracted from apple and pear skins during pressing. This metric legally and
+      structurally separates culinary apple juice from bitter vintage cider fruit.
+    - Core Users: Commercial orchard managers, pomologists, and craft blending teams.
+    - Metric / SI Baseline Value: Mass percentage fraction unit.
+      1% Tannins = 0.01 kg of pure polyphenolic compounds per kg of pressed must.
+
+*   The Long Ashton Research Station Fruit Classification Index
+    - Description: A standardized logical sorting grid utilized inside calculator
+      backends to tag and classify raw juice profiles based on Titratable Acidity (TA)
+      and Total Phenolics.
+    - Logical Grid Metrics:
+        - Sweet Fruit        : Acid < 4.5 g/L Malic | Tannin < 0.18%
+        - Sharp Fruit        : Acid > 4.5 g/L Malic | Tannin < 0.18%
+        - Bittersweet Fruit  : Acid < 4.5 g/L Malic | Tannin > 0.18%
+        - Bittersharp Fruit  : Acid > 4.5 g/L Malic | Tannin > 0.18%
+
+--------------------------------------------------------------------------------
+3. MALIC ACID TITRATION & FRUIT ACIDS
+--------------------------------------------------------------------------------
+
+*   Titratable Acidity as Malic Acid (g/L Malic)
+    - Description: Measures the concentration of organic fruit acids in cider must.
+      While wine utilizes a Tartaric Acid standard, the baseline organic acid in apple
+      and pear juice is Malic Acid.
+    - Core Users: Universal across all industrial, craft, and hobby cidermaking tiers.
+    - Metric / SI Baseline Value: Mass concentration per volume.
+      Expressed as: 1 g/L Malic = 1 kg/m³ (SI Base: kg, m).
+
+*   CONVERSION FORMULAS FOR ACID BLENDING:
+    - TA as Malic to Wine Standard Tartaric Equivalent:
+        Tartaric Acid (g/L) = Malic Acid (g/L) * 1.119
+    - TA as Tartaric to Cider Standard Malic Equivalent:
+        Malic Acid (g/L) = Tartaric Acid (g/L) * 0.893
+
+--------------------------------------------------------------------------------
+4. ANATOMY OF FRUIT PRESS YIELDS & CAPACITIES
+--------------------------------------------------------------------------------
+
+*   Liters per Metric Tonne (L/t)
+    - Description: Efficiency rating tracking the performance of industrial pomace
+      presses (belt presses, bladder presses). It measures the raw volume of fresh juice
+      squeezed from one metric tonne of milled fruit.
+    - Core Users: Industrial and large commercial cider processing plants.
+    - Metric / SI Baseline Value: Volume per mass index fraction ($0.001\text{ m}^3\text{ liquid / 1000 kg fruit}$).
+    - Industrial Baseline: A standard efficient press run aims for 700 to 750 L/t.
+
+*   Gallons per US Short Ton (gal/ton)
+    - Description: The US Customary equivalent tracking juice yield per ton of fruit.
+    - Core Users: North American commercial cider houses and orchard networks.
+    - Metric / SI Baseline Value: Volume per mass index fraction ($3.78541\text{ L / 907.184 kg}$).
+
+*   CONVERSION FORMULAS FOR PRESS YIELDS:
+    - Gallons per US Ton to Liters per Metric Tonne:
+        L/t = (gal/ton) * 4.1725
+    - Liters per Metric Tonne to Gallons per US Ton:
+        gal/ton = (L/t) / 4.1725
+================================================================================

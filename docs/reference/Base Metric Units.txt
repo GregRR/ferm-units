@@ -1,0 +1,131 @@
+========================================================================
+              THE COMPLETE METRIC SYSTEM (SI) REFERENCE
+========================================================================
+
+------------------------------------------------------------------------
+SECTION 1: THE SEVEN BASE UNITS
+------------------------------------------------------------------------
+
+1. METER (m)
+   - Physical Quantity: Length
+   - Description: Measures distance and displacement.
+
+2. KILOGRAM (kg)
+   - Physical Quantity: Mass
+   - Description: Measures the amount of matter in an object.
+
+3. SECOND (s)
+   - Physical Quantity: Time
+   - Description: Measures duration and time intervals.
+
+4. AMPERE (A)
+   - Physical Quantity: Electric Current
+   - Description: Measures the flow of electric charge.
+
+5. KELVIN (K)
+   - Physical Quantity: Thermodynamic Temperature
+   - Description: Measures absolute heat energy.
+
+6. MOLE (mol)
+   - Physical Quantity: Amount of Substance
+   - Description: Measures the number of elementary particles.
+
+7. CANDELA (cd)
+   - Physical Quantity: Luminous Intensity
+   - Description: Measures the perceived brightness of light.
+
+
+------------------------------------------------------------------------
+SECTION 2: COMMON DERIVED UNITS (WITH SPECIAL NAMES)
+------------------------------------------------------------------------
+
+1. NEWTON (N)
+   - Physical Quantity: Force / Weight
+   - Base Unit Equivalent: kg·m/s²
+
+2. JOULE (J)
+   - Physical Quantity: Energy / Work / Heat
+   - Base Unit Equivalent: kg·m²/s²
+
+3. WATT (W)
+   - Physical Quantity: Power / Radiant Flux
+   - Base Unit Equivalent: kg·m²/s³
+
+4. PASCAL (Pa)
+   - Physical Quantity: Pressure / Stress
+   - Base Unit Equivalent: kg/(m·s²)
+
+5. HERTZ (Hz)
+   - Physical Quantity: Frequency
+   - Base Unit Equivalent: 1/s (s⁻¹)
+
+6. COULOMB (C)
+   - Physical Quantity: Electric Charge
+   - Base Unit Equivalent: s·A
+
+7. VOLT (V)
+   - Physical Quantity: Electric Potential / Voltage
+   - Base Unit Equivalent: kg·m²/(A·s³)
+
+8. OHM (Ω)
+   - Physical Quantity: Electric Resistance
+   - Base Unit Equivalent: kg·m²/(A²·s³)
+
+9. FARAD (F)
+   - Physical Quantity: Electric Capacitance
+   - Base Unit Equivalent: A²·s⁴/(kg·m²)
+
+10. TESLA (T)
+    - Physical Quantity: Magnetic Flux Density
+    - Base Unit Equivalent: kg/(A·s²)
+
+11. WEBER (Wb)
+    - Physical Quantity: Magnetic Flux
+    - Base Unit Equivalent: kg·m²/(A·s²)
+
+12. HENRY (H)
+    - Physical Quantity: Inductance
+    - Base Unit Equivalent: kg·m²/(A²·s²)
+
+13. LUMEN (lm)
+    - Physical Quantity: Luminous Flux
+    - Base Unit Equivalent: cd (equivalent to cd·sr)
+
+14. LUX (lx)
+    - Physical Quantity: Illuminance
+    - Base Unit Equivalent: cd/m²
+
+15. BECQUEREL (Bq)
+    - Physical Quantity: Radioactivity (decays per second)
+    - Base Unit Equivalent: 1/s (s⁻¹)
+
+16. GRAY (Gy)
+    - Physical Quantity: Absorbed Dose (radiation)
+    - Base Unit Equivalent: m²/s²
+
+17. SIEVERT (Sv)
+    - Physical Quantity: Equivalent Dose (radiation)
+    - Base Unit Equivalent: m²/s²
+
+18. KATAL (kat)
+    - Physical Quantity: Catalytic Activity
+    - Base Unit Equivalent: mol/s
+
+
+------------------------------------------------------------------------
+SECTION 3: NON-SI UNITS ACCEPTED FOR USE WITH SI
+------------------------------------------------------------------------
+
+1. LITER (L or l)
+   - Physical Quantity: Volume
+   - Metric Equivalent: 0.001 m³ (or 1,000 cm³)
+
+2. TONNE / METRIC TON (t)
+   - Physical Quantity: Mass
+   - Metric Equivalent: 1,000 kg
+
+3. HECTARE (ha)
+   - Physical Quantity: Area
+   - Metric Equivalent: 10,000 m²
+
+========================================================================

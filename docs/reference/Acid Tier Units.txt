@@ -1,0 +1,71 @@
+================================================================================
+       MASTER FERMENTATION CALCULATOR SPECIFICATION - PART 7: ACID TIER
+================================================================================
+A technical backend manual covering cellular population densities, lactic acid
+mass titrations, volatile acidity safety limits, and food-safe concentration
+metrics mapped directly to standard SI metric base and derived units.
+================================================================================
+
+--------------------------------------------------------------------------------
+1. MICROBIAL POPULATION DENSITIES & BIOMASS VIABILITY
+--------------------------------------------------------------------------------
+
+*   Colony Forming Units per Milliliter (CFU/mL)
+    - Description: The standard biological unit used to quantify the population density
+      of live, active probiotic bacterial cells (Lactobacillus, Acetobacter) and
+      fermenting yeasts per unit volume of liquid culture.
+    - Core Users: Quality assurance food labs, kombucha brewers, kefir producers,
+      and yogurt regulatory compliance teams.
+    - Metric / SI Baseline Value: Volumetric particle concentration index.
+      Expressed as: 1 CFU/mL = 1,000,000 active cell clusters per cubic meter (10⁶ particles/m³).
+
+--------------------------------------------------------------------------------
+2. ORGANIC ACID TITRATION BALANCES
+--------------------------------------------------------------------------------
+
+*   Titratable Acidity as Lactic Acid (% TA Lactic)
+    - Description: Measures the mass concentration of lactic acid in fermented dairy,
+      reported as a weight-to-volume percentage fraction. While wine scales prioritize
+      tartaric acid and cider uses malic acid, dairy culture backends rely completely
+      on a lactic acid baseline molecule.
+    - Core Users: Yogurt manufacturers, cheesemakers, and commercial kefir processors.
+    - Metric / SI Baseline Value: Mass per volume concentration fraction.
+      Expressed as: 1% TA Lactic = 10 grams of pure lactic acid per liter of liquid (10 g/L = 10 kg/m³).
+
+*   Volatile Acidity (VA)
+    - Description: Measures the concentration of steam-distillable volatile organic
+      acids—primarily Acetic Acid—present in active vinegar and kombucha cultures.
+      Tracking VA is legally required to check SCOBY health and ensure a kombucha
+      fermentation does not generate unauthorized trace levels of ethanol.
+    - Core Users: Kombucha micro-brewers, industrial vinegar picklers, and food scientists.
+    - Metric / SI Baseline Value: Mass concentration per volume unit.
+      Expressed as: 1 g/L Acetic = 1 kg/m³ (SI Base: kg, m).
+
+*   HIGH-PRECISION CONVERSION FORMULAS FOR ACID INTERSECTION:
+    - TA as Lactic (g/L) to Wine Standard Tartaric Equivalent:
+        Tartaric Acid (g/L) = Lactic Acid (g/L) * 0.833
+    - TA as Tartaric to Dairy Standard Lactic Equivalent:
+        Lactic Acid (g/L) = Tartaric Acid (g/L) * 1.200
+    - Volatile Acidity to Total Acidity Contribution:
+        Acetic Acid (g/L) = Titration Volatility Constant * Volume of NaOH (mL)
+
+--------------------------------------------------------------------------------
+3. SOLID INTEGRITY & DENSITY STABILITY
+--------------------------------------------------------------------------------
+
+*   Total Solids-Not-Fat (SNF %)
+    - Description: Measures the mass percentage of dissolved and suspended dairy
+      nutrients (proteins, lactose, minerals) remaining in milk after subtracting
+      pure butterfat mass. This baseline determines the physical thickness, water-binding
+      capacity, and structural gel stability of the target yogurt post-fermentation.
+    - Core Users: Dairy engineering plants and cultured food laboratory analysts.
+    - Metric / SI Baseline Value: Mass fraction percentage unit. Calculated as:
+      (Dry Mass minus Fat Mass in kg / Total Sample Fluid Mass in kg) * 100 (SI Base: kg).
+
+*   Brix-to-Acid Ratio (BAR)
+    - Description: A calculated dimensionless sensory and chemical balancing indicator
+      found by dividing unfermented substrate sugar density (Brix) by Total Acidity (TA).
+    - High-Precision Balanced Equation:
+        BAR = °Brix / Total Acidity (g/L)
+    - Metric / SI Baseline Value: Dimensionless architectural indexing ratio.
+================================================================================

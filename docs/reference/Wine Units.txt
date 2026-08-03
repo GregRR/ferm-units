@@ -1,0 +1,562 @@
+================================================================================
+          MASTER FERMENTATION CALCULATOR SPECIFICATION - PART 2: WINE
+================================================================================
+A technical backend reference covering must density and sugar scales, acidity
+and preservation chemistry, routine winery laboratory measurements, vineyard
+and cellar logistics, sparkling-wine measurements, regional vessel capacities,
+and bottle sizes mapped to standard SI and accepted non-SI units.
+
+IMPORTANT SCOPE NOTE:
+Many wine terms are regional, historical, analytical, or method-dependent rather
+than universal physical units. Fixed capacities are assigned only when the
+regional meaning is explicit and well supported. Generic names such as
+"hogshead," "puncheon," "pipe," "butt," "piece," "foudre," and "tun" must not be
+treated as globally unambiguous units.
+================================================================================
+
+--------------------------------------------------------------------------------
+1. MUST EXTRACT, DENSITY, SUGAR CONCENTRATION & GRAPE RIPENESS
+--------------------------------------------------------------------------------
+
+*   Density at 20 °C
+    - Description: Mass per unit volume of must or wine at the stated reference
+      temperature.
+    - Core Users: Winery laboratories, regulatory laboratories, and digital
+      density-meter workflows.
+    - Metric / SI Baseline Value: Commonly reported in g/cm³ or kg/m³.
+      1 g/cm³ = 1,000 kg/m³.
+
+*   Specific Gravity (SG)
+    - Description: Dimensionless ratio of sample density to reference-water
+      density at stated reference conditions.
+    - Core Users: Growers, winemakers, laboratory staff, and hydrometer users.
+    - Metric / SI Baseline Value: Dimensionless.
+    - Important Qualification: The reference temperature and instrument
+      calibration temperature must be recorded when precision matters.
+
+*   Degrees Brix (°Brix)
+    - Description: Sucrose mass-fraction scale for aqueous sucrose solutions.
+      In grape must, a refractometer or hydrometer reading is used as an estimate
+      of total soluble solids, not as a direct measurement of fermentable glucose
+      plus fructose alone.
+    - Core Users: Winemakers and grape growers in North America, South America,
+      Australia, New Zealand, and other regions.
+    - Metric / SI Baseline Value: Nominal mass-fraction scale where
+      1 °Brix corresponds to 1 gram of sucrose per 100 grams of reference
+      sucrose solution.
+
+*   Degrees Baumé (°Bé)
+    - Description: Historical density-derived hydrometer scale used for grape
+      must and other liquids.
+    - Core Users: France, Spain, Portugal, parts of Australia, and historical
+      cellar records.
+    - Metric / SI Baseline Value: Method-dependent density scale.
+    - Approximate Rule of Thumb:
+        1 °Bé ≈ 1.8 °Brix ≈ 18 g/L sugar ≈ 1% potential alcohol
+    - Important Qualification: This is an operational approximation, not a
+      high-precision universal conversion.
+
+*   Degrees Oechsle (°Oe)
+    - Description: Must-weight scale expressing density above water.
+    - Core Users: Germany, Austria, Switzerland, and Central European wine law
+      and production records.
+    - Provisional Relationship:
+        °Oe = (SG - 1.000) * 1000
+        SG = 1.000 + (°Oe / 1000)
+    - Important Qualification: Legal and laboratory use depends on stated
+      reference temperature and official measurement procedure.
+
+*   Degrees KMW (Klosterneuburger Mostwaage)
+    - Description: Austrian must scale associated with sugar content by mass.
+    - Core Users: Austrian grape-must classification and wine production.
+    - Metric / SI Baseline Value: Approximately grams of sugar per 100 grams
+      of must.
+    - Approximate Relationship:
+        1 °KMW ≈ 5 °Oe
+    - Important Qualification: Published approximations near 4.86 to 5 °Oe per
+      °KMW exist; the exact official conversion and reporting convention require
+      primary-source verification.
+
+*   Glucose + Fructose
+    - Description: Combined concentration of the principal fermentable grape
+      sugars determined by an analytical method.
+    - Metric / SI Baseline Value: g/L = kg/m³.
+
+*   Residual Sugar
+    - Description: Sugar remaining in finished or partially fermented wine.
+      The exact analytical definition may depend on the governing method.
+    - Metric / SI Baseline Value: g/L = kg/m³.
+
+*   Alcoholic Strength by Volume at 20 °C
+    - Description: Ethanol volume fraction under the stated reference
+      conditions.
+    - Metric / SI Baseline Value: Percent by volume (% vol), a dimensionless
+      volume fraction.
+
+*   APPROXIMATE CROSS-SCALE AND PROCESS RELATIONSHIPS:
+    - Brix to Baumé:
+        °Bé ≈ °Brix / 1.8
+    - Baumé to Brix:
+        °Brix ≈ °Bé * 1.8
+    - Brix to Oechsle:
+        °Oe ≈ °Brix * 4.25
+    - Oechsle to Brix:
+        °Brix ≈ °Oe / 4.25
+    - KMW to Oechsle:
+        °Oe ≈ °KMW * 5
+    - Brix to KMW candidate:
+        °KMW ≈ °Brix * 0.85
+    - Brix to Potential Alcohol:
+        Potential ABV % ≈ °Brix * 0.55 to 0.60
+
+    These are provisional winery approximations, not exact unit identities.
+    Potential alcohol also depends on yeast metabolism, fermentation completion,
+    sugar composition, and the analytical method used to estimate must sugar.
+
+--------------------------------------------------------------------------------
+2. WINE ACIDS, SULFUR DIOXIDE & PRESERVATION CHEMISTRY
+--------------------------------------------------------------------------------
+
+*   pH
+    - Description: Logarithmic measure of hydrogen-ion activity.
+    - Metric / SI Baseline Value: Dimensionless logarithmic scale.
+    - Important Qualification: pH is not interchangeable with titratable acidity.
+
+*   Total Acidity / Titratable Acidity (TA)
+    - Description: Acidity determined by titration to the endpoint specified by
+      the analytical method.
+    - Reporting Formats:
+        milliequivalents per liter (mEq/L)
+        grams tartaric acid equivalent per liter
+        grams sulfuric acid equivalent per liter
+
+*   Volatile Acidity (VA)
+    - Description: Volatile-acid content determined by the applicable analytical
+      method.
+    - Reporting Formats:
+        milliequivalents per liter (mEq/L)
+        grams acetic acid equivalent per liter
+        grams sulfuric acid equivalent per liter
+
+*   Free Sulfur Dioxide
+    - Description: Sulfur dioxide present in free forms under the analytical
+      method.
+    - Metric / SI Baseline Value: mg/L.
+
+*   Bound Sulfur Dioxide
+    - Description: Sulfur dioxide bound to wine constituents.
+    - Metric / SI Baseline Value: mg/L.
+    - Relationship:
+        Bound SO2 = Total SO2 - Free SO2
+
+*   Total Sulfur Dioxide
+    - Description: Sum of free sulfur dioxide and sulfur dioxide bound to wine
+      constituents.
+    - Metric / SI Baseline Value: mg/L.
+
+*   Molecular Sulfur Dioxide
+    - Description: Molecular SO2 fraction associated with antimicrobial activity.
+    - Metric / SI Baseline Value: mg/L.
+    - Important Qualification: Calculation depends on pH, equilibrium constants,
+      temperature, alcohol, and method assumptions. No universal single-factor
+      conversion should be used without explicit conditions.
+
+*   Malic Acid
+    - Description: Organic-acid concentration used to monitor grape maturity and
+      malolactic fermentation.
+    - Metric / SI Baseline Value: g/L = kg/m³.
+
+*   Lactic Acid
+    - Description: Organic-acid concentration used to monitor malolactic
+      fermentation and microbial activity.
+    - Metric / SI Baseline Value: g/L = kg/m³.
+
+*   ACIDITY EQUIVALENT CONVERSIONS:
+    - Total acidity as tartaric acid:
+        g/L tartaric ≈ mEq/L * 0.075
+    - Total or volatile acidity as sulfuric acid:
+        g/L sulfuric ≈ mEq/L * 0.049
+    - Volatile acidity as acetic acid:
+        g/L acetic ≈ mEq/L * 0.060
+    - Sulfuric-equivalent TA to tartaric-equivalent TA:
+        g/L tartaric ≈ g/L sulfuric * (75 / 49)
+        g/L tartaric ≈ g/L sulfuric * 1.530612
+    - Tartaric-equivalent TA to sulfuric-equivalent TA:
+        g/L sulfuric ≈ g/L tartaric * (49 / 75)
+        g/L sulfuric ≈ g/L tartaric * 0.653333
+
+    These factors are conventional equivalent-weight relationships. Official
+    method precision and rounding remain subject to OIV or regional standards.
+
+*   PARTS-PER-MILLION QUALIFICATION:
+    - 1 ppm by mass = 1 mg/kg.
+    - 1 mg/L is a mass concentration, not an exact universal synonym for ppm.
+    - The numerical values are close only when solution density is close to
+      1 kg/L.
+    - Wine sulfur dioxide should be stored and reported explicitly as mg/L when
+      that is the method's reporting unit.
+
+--------------------------------------------------------------------------------
+3. ROUTINE WINERY LABORATORY & PROCESS MEASUREMENTS
+--------------------------------------------------------------------------------
+
+*   Yeast-Assimilable Nitrogen (YAN)
+    - Description: Nitrogen available for yeast metabolism, commonly combining
+      ammonium nitrogen and alpha-amino nitrogen according to the laboratory
+      method.
+    - Metric / SI Baseline Value: mg N/L.
+
+*   Turbidity
+    - Description: Optical measure of suspended material used in juice settling,
+      clarification, filtration, and bottling control.
+    - Reporting Unit: Nephelometric Turbidity Units (NTU).
+    - Important Qualification: NTU is an instrument-defined optical scale, not a
+      direct mass concentration.
+
+*   Dissolved Oxygen
+    - Description: Oxygen dissolved in must or wine.
+    - Metric / SI Baseline Value: mg O2/L.
+
+*   Headspace Oxygen
+    - Description: Oxygen in the package headspace.
+    - Reporting Basis: May be reported as a gas concentration, partial pressure,
+      mass per package, or equivalent mg/L after normalization.
+
+*   Total Package Oxygen (TPO)
+    - Description: Combined dissolved and headspace oxygen associated with a
+      filled package.
+    - Reporting Basis: Commonly mg O2/L of packaged wine or mg O2 per package.
+    - Important Qualification: The normalization basis must be explicit.
+
+*   Temperature
+    - Description: Required context for density, gas solubility, package
+      pressure, hydrometer readings, and many analytical procedures.
+    - Metric / SI Baseline Value: kelvin (K); degrees Celsius accepted for
+      practical winery use.
+
+--------------------------------------------------------------------------------
+4. VINEYARD YIELDS, JUICE RECOVERY & LOGISTICS
+--------------------------------------------------------------------------------
+
+*   US Short Tons Per Acre
+    - Description: Vineyard crop yield using US short tons and acres.
+    - SI Baseline:
+        1 short ton/acre = 2.241702 tonnes/hectare
+        1 short ton/acre = 0.2241702 kg/m²
+
+*   Metric Tonnes Per Hectare (t/ha)
+    - Description: Vineyard crop yield using metric tonnes and hectares.
+    - SI Baseline:
+        1 t/ha = 0.1 kg/m²
+
+*   Hectoliters Per Hectare (hL/ha)
+    - Description: Wine-production yield per vineyard area.
+    - SI Baseline:
+        1 hL/ha = 0.01 L/m²
+    - Important Qualification: This is a finished-product or declared-yield
+      measurement, not directly interchangeable with grape mass yield without a
+      juice/wine recovery factor.
+
+*   Liters of Juice Per Metric Tonne of Grapes (L/t)
+    - Description: Pressing or juice-recovery yield.
+    - Dimensional Form: volume per mass.
+
+*   Liters of Wine Per Metric Tonne of Grapes (L/t)
+    - Description: Finished-wine recovery yield.
+    - Dimensional Form: volume per mass.
+
+*   US Gallons Per Short Ton of Grapes (US gal/short ton)
+    - Description: US customary juice or wine recovery yield.
+    - Dimensional Form: volume per mass.
+
+*   Nine-Liter Case Equivalent
+    - Description: Twelve standard 750 mL bottles.
+    - Exact Volume:
+        1 nine-liter case = 9 L = 0.009 m³
+    - Derived Logistics Formula:
+        Nine-liter cases = wine volume in liters / 9
+
+*   YIELD CONVERSIONS:
+    - Short tons per acre to tonnes per hectare:
+        t/ha = short tons/acre * 2.241702
+    - Tonnes per hectare to short tons per acre:
+        short tons/acre = t/ha / 2.241702
+    - Cases per tonne or cases per short ton require an explicit wine-recovery
+      volume and cannot be inferred from grape mass alone.
+
+--------------------------------------------------------------------------------
+5. SPARKLING-WINE MEASUREMENTS
+--------------------------------------------------------------------------------
+
+*   Carbon Dioxide Overpressure
+    - Description: Pressure above atmospheric pressure in sparkling or
+      semi-sparkling wine at the method's stated temperature.
+    - Reporting Units: bar, kPa, Pa, or psi.
+    - SI Conversion:
+        1 bar = 100 kPa = 100,000 Pa
+
+*   Dissolved Carbon Dioxide
+    - Description: Mass concentration of dissolved CO2.
+    - Metric / SI Baseline Value: g/L = kg/m³.
+
+*   Tirage Sugar / Sucrose
+    - Description: Sugar added before secondary fermentation.
+    - Metric / SI Baseline Value: g/L.
+
+*   Dosage Sugar
+    - Description: Sugar associated with dosage after disgorgement.
+    - Metric / SI Baseline Value: g/L.
+
+*   IMPORTANT GAS-EQUILIBRIUM QUALIFICATION:
+    - Bottle pressure and dissolved CO2 do not have one universal direct
+      conversion.
+    - A valid calculation must include temperature, pressure basis, gas-liquid
+      equilibrium assumptions, wine composition, and any required headspace
+      model.
+
+--------------------------------------------------------------------------------
+6. REGIONAL OAK VESSELS & HISTORICAL WINE CAPACITIES
+--------------------------------------------------------------------------------
+
+*   Bordeaux Barrique
+    - Proposed Unit Name: bordeaux_barrique
+    - Exact Capacity: 225 L.
+
+*   Bourgogne Pièce
+    - Proposed Unit Name: burgundy_piece
+    - Exact Capacity: 228 L.
+
+*   Pouilly-Fuissé Pièce
+    - Proposed Unit Name: pouilly_fuisse_piece
+    - Exact Capacity: 212 L.
+
+*   Bourgogne Feuillette
+    - Proposed Unit Name: burgundy_feuillette
+    - Exact Capacity: 114 L.
+
+*   Chablis Feuillette
+    - Proposed Unit Name: chablis_feuillette
+    - Exact Capacity: 132 L.
+
+*   Bourgogne Queue
+    - Proposed Unit Name: burgundy_queue
+    - Exact Capacity: 456 L = 2 Bourgogne pièces.
+
+*   Demi-Muid
+    - Proposed Unit Name: demi_muid
+    - Supported Bourgogne Capacity: 600 L.
+
+*   Muid
+    - Proposed Unit Name: burgundy_muid
+    - Supported Bourgogne Capacity: 1,200 L.
+
+*   Historical Wine Hogshead
+    - Proposed Unit Name: historic_wine_hogshead
+    - Capacity Used by Pint's Built-In Hogshead:
+        63 US liquid gallons = 238.480942392 L
+    - Important Qualification: This is distinct from the Australian 300 L
+      wine-industry hogshead.
+
+*   Australian Wine Hogshead
+    - Proposed Unit Name: australian_wine_hogshead
+    - Capacity: 300 L.
+
+*   Australian Wine Puncheon, 500 L
+    - Proposed Unit Name: australian_wine_puncheon_500
+    - Capacity: 500 L.
+
+*   Australian Wine Puncheon, 600 L
+    - Proposed Unit Name: australian_wine_puncheon_600
+    - Capacity: 600 L.
+
+*   Stückfass
+    - Proposed Unit Name: stueckfass
+    - Rheinhessen Capacity: 1,200 L.
+    - Related Regional Capacities:
+        half_stueckfass = 600 L
+        quarter_stueckfass = 300 L
+
+*   Sherry Bota Jerezana / Bota Gorda
+    - Proposed Unit Name: sherry_bota_jerezana
+    - Capacity: 600 L.
+    - Operational Fill Note: Often filled to 5/6 capacity, approximately 500 L,
+      for biological ageing. Fill volume is not the same as vessel capacity.
+
+*   Sherry Export Butt
+    - Proposed Unit Name: sherry_export_butt
+    - Capacity: 500 L.
+
+*   Sherry Receipt Butt
+    - Proposed Unit Name: sherry_receipt_butt
+    - Capacity: 516 L.
+
+*   Sherry Bodega Butt
+    - Proposed Unit Name: sherry_bodega_butt
+    - Average Capacity: 566 L.
+    - Important Qualification: The source describes this as an average capacity.
+
+*   Sherry Media Bota
+    - Proposed Unit Name: sherry_media_bota
+    - Capacity: 250 L.
+
+*   Sherry Quarter Bota
+    - Proposed Unit Name: sherry_quarter_bota
+    - Capacity: 125 L.
+
+*   Sherry Octavo
+    - Proposed Unit Name: sherry_octavo
+    - Capacity: 62.5 L.
+
+*   Sherry Bocoy
+    - Proposed Unit Name: sherry_bocoy
+    - Capacity: 700 L.
+
+*   VARIABLE OR UNRESOLVED VESSEL TERMS:
+    - foudre:
+        Large wooden vessel class with variable capacity; do not define as one
+        fixed unit.
+    - port pipe:
+        Historical and regional capacities vary; retain as verification pending.
+    - generic wine_puncheon:
+        At least 500 L and 600 L current Australian meanings are documented;
+        do not assign one universal capacity.
+    - generic wine_hogshead:
+        Conflicts with both the historical 63 US gallon meaning and the
+        Australian 300 L meaning; use domain-qualified names.
+    - generic piece or feuillette:
+        Regional capacities differ; use qualified names.
+    - generic butt, pipe, tun, barrel, cask, or vat:
+        Do not assign a fixed capacity without a region and historical context.
+
+--------------------------------------------------------------------------------
+7. HISTORICAL & MODERN WINE-BOTTLE VOLUMES
+--------------------------------------------------------------------------------
+
+*   Split / Piccolo
+    - Proposed Unit Name: wine_split
+    - Common Capacity: 187.5 mL.
+    - Important Qualification: The official Champagne quarter is 200 mL, not
+      187.5 mL.
+
+*   Champagne Quarter
+    - Proposed Unit Name: champagne_quarter
+    - Capacity: 200 mL.
+
+*   Half Bottle / Demi
+    - Proposed Unit Name: half_wine_bottle
+    - Capacity: 375 mL.
+
+*   Champagne Medium / Pinte
+    - Proposed Unit Name: champagne_medium
+    - Capacity: 500 mL.
+
+*   Standard Wine Bottle
+    - Proposed Unit Name: standard_wine_bottle
+    - Capacity: 750 mL.
+
+*   Magnum
+    - Proposed Unit Name: magnum
+    - Capacity: 1.5 L = 2 standard bottles.
+
+*   Champagne Jeroboam
+    - Proposed Unit Name: champagne_jeroboam
+    - Capacity: 3 L = 4 standard bottles.
+
+*   Champagne Rehoboam
+    - Proposed Unit Name: champagne_rehoboam
+    - Capacity: 4.5 L = 6 standard bottles.
+
+*   Champagne Methuselah
+    - Proposed Unit Name: champagne_methuselah
+    - Capacity: 6 L = 8 standard bottles.
+
+*   Champagne Salmanazar
+    - Proposed Unit Name: champagne_salmanazar
+    - Capacity: 9 L = 12 standard bottles = 1 nine-liter case.
+
+*   Champagne Balthazar
+    - Proposed Unit Name: champagne_balthazar
+    - Capacity: 12 L = 16 standard bottles.
+
+*   Champagne Nebuchadnezzar
+    - Proposed Unit Name: champagne_nebuchadnezzar
+    - Capacity: 15 L = 20 standard bottles.
+
+*   Champagne Salomon
+    - Proposed Unit Name: champagne_salomon
+    - Capacity: 18 L = 24 standard bottles = 2 nine-liter cases.
+
+*   Champagne Souverain
+    - Proposed Unit Name: champagne_souverain
+    - Capacity: 26.25 L = 35 standard bottles.
+
+*   Champagne Primat
+    - Proposed Unit Name: champagne_primat
+    - Capacity: 27 L = 36 standard bottles = 3 nine-liter cases.
+
+*   Champagne Melchizedek / Midas
+    - Proposed Unit Names:
+        champagne_melchizedek
+        champagne_midas
+    - Capacity: 30 L = 40 standard bottles.
+
+*   Still-Wine Double Magnum
+    - Proposed Unit Name: double_magnum
+    - Capacity: 3 L.
+
+*   Bordeaux Jeroboam
+    - Proposed Unit Name: bordeaux_jeroboam
+    - Common Regional Capacity: 4.5 L.
+    - Important Qualification: "Jeroboam" is region-dependent; Champagne uses
+      3 L.
+
+*   Bordeaux Imperial
+    - Proposed Unit Name: bordeaux_imperial
+    - Common Regional Capacity: 6 L.
+
+*   BOTTLE-NAME QUALIFICATIONS:
+    - Bare jeroboam is ambiguous and should not be assigned a universal capacity.
+    - The official Champagne sequence uses Salomon at 18 L.
+    - Melchior and Solomon are not treated here as universal fixed bottle names.
+    - Regulatory container sizes that lack stable traditional names should be
+      represented directly in milliliters or liters rather than promoted to
+      named FermUnits units.
+
+--------------------------------------------------------------------------------
+8. WINE SOURCE STATUS & IMPLEMENTATION NOTES
+--------------------------------------------------------------------------------
+
+*   Strong Primary or Industry Sources Identified:
+    - OIV Compendium of International Methods of Wine and Must Analysis:
+      density, alcoholic strength, glucose + fructose, acidity, volatile
+      acidity, sulfur dioxide, pH, sparkling-wine pressure, and sucrose.
+    - Australian Wine Research Institute:
+      225 L Bordeaux barrique, 228 L Burgundy barrique, 300 L hogshead,
+      and 500/600 L puncheons used in Australian logistics.
+    - Bourgogne wine authority:
+      228 L pièce, 212 L Pouilly-Fuissé pièce, 114/132 L feuillettes,
+      456 L queue, 600 L demi-muid, and 1,200 L muid.
+    - Consejo Regulador de Jerez:
+      Sherry bota and butt capacities.
+    - Comité Champagne:
+      official Champagne bottle-size sequence.
+    - Rheinhessen regional wine authority:
+      1,200 L Stückfass.
+
+*   Verification-Pending or Approximate Items:
+    - exact Brix/Baumé/Oechsle/KMW cross-scale tables and valid ranges;
+    - Brix to KMW factor of 0.85;
+    - potential alcohol estimates;
+    - molecular SO2 calculation conditions;
+    - total-package-oxygen normalization conventions;
+    - generic port pipe capacity;
+    - any universal fixed meaning for foudre, wine puncheon, wine hogshead,
+      butt, pipe, tun, piece, or feuillette;
+    - pressure-to-dissolved-CO2 calculations for sparkling wine.
+
+*   Implementation Strategy:
+    - Pass 1: physical vessels, bottles, cases, and dimensional vineyard/logistics
+      units.
+    - Pass 2: analytical scales and calculations with explicit source status,
+      method conditions, and validation.
+================================================================================

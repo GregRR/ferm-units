@@ -1,0 +1,150 @@
+================================================================================
+          MASTER FERMENTATION CALCULATOR SPECIFICATION - PART 3: DISTILLING
+================================================================================
+A technical backend manual covering ethanol concentration, spirit proofing,
+gauging math, tax calculations, historical aging barrels, and thermal volumetric
+contraction mapped directly to standard SI metric base and derived units.
+================================================================================
+
+--------------------------------------------------------------------------------
+1. ETHANOL CONCENTRATION & SPIRIT PROOFING
+--------------------------------------------------------------------------------
+
+*   Alcohol By Volume (ABV)
+    - Description: The percentage of the total volume of a liquid that is pure
+      ethanol at a standard temperature of 20°C (68°F) or 60°F (15.56°C).
+    - Core Users: Absolute global standard for all commercial, craft, and hobby
+      distillers. Used on legal product labels worldwide.
+    - Metric / SI Baseline Value: Dimensionless volume fraction.
+      Expressed as: (m³ of pure ethanol / m³ of total liquid) * 100.
+
+*   US Proof
+    - Description: A scale defined as exactly twice the percentage of Alcohol By
+      Volume (ABV) at a standard reference temperature of 60°F.
+    - Core Users: US Commercial Distillers, US Craft Distillers, and TTB Tax Auditors.
+    - Metric / SI Baseline Value: Dimensionless integer scale.
+
+*   UK Proof / British Proof (Sykes Scale)
+    - Description: A historical spirit strength scale defined by a spirit sample's
+      weight compared to distilled water using a Sykes hydrometer. "Proof spirit"
+      (100 Proof) contains exactly 57.1% ABV or a specific gravity of 0.923.
+    - Core Users: Historical legacy tracking. Used across the British Empire
+      until the late 20th century; still referenced in vintage distillery logs.
+    - Metric / SI Baseline Value: Dimensionless density-derived scale.
+
+*   Gay-Lussac Scale (°GL)
+    - Description: A percentage volume scale identical to modern ABV, measured
+      at a standard reference temperature of 15°C instead of 20°C.
+    - Core Users: Traditional European distilleries and older South American sites.
+    - Metric / SI Baseline Value: Dimensionless volume fraction.
+
+*   HIGH-PRECISION CONVERSION FORMULAS:
+    - ABV to US Proof:
+        US Proof = ABV * 2
+    - US Proof to ABV:
+        ABV = US Proof / 2
+    - ABV to UK Proof (Sykes):
+        UK Proof = ABV * 1.7535
+    - UK Proof to ABV:
+        ABV = UK Proof / 1.7535
+    - US Proof to UK Proof:
+        UK Proof = US Proof * 0.8767
+
+--------------------------------------------------------------------------------
+2. GOVERNMENT TAXATION & AUDITING UNITS
+--------------------------------------------------------------------------------
+
+*   Proof Gallon (PG)
+    - Description: The volume equivalent of one US gallon of liquid containing
+      exactly 50% alcohol by volume (100 proof) at 60°F. This is the absolute
+      legal unit used to calculate federal excise tax in the United States.
+    - Core Users: US Commercial/Craft Distillers, Accounting Teams, and the TTB.
+    - Metric / SI Baseline Value: Volumetric ethanol-mass index. Equivalent to
+      exactly 1.89271 Liters of pure ethanol ($0.001893\text{ m}^3$).
+
+*   Liters of Pure Alcohol (LPA) / Litres of Absolute Alcohol (LAA)
+    - Description: The actual volume of pure, 100% ABV ethanol contained within a
+      given bulk volume of spirits at 20°C.
+    - Core Users: Global Commercial Distillers, HMRC (UK), and international tax bodies.
+    - Metric / SI Baseline Value: Accepted Non-SI Metric Volume unit. Exactly
+      1 Liter of pure ethanol ($0.001\text{ m}^3$).
+
+*   Wine Gallon (WG) / Bulk Gallon
+    - Description: The raw, physical volume of a spirit liquid container regardless
+      of its alcoholic strength or proof.
+    - Core Users: US Distillers tracking inventory storage capacity.
+    - Metric / SI Baseline Value: Volume unit. Exactly 3.78541 Liters ($0.003785\text{ m}^3$).
+
+*   HIGH-PRECISION TAX CALCULATION FORMULAS:
+    - Wine Gallons & Proof to Proof Gallons:
+        PG = Wine Gallons * (US Proof / 100)
+    - Bulk Liters & ABV to LPA:
+        LPA = Bulk Liters * (ABV / 100)
+    - Proof Gallons to LPA:
+        LPA = PG * 3.78541 * 0.50 = PG * 1.89271
+    - LPA to Proof Gallons:
+        PG = LPA / 1.89271
+
+--------------------------------------------------------------------------------
+3. HIGH-PRECISION GAUGING MATH & WATER CONTRACTION
+--------------------------------------------------------------------------------
+When pure water and pure ethanol are mixed, a chemical phenomenon known as **volumetric
+contraction** occurs due to hydrogen bonding. Mixing 50 mL of water and 50 mL of
+ethanol yields roughly 96 mL of total spirit, not 100 mL.
+
+*   The True Gauging Equation (Determining Blending Water):
+    To dilute a high-proof spirit down to a target bottling proof, your calculator
+    cannot use linear subtraction. It must use bulk mass weights or highly specific
+    empirical tables (like the OIML or TTB Gauging Manual Tables).
+    - Mass-Based Dilution Formula (SI Base: kg):
+        Water to Add (kg) = [Bulk Weight of Spirit (kg) * (Current ABV by weight / Target ABV by weight)] - Bulk Weight of Spirit (kg)
+
+*   Apparent Proof vs. True Proof
+    - Description: Hydrometers change density readings based on fluid temperature.
+      "Apparent Proof" is the raw reading off a glass hydrometer. "True Proof"
+      is the corrected measurement calculated after adjusting for temperature.
+    - Correction Formula (Linear Approximation near 60°F):
+        True Proof = Apparent Proof - (0.05 * (Temperature in Fahrenheit - 60))
+        *(Note: Commercial calculators must use the exact non-linear TTB Table 1 data arrays for legal compliance).*
+
+--------------------------------------------------------------------------------
+4. DISTILLERY AGING BARRELS & HISTORICAL VESSELS
+--------------------------------------------------------------------------------
+Unlike the wine industry, spirits producers select barrel sizing to optimize charcoal
+filtration, wood-to-liquid contact ratios, and evaporative loss ("The Angels' Share").
+
+*   Standard US Bourbon Barrel
+    - Volumetric Size: 53 US Gallons / 200.6 Liters.
+    - Description: The standard cooperage size for aging American Bourbon and Rye.
+      Must be constructed from brand-new, charred white oak.
+    - Metric / SI Baseline Value: Volume unit. Exactly 200.626 Liters ($0.20063\text{ m}^3$).
+
+*   Hogshead (Whisky Standard)
+    - Volumetric Size: 250 Liters / 66 US Gallons.
+    - Description: Constructed by rebuilding broken-down US Bourbon barrels with
+      additional staves. Universal standard for aging Scotch and Irish Whiskies.
+    - Metric / SI Baseline Value: Volume unit. Exactly 250 Liters ($0.25\text{ m}^3$).
+
+*   Quarter Cask
+    - Volumetric Size: 45 to 50 Liters / ~12 US Gallons.
+    - Description: Exactly one-quarter the volume of a standard historical UK barrel.
+      Favored by Craft/Hobby distillers to accelerate wood-extraction aging.
+    - Metric / SI Baseline Value: Volume unit. Standard target is 50 Liters ($0.05\text{ m}^3$).
+
+*   Octave Cask
+    - Volumetric Size: 50 Liters / 13.2 US Gallons.
+    - Description: Exactly one-eighth the size of a standard UK historical barrel. Used
+      for specialized, rapid wood-finishing trials in craft distilling.
+    - Metric / SI Baseline Value: Volume unit. Exactly 50 Liters ($0.05\text{ m}^3$).
+
+*   Gorda
+    - Volumetric Size: 700 Liters / 185 US Gallons.
+    - Description: Massive oak vats traditional to North American and Caribbean rum
+      maturation, designed for slow blending and marrying of distinct batches.
+    - Metric / SI Baseline Value: Volume unit. Exactly 700 Liters ($0.7\text{ m}^3$).
+
+*   CONVERSION MATRIX FOR DISTILLERY BARRELS:
+    - 1 Scotch Hogshead   = 1.25 US Bourbon Barrels
+    - 1 Gorda             = 3.5 US Bourbon Barrels
+    - 1 US Bourbon Barrel = 4.0 Quarter Casks
+================================================================================

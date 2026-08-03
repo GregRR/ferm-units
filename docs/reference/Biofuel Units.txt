@@ -1,0 +1,72 @@
+================================================================================
+       MASTER FERMENTATION CALCULATOR SPECIFICATION - PART 6: BIOFUELS
+================================================================================
+A technical backend manual covering continuous mass feed inputs, volumetric
+productivity rates, metabolic yield efficiency formulas, and starch conversion
+constants mapped directly to standard SI metric base and derived units.
+================================================================================
+
+--------------------------------------------------------------------------------
+1. PROCESS CAPACITY & STREAM MASS VELOCITY
+--------------------------------------------------------------------------------
+
+*   Dry Metric Tons Per Hour (DMTh)
+    - Description: Continuous mass feed unit tracking the absolute dry weight velocity
+      of grain (corn, wheat) or cellulosic biomass substrate entering the starch
+      liquefaction and cook lines per hour, strictly subtracting raw crop moisture.
+    - Core Users: Biofuel process engineers, industrial plant managers, and financial analysts.
+    - Metric / SI Baseline Value: Mass flow rate. Exactly 0.27778 kg per second (kg/s)
+      of bone-dry organic matter entering the active processing stream (SI Base: kg, s).
+
+*   Bushels of Corn Equivalent (bu)
+    - Description: North American standard agricultural volume trade metric for raw feedstock.
+      For conversion calculations, a commercial bushel of corn is treated as a fixed
+      test weight of exactly 56 pounds (25.4012 kg) at a reference moisture content of 15%.
+    - Core Users: North American grain buyers, farmers, and commercial fuel blenders.
+    - Metric / SI Baseline Value: Fixed mass proxy unit. Exactly 25.40117 kg of bulk crop.
+
+*   HIGH-PRECISION CONVERSION FORMULAS:
+    - Bushels of Corn to Dry Metric Tons (at 15% Moisture baseline):
+        DMTh = (Bushels * 0.02159) / Hours
+    - Dry Metric Tons to Bushels of Corn:
+        Bushels = DMTh * 46.3195
+
+--------------------------------------------------------------------------------
+2. KINETIC VELOCITY & REACTOR PRODUCTIVITY METRICS
+--------------------------------------------------------------------------------
+
+*   Volumetric Ethanol Productivity (g·L⁻¹·h⁻¹)
+    - Description: The fundamental chemical engineering metric tracking the precise
+      production velocity of pure ethanol output per liter of active fermenter volume
+      per hour. Higher values dictate optimal yeast health and raw yield velocity.
+    - Core Users: Plant laboratory directors, industrial microbiologists, and system design teams.
+    - Metric / SI Baseline Value: Mass generation rate per unit volume.
+      Expressed as: 1 g·L⁻¹·h⁻¹ = 2.7778 x 10⁻⁴ kg/(m³·s) (SI Base: kg, m, s).
+
+*   Specific Fermentation Rate (g·g⁻¹·h⁻¹)
+    - Description: Tracks metabolic velocity by calculating the mass of ethanol produced
+      per single gram of active dry yeast cell weight inside the reactor vessel per hour.
+    - Core Users: Yeast manufacturers and industrial bioreactor control programs.
+    - Metric / SI Baseline Value: Normalized mass conversion rate (1/hour frequency unit).
+      Expressed as: 2.7778 x 10⁻⁴ s⁻¹ (SI Derived: Hz / Base: s).
+
+--------------------------------------------------------------------------------
+3. YIELD COEFFICIENTS & BIOMASS MATH
+--------------------------------------------------------------------------------
+
+*   Theoretical Yield Coefficient (Y_ps)
+    - Description: The absolute thermodynamic upper limit of glucose-to-ethanol
+      conversion based on Gay-Lussac metabolic stoichiometry, assuming no carbon
+      is lost to yeast growth or glycerol production.
+    - Constant Metric Baseline: Exactly 0.5111 g of ethanol per 1.0 g of glucose.
+    - Theoretical Starch Limit: One dry bushel of corn contains a constant structural
+      potential yielding exactly 2.88 US Gallons (10.902 Liters) of pure fuel ethanol.
+
+*   Real Brewhouse Conversion Efficiency (%)
+    - Description: The calculated performance ratio comparing actual plant ethanol
+      output volume to the structural chemical theoretical maximum potential of the feedstock.
+    - High-Precision Multi-Variable Yield Equation:
+        Plant Efficiency = (Actual LPA Yield / (DMTh * Substrate_Starch_Percentage * 0.5678)) * 100
+        *(Where 0.5678 is the constant weight multiplier accounting for the chemical
+        hydrolysis mass gain when starch converts directly to fermentable glucose).*
+================================================================================
