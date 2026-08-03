@@ -76,3 +76,18 @@ def wort_refractometer_brix_to_plato(
         raise ValueError("Wort correction factor must be greater than zero")
 
     return apparent_brix / wort_correction_factor
+
+
+def plato_to_wort_refractometer_brix(
+    plato: float,
+    wort_correction_factor: float,
+) -> float:
+    """Estimate the apparent wort Brix reading for a Plato value.
+
+    This is the inverse of ``wort_refractometer_brix_to_plato`` and remains
+    a wort-specific correction rather than a general scale conversion.
+    """
+    if wort_correction_factor <= 0.0:
+        raise ValueError("Wort correction factor must be greater than zero")
+
+    return plato * wort_correction_factor

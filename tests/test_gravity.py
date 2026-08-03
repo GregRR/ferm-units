@@ -3,6 +3,7 @@ import pytest
 from fermunits.gravity import (
     gravity_points_to_sg,
     plato_to_sg,
+    plato_to_wort_refractometer_brix,
     sg_to_gravity_points,
     sg_to_plato,
     wort_refractometer_brix_to_plato,
@@ -136,3 +137,50 @@ def test_wort_refractometer_brix_to_plato_rejects_invalid_factor(
         match="Wort correction factor must be greater than zero",
     ):
         wort_refractometer_brix_to_plato(12.0, correction_factor)
+
+
+@pytest.mark.parametrize(
+    ("plato", "correction_factor", "expected_apparent_brix"),
+    [
+        (12.0, 1.04, 12.48),
+        (20.0, 1.04, 20.80),
+        (13.0, 1.00, 13.0),
+    ],
+)
+def test_plato_to_wort_refractometer_brix(
+    plato: float,
+    correction_factor: float,
+    expected_apparent_brix: float,
+) -> None:
+    result = plato_to_wort_refractometer_brix(
+        plato,
+        correction_factor,
+    )
+
+    assert result == pytest.approx(expected_apparent_brix)
+
+
+@pytest.mark.parametrize("correction_factor", [0.0, -1.0])
+def test_plato_to_wort_refractometer_brix_rejects_invalid_factor(
+    correction_factor: float,
+) -> None:
+    with pytest.raises(
+        ValueError,
+        match="Wort correction factor must be greater than zero",
+    ):
+        plato_to_wort_refractometer_brix(12.0, correction_factor)
+
+
+def test_wort_refractometer_correction_round_trip() -> None:
+    original_apparent_brix = 15.6
+    correction_factor = 1.04
+
+    result = plato_to_wort_refractometer_brix(
+        wort_refractometer_brix_to_plato(
+            original_apparent_brix,
+            correction_factor,
+        ),
+        correction_factor,
+    )
+
+    assert result == pytest.approx(original_apparent_brix)
