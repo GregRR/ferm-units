@@ -3,7 +3,6 @@
 from pint import UnitRegistry
 from pint.errors import UndefinedUnitError
 
-
 CANDIDATE_UNITS = [
     "beer_barrel",
     "US_beer_barrel",
