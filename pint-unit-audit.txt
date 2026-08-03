@@ -1,0 +1,112 @@
+
+[BREWING]
+beer_barrel                  PINT: FOUND -> beer_barrel         FERMUNITS: FOUND -> beer_barrel
+us_beer_barrel               PINT: NOT FOUND                    FERMUNITS: FOUND -> us_beer_barrel
+imperial_beer_barrel         PINT: NOT FOUND                    FERMUNITS: FOUND -> imperial_beer_barrel
+imperial_gallon              PINT: FOUND -> imperial_gallon     FERMUNITS: FOUND -> imperial_gallon
+UK_gallon                    PINT: FOUND -> imperial_gallon     FERMUNITS: FOUND -> imperial_gallon
+hectoliter                   PINT: FOUND -> hectoliter          FERMUNITS: FOUND -> hectoliter
+firkin                       PINT: NOT FOUND                    FERMUNITS: FOUND -> firkin
+kilderkin                    PINT: NOT FOUND                    FERMUNITS: FOUND -> kilderkin
+pin                          PINT: FOUND -> picoinch            FERMUNITS: FOUND -> picoinch
+pin_cask                     PINT: NOT FOUND                    FERMUNITS: FOUND -> pin_cask
+hogshead                     PINT: FOUND -> hogshead            FERMUNITS: FOUND -> hogshead
+wine_hogshead                PINT: NOT FOUND                    FERMUNITS: FOUND -> wine_hogshead
+brewing_hogshead             PINT: NOT FOUND                    FERMUNITS: FOUND -> brewing_hogshead
+puncheon                     PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+brewing_puncheon             PINT: NOT FOUND                    FERMUNITS: FOUND -> brewing_puncheon
+butt                         PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+brewing_butt                 PINT: NOT FOUND                    FERMUNITS: FOUND -> brewing_butt
+gravity_point                PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+degree_plato                 PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+degree_brix                  PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+degree_balling               PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+degree_lovibond              PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+SRM                          PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+EBC                          PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+IBU                          PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+EBU                          PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+degree_lintner               PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+windisch_kolbach             PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+volume_CO2                   PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+
+[WINE]
+degree_baume                 PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+degree_oechsle               PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+KMW                          PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+wine_case                    PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+nine_liter_case              PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+barrique                     PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+piece                        PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+wine_hogshead                PINT: NOT FOUND                    FERMUNITS: FOUND -> wine_hogshead
+wine_puncheon                PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+demi_muid                    PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+foudre                       PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+stuck                        PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+port_pipe                    PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+sherry_butt                  PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+tun                          PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+piccolo                      PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+demi_bottle                  PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+standard_wine_bottle         PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+magnum                       PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+jeroboam                     PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+rehoboam                     PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+methuselah                   PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+salmanazar                   PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+balthazar                    PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+nebuchadnezzar               PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+melchior                     PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+solomon                      PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+sovereign                    PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+primat                       PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+goliath                      PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+melchizedek                  PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+midas                        PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+
+[DISTILLING]
+ABV                          PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+ABW                          PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+US_proof                     PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+UK_proof                     PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+degree_Gay_Lussac            PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+proof_gallon                 PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+liter_pure_alcohol           PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+litre_absolute_alcohol       PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+wine_gallon                  PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+bulk_gallon                  PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+bourbon_barrel               PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+whisky_hogshead              PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+quarter_cask                 PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+octave_cask                  PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+gorda                        PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+
+[SAKE]
+nihonshudo                   PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+sake_meter_value             PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+sando                        PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+amando                       PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+seimaibuai                   PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+koku                         PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+to                           PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+sho                          PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+gou                          PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+isshobin                     PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+
+[CIDER_AND_PERRY]
+liter_per_metric_tonne       PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+gallon_per_short_ton         PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+tannin_percent               PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+
+[BIOFUELS]
+dry_metric_ton               PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+dry_metric_ton_per_hour      PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+bushel_corn                  PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+gram_per_liter_hour          PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+gram_per_gram_hour           PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+
+[OTHER_FERMENTATION]
+CFU                          PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+CFU_per_milliliter           PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+percent_lactic_acid          PINT: NOT FOUND                    FERMUNITS: NOT FOUND
+percent_snf                  PINT: NOT FOUND                    FERMUNITS: NOT FOUND
