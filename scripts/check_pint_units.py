@@ -8,7 +8,6 @@ from pint.errors import DimensionalityError, UndefinedUnitError
 
 from fermunits import create_registry
 
-
 CANDIDATE_UNITS: dict[str, list[str]] = {
     "brewing": [
         "beer_barrel",
@@ -242,11 +241,7 @@ def print_candidate_audit(
             pint_result = unit_status(pint_registry, name)
             ferm_result = unit_status(ferm_registry, name)
 
-            print(
-                f"{name:<32} "
-                f"PINT: {pint_result:<38} "
-                f"FERMUNITS: {ferm_result}"
-            )
+            print(f"{name:<32} PINT: {pint_result:<38} FERMUNITS: {ferm_result}")
 
 
 def print_compound_expression_audit(

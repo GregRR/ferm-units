@@ -30,15 +30,11 @@ def lintner_to_windisch_kolbach(lintner: float) -> float:
     """
     _require_nonnegative_finite(lintner, "Degrees Lintner")
 
-    windisch_kolbach = (
-        _LINTNER_TO_WK_SLOPE * lintner
-        + _LINTNER_TO_WK_INTERCEPT
-    )
+    windisch_kolbach = _LINTNER_TO_WK_SLOPE * lintner + _LINTNER_TO_WK_INTERCEPT
 
     if windisch_kolbach < 0.0:
         raise ValueError(
-            "Degrees Lintner value is below the useful range "
-            "of this conversion"
+            "Degrees Lintner value is below the useful range of this conversion"
         )
 
     return windisch_kolbach
@@ -54,6 +50,4 @@ def windisch_kolbach_to_lintner(windisch_kolbach: float) -> float:
         "Windisch-Kolbach units",
     )
 
-    return (
-        windisch_kolbach - _LINTNER_TO_WK_INTERCEPT
-    ) / _LINTNER_TO_WK_SLOPE
+    return (windisch_kolbach - _LINTNER_TO_WK_INTERCEPT) / _LINTNER_TO_WK_SLOPE

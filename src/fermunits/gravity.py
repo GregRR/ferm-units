@@ -45,8 +45,7 @@ def gravity_points_to_sg(gravity_points: float) -> float:
 
     if specific_gravity <= 0.0:
         raise ValueError(
-            "Gravity points must correspond to a specific gravity "
-            "greater than zero"
+            "Gravity points must correspond to a specific gravity greater than zero"
         )
 
     return specific_gravity

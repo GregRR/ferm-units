@@ -78,9 +78,7 @@ def test_lovibond_to_srm_approx(
 def test_lovibond_srm_approximation_round_trip(
     lovibond: float,
 ) -> None:
-    result = srm_to_lovibond_approx(
-        lovibond_to_srm_approx(lovibond)
-    )
+    result = srm_to_lovibond_approx(lovibond_to_srm_approx(lovibond))
 
     assert result == pytest.approx(lovibond)
 

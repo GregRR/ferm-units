@@ -34,6 +34,7 @@ def test_brewing_butt_equals_108_imperial_gallons() -> None:
     result = Q_(1, "brewing_butt").to("imperial_gallon")
     assert result.magnitude == pytest.approx(108)
 
+
 def test_wine_hogshead_matches_pint_hogshead() -> None:
     result = Q_(1, "wine_hogshead").to("hogshead")
     assert result.magnitude == pytest.approx(1)
@@ -42,6 +43,7 @@ def test_wine_hogshead_matches_pint_hogshead() -> None:
 def test_brewing_hogshead_equals_54_imperial_gallons() -> None:
     result = Q_(1, "brewing_hogshead").to("imperial_gallon")
     assert result.magnitude == pytest.approx(54)
+
 
 def test_us_beer_barrel_matches_pint_beer_barrel() -> None:
     result = Q_(1, "us_beer_barrel").to("beer_barrel")

@@ -47,10 +47,7 @@ def lovibond_to_srm_approx(lovibond: float) -> float:
     """
     _require_nonnegative_finite(lovibond, "Lovibond")
 
-    srm = (
-        _LOVIBOND_TO_SRM_SLOPE * lovibond
-        + _LOVIBOND_TO_SRM_INTERCEPT
-    )
+    srm = _LOVIBOND_TO_SRM_SLOPE * lovibond + _LOVIBOND_TO_SRM_INTERCEPT
 
     if srm < 0.0:
         raise ValueError(
@@ -67,6 +64,4 @@ def srm_to_lovibond_approx(srm: float) -> float:
     """
     _require_nonnegative_finite(srm, "SRM")
 
-    return (
-        srm - _LOVIBOND_TO_SRM_INTERCEPT
-    ) / _LOVIBOND_TO_SRM_SLOPE
+    return (srm - _LOVIBOND_TO_SRM_INTERCEPT) / _LOVIBOND_TO_SRM_SLOPE

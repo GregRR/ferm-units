@@ -60,9 +60,7 @@ def test_co2_grams_per_liter_to_volumes(
     ],
 )
 def test_carbonation_round_trip(co2_volumes: float) -> None:
-    result = co2_grams_per_liter_to_volumes(
-        co2_volumes_to_grams_per_liter(co2_volumes)
-    )
+    result = co2_grams_per_liter_to_volumes(co2_volumes_to_grams_per_liter(co2_volumes))
 
     assert result == pytest.approx(co2_volumes)
 

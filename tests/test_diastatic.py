@@ -55,9 +55,7 @@ def test_windisch_kolbach_to_lintner(
     ],
 )
 def test_diastatic_power_round_trip(lintner: float) -> None:
-    result = windisch_kolbach_to_lintner(
-        lintner_to_windisch_kolbach(lintner)
-    )
+    result = windisch_kolbach_to_lintner(lintner_to_windisch_kolbach(lintner))
 
     assert result == pytest.approx(lintner)
 
