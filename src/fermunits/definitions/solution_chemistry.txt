@@ -1,0 +1,7 @@
+# Solution chemistry units
+
+# FermUnits keeps chemical-equivalent amount dimensionally separate from
+# ordinary amount of substance. Conversions between moles and equivalents
+# require an explicit equivalence factor in the solution-chemistry API.
+equivalent = [chemical_equivalent] = eq
+milliequivalent = 1e-3 equivalent = mEq

@@ -27,15 +27,25 @@ from fermunits.gravity import (
     wort_refractometer_brix_to_plato,
 )
 from fermunits.registry import Q_, create_registry, ureg
+from fermunits.solution_chemistry import (
+    amount_concentration_to_equivalent_concentration,
+    amount_to_equivalents,
+    equivalent_concentration_to_amount_concentration,
+    equivalents_to_amount,
+)
 
 __all__ = [
     "Q_",
     "absorbance_275nm_to_bitterness_units",
+    "amount_concentration_to_equivalent_concentration",
+    "amount_to_equivalents",
     "bitterness_units_to_absorbance_275nm",
     "co2_grams_per_liter_to_volumes",
     "co2_volumes_to_grams_per_liter",
     "create_registry",
     "ebc_to_srm",
+    "equivalent_concentration_to_amount_concentration",
+    "equivalents_to_amount",
     "gravity_points_to_sg",
     "lintner_to_windisch_kolbach",
     "lovibond_to_srm_approx",
