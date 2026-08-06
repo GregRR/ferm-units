@@ -36,6 +36,8 @@ from fermunits.solution_chemistry import (
     equivalent_concentration_to_mass_concentration,
     equivalents_to_amount,
     mass_concentration_to_equivalent_concentration,
+    mass_concentration_to_mass_fraction,
+    mass_fraction_to_mass_concentration,
 )
 
 __all__ = [
@@ -57,6 +59,8 @@ __all__ = [
     "lintner_to_windisch_kolbach",
     "lovibond_to_srm_approx",
     "mass_concentration_to_equivalent_concentration",
+    "mass_concentration_to_mass_fraction",
+    "mass_fraction_to_mass_concentration",
     "plato_to_sg",
     "plato_to_wort_refractometer_brix",
     "sg_to_gravity_points",

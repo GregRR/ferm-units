@@ -1,7 +1,7 @@
 """Conversions for shared solution-chemistry quantities."""
 
 import math
-from typing import Any
+from typing import Any, cast
 
 from pint import Quantity
 
@@ -24,6 +24,21 @@ def _require_positive_finite_value(
 
     if value <= 0.0:
         raise ValueError(f"{name} must be greater than zero")
+
+
+def _validated_solution_density(
+    solution_density: Quantity[Any],
+) -> Quantity[Any]:
+    """Return a positive finite density in kilograms per liter."""
+    density = solution_density.to("kilogram / liter")
+    magnitude = float(density.magnitude)
+
+    _require_positive_finite_value(
+        magnitude,
+        name="Solution density",
+    )
+
+    return density
 
 
 def amount_to_equivalents(
@@ -166,3 +181,34 @@ def equivalent_concentration_to_caco3_basis_mass_concentration(
         equivalent_concentration,
         _CACO3_EQUIVALENT_MASS_GRAMS_PER_EQUIVALENT,
     )
+
+
+def mass_concentration_to_mass_fraction(
+    mass_concentration: Quantity[Any],
+    solution_density: Quantity[Any],
+) -> Quantity[Any]:
+    """Convert mass concentration to mass fraction using solution density.
+
+    The returned dimensionless quantity may be expressed explicitly as
+    ``milligram / kilogram``, ``microgram / kilogram``, or another compatible
+    mass ratio. No dilute-water density assumption is made.
+    """
+    concentration = mass_concentration.to("gram / liter")
+    density = _validated_solution_density(solution_density)
+
+    return cast(Quantity[Any], concentration / density)
+
+
+def mass_fraction_to_mass_concentration(
+    mass_fraction: Quantity[Any],
+    solution_density: Quantity[Any],
+) -> Quantity[Any]:
+    """Convert mass fraction to mass concentration using solution density.
+
+    ``mass_fraction`` must be dimensionless and may be supplied as an explicit
+    ratio such as ``milligram / kilogram`` or ``microgram / kilogram``.
+    """
+    fraction = mass_fraction.to("dimensionless")
+    density = _validated_solution_density(solution_density)
+
+    return cast(Quantity[Any], fraction * density)

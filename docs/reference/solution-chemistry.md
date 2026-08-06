@@ -171,7 +171,7 @@ composes correctly.
 - FermUnits rule:
   - use Pint dimensionless arithmetic;
   - preserve that the basis is mass/mass separately.
-- Status: **Physical representation available; semantic API pending.**
+- Status: **Physical representation and density-assisted conversion implemented.**
 
 ### Volume fraction
 
@@ -242,11 +242,21 @@ Sources: [SH-SI-01]
 
 ### Mass fraction and mass concentration
 
-- Required input: explicit solution density.
-- FermUnits rule:
-  - do not silently assume `1 kilogram / liter`;
-  - preserve density reference temperature where known.
-- Status: **Planned calculation.**
+Public functions:
+
+- `mass_concentration_to_mass_fraction`
+- `mass_fraction_to_mass_concentration`
+
+Rules:
+
+- solution density is required explicitly;
+- density must be finite, positive, and dimensionally mass per volume;
+- no silent `1 kilogram / liter` approximation is made;
+- mass fractions may be expressed explicitly as `milligram / kilogram`,
+  `microgram / kilogram`, or another compatible mass ratio;
+- density reference temperature remains application metadata.
+
+Status: **Implemented.**
 
 ### Mass concentration and amount concentration
 
@@ -378,7 +388,8 @@ Implemented calculations:
 - amount concentration to and from equivalent concentration;
 - mass concentration to and from equivalent concentration using an explicit
   equivalent mass;
-- CaCO3-basis mass concentration to and from equivalent concentration.
+- CaCO3-basis mass concentration to and from equivalent concentration;
+- mass concentration to and from mass fraction using explicit solution density.
 
 Representation decisions:
 
@@ -393,7 +404,7 @@ Deferred:
 - `normality`
 - `molal` convenience alias
 - pH semantic type
-- density-assisted fraction/concentration conversion
+- general mass/amount concentration conversion
 - general reported-quantity wrapper
 
 No FermUnits definition needed:
