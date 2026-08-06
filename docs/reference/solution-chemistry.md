@@ -17,15 +17,15 @@ beverage-specific domain.
 This inventory distinguishes among:
 
 - ordinary multiplicative physical units that Pint already supplies;
-- FermUnits registry extensions that may be needed for clear, qualified names;
+- FermUnits registry extensions needed for clear, qualified meanings;
 - calculations that require chemical identity, density, molar mass, charge, or
   another explicit parameter;
 - analytical or reporting semantics that must not be reduced to a unit alone;
 - application-schema concerns that belong primarily in FermentationJSON or a
   downstream engineering application.
 
-FermUnits should perform dimensional conversions and domain calculations
-without discarding semantic qualifiers.
+FermUnits performs dimensional conversions and reusable domain calculations
+without claiming ownership of the full chemical model.
 
 ## Pint-first rule
 
@@ -70,7 +70,7 @@ composes correctly.
   - do not add aliases such as `mole_per_liter`;
   - require explicit molar mass for mass-concentration conversions.
 - Status: **Confirmed composable through Pint.**
-- Sources: [SH-IUPAC-GOLD-01], [SH-SI-01], [SH-PINT-01]
+- Sources: [SH-SI-01], [SH-PINT-01]
 
 ### Molality
 
@@ -82,7 +82,7 @@ composes correctly.
   - use the compound expression;
   - do not add `molal` merely as a convenience alias.
 - Status: **Physical quantity supported through Pint; alias deferred.**
-- Sources: [SH-IUPAC-GOLD-01], [SH-PINT-01]
+- Sources: [SH-PINT-01]
 
 ### Molar mass
 
@@ -99,25 +99,57 @@ composes correctly.
 
 ### Chemical equivalent
 
-- Proposed FermUnits name: `equivalent`
-- Proposed alias: `eq`
+- FermUnits name: `equivalent`
+- Alias: `eq`
 - Pint audit: not found.
-- Architectural rule:
-  - no universal conversion between moles and equivalents;
+- FermUnits representation:
+  - separate `[chemical_equivalent]` dimension;
+  - no direct conversion to amount of substance;
   - conversion requires an explicit equivalence factor.
-- Status: **Implementation candidate; authoritative definition and design
-  review pending.**
-- Sources: [SC-PENDING-01]
+- Public functions:
+  - `amount_to_equivalents`
+  - `equivalents_to_amount`
+  - `amount_concentration_to_equivalent_concentration`
+  - `equivalent_concentration_to_amount_concentration`
+- Status: **Implemented.**
+- Sources: [SC-IUPAC-01]
 
 ### Milliequivalent
 
-- Proposed FermUnits name: `milliequivalent`
-- Proposed alias: `mEq`
-- Pint audit: not found.
-- Definition if `equivalent` is adopted:
+- FermUnits name: `milliequivalent`
+- Alias: `mEq`
+- Definition:
   - `1 milliequivalent = 0.001 equivalent`
-- Status: **Implementation candidate; depends on equivalent design.**
-- Sources: [SC-PENDING-01]
+- Equivalent concentration is composed normally through Pint:
+  - `equivalent / liter`
+  - `milliequivalent / liter`
+- Status: **Implemented.**
+- Sources: [SC-IUPAC-01], [SC-EPA-01]
+
+### Equivalence factor
+
+- Meaning: equivalents per mole for the stated entity and reaction or charge
+  convention.
+- FermUnits rule:
+  - must be supplied explicitly;
+  - must be finite and greater than zero;
+  - is never guessed from a unit string.
+- Status: **Implemented as a required calculation parameter.**
+- Sources: [SC-IUPAC-01]
+
+### Equivalent mass
+
+- Meaning: grams per equivalent for the stated chemical entity, reaction, or
+  reporting basis.
+- Public functions:
+  - `mass_concentration_to_equivalent_concentration`
+  - `equivalent_concentration_to_mass_concentration`
+- FermUnits rule:
+  - equivalent mass must be supplied explicitly;
+  - the value must be finite and greater than zero;
+  - chemical identity and reporting basis remain application semantics.
+- Status: **Implemented.**
+- Sources: [SC-IUPAC-01]
 
 ### Normality
 
@@ -125,10 +157,11 @@ composes correctly.
   - `normal` not found;
   - `normality` not found.
 - FermUnits rule:
-  - do not add either name until authoritative terminology and reaction-basis
-    requirements are resolved.
-- Status: **Deferred.**
-- Sources: [SC-PENDING-01]
+  - do not add either name;
+  - use explicit equivalent concentration such as `mEq/L`;
+  - retain the reaction basis separately.
+- Status: **Deferred intentionally.**
+- Sources: [SC-IUPAC-01]
 
 ## 3. Composition fractions
 
@@ -139,7 +172,6 @@ composes correctly.
   - use Pint dimensionless arithmetic;
   - preserve that the basis is mass/mass separately.
 - Status: **Physical representation available; semantic API pending.**
-- Sources: [SH-IUPAC-GOLD-01], [SH-NIST-SI-01]
 
 ### Volume fraction
 
@@ -149,7 +181,6 @@ composes correctly.
   - retain reference temperature when material;
   - do not assume additive volumes for non-ideal mixtures.
 - Status: **Physical representation available; semantic API pending.**
-- Sources: [SH-IUPAC-GOLD-01], [SH-NIST-SI-01]
 
 ### Mass-per-volume composition
 
@@ -162,7 +193,6 @@ composes correctly.
   - `% w/v` must remain distinct from mass and volume fractions;
   - use Pint compound expressions rather than adding convenience units.
 - Status: **Representable through Pint.**
-- Sources: [SH-IUPAC-GOLD-01], [SH-PINT-01]
 
 ### Percent
 
@@ -172,7 +202,7 @@ composes correctly.
   - use Pint directly;
   - preserve fraction kind separately.
 - Status: **Confirmed provided by Pint; semantic qualification required.**
-- Sources: [SH-NIST-SI-01], [SH-PINT-01]
+- Sources: [SH-PINT-01]
 
 ## 4. Parts-per notation
 
@@ -186,32 +216,27 @@ composes correctly.
   - avoid unqualified `ppm` in saved chemistry data unless basis metadata is
     present.
 - Status: **Confirmed provided by Pint; qualified use required.**
-- Sources: [SH-PINT-01], [SH-NIST-SI-01]
+- Sources: [SH-PINT-01], [SH-SI-01]
 
-### Parts per million by mass
+### Canonical mass-fraction forms
 
-- Candidate FermUnits name: `ppm_mass`
-- Intended exact relationship:
-  - mass fraction of `10^-6`;
-  - equivalently `1 milligram / kilogram`.
-- Pint audit: qualified name not found.
-- FermUnits rule:
-  - decide whether this is a unit alias or Pint `ppm` plus required metadata;
-  - do not implement before that semantic decision.
-- Status: **Semantic design candidate.**
-- Sources: [SH-NIST-SI-01], [SC-PENDING-02]
+Use explicit ratios:
 
-### Parts per billion by mass
+- `milligram / kilogram` for a mass fraction of `10^-6`;
+- `microgram / kilogram` for a mass fraction of `10^-9`.
 
-- Candidate FermUnits name: `ppb_mass`
-- Intended exact relationship:
-  - mass fraction of `10^-9`;
-  - equivalently `1 microgram / kilogram`.
-- Pint audit:
-  - generic `ppb` not found;
-  - qualified `ppb_mass` not found.
-- Status: **Semantic design candidate.**
-- Sources: [SH-NIST-SI-01], [SC-PENDING-02]
+FermUnits does not add:
+
+- `ppm_mass`;
+- `ppb`;
+- `ppb_mass`.
+
+A source value reported as `ppm` or `ppb` may retain that label as reported
+metadata, but canonical chemistry data should state the ratio basis explicitly.
+
+Status: **Representation decision complete.**
+
+Sources: [SH-SI-01]
 
 ## 5. Density-assisted concentration conversions
 
@@ -222,7 +247,6 @@ composes correctly.
   - do not silently assume `1 kilogram / liter`;
   - preserve density reference temperature where known.
 - Status: **Planned calculation.**
-- Sources: [SH-IUPAC-GOLD-01], [SC-PENDING-03]
 
 ### Mass concentration and amount concentration
 
@@ -231,7 +255,6 @@ composes correctly.
   - molar mass must match chemical identity and hydration state;
   - hydration state is not a unit.
 - Status: **Planned calculation.**
-- Sources: [SH-IUPAC-GOLD-01], [SC-PENDING-03]
 
 ### Volume fraction and mass fraction
 
@@ -239,7 +262,6 @@ composes correctly.
   non-ideal mixing data.
 - FermUnits rule: no universal one-step conversion.
 - Status: **Deferred.**
-- Sources: [SC-PENDING-03]
 
 ## 6. Reporting bases
 
@@ -255,13 +277,30 @@ Examples include:
 FermUnits rule:
 
 - preserve the ordinary physical quantity;
-- preserve reporting basis as explicit metadata;
+- preserve reporting basis as explicit application metadata;
 - do not imply that “as CaCO3” means actual dissolved calcium carbonate;
 - add calculations only when the conversion basis is explicit and sourced.
 
-Status: **Architectural requirement accepted; API pending.**
+### Calcium-carbonate equivalent basis
 
-Sources: [SH-OIV-01], [SC-PENDING-04]
+Public functions:
+
+- `caco3_basis_mass_concentration_to_equivalent_concentration`
+- `equivalent_concentration_to_caco3_basis_mass_concentration`
+
+Implemented convention:
+
+- `50 mg/L as CaCO3 = 1 mEq/L`;
+- equivalently, `50 g as CaCO3 per equivalent`.
+
+This is the conventional water-analysis reporting factor used by EPA
+alkalinity and hardness methods. The returned mass concentration does not
+carry “as CaCO3” inside the Pint unit; the calling water model must retain that
+reporting basis explicitly.
+
+Status: **Implemented for CaCO3-basis conversion.**
+
+Sources: [SC-EPA-01], [SC-USGS-01]
 
 ## 7. pH and logarithmic quantities
 
@@ -272,7 +311,6 @@ Sources: [SH-OIV-01], [SC-PENDING-04]
   - do not blend or average pH using generic linear-quantity operations;
   - activity conversions must be explicit.
 - Status: **Documented; implementation pending.**
-- Sources: [SH-OIV-01], [SC-PENDING-05]
 
 ### pH interval
 
@@ -281,7 +319,6 @@ Sources: [SH-OIV-01], [SC-PENDING-04]
   - distinguish absolute pH from a pH difference;
   - do not model this as division by an absolute pH reading.
 - Status: **Pending semantic design.**
-- Sources: [SC-PENDING-05]
 
 ## 8. Measurement qualifiers, bounds, and uncertainty
 
@@ -314,36 +351,50 @@ Example invariant:
 
 Status: **Requirement accepted; API pending.**
 
-Sources: [SC-PENDING-06]
-
-## 9. Boundary with FermentationJSON
+## 9. Boundary with FermentationJSON and water engines
 
 - FermentationJSON requires a canonical quantity.
 - FermentationJSON allows an optional reported quantity and strongly recommends
   it for imported or user-entered data.
 - FermUnits provides conversion behavior and reusable semantics, but does not
   own the complete serialized document model.
+- A water-treatment engine owns chemical identity, ion charge, analyte,
+  quantity kind, and reporting basis.
+- FermUnits does not infer alkalinity or hardness from a mass-concentration
+  value alone.
 - Status: **Project architecture decision.**
 
-## 10. Current implementation candidates
+## 10. Implementation summary
 
-A missing Pint name is only an implementation candidate.
-
-Candidates requiring further review:
+Implemented FermUnits units:
 
 - `equivalent`
 - `milliequivalent`
+- aliases `eq` and `mEq`
 
-Semantic candidates requiring a representation decision:
+Implemented calculations:
 
-- `ppm_mass`
-- `ppb_mass`
+- amount of substance to and from equivalent amount;
+- amount concentration to and from equivalent concentration;
+- mass concentration to and from equivalent concentration using an explicit
+  equivalent mass;
+- CaCO3-basis mass concentration to and from equivalent concentration.
+
+Representation decisions:
+
+- use explicit `mg/kg` instead of a qualified `ppm_mass` unit;
+- use explicit `µg/kg` instead of defining `ppb`;
+- preserve source `ppm` and `ppb` labels only as reported metadata with an
+  explicit basis.
 
 Deferred:
 
 - `normal`
 - `normality`
 - `molal` convenience alias
+- pH semantic type
+- density-assisted fraction/concentration conversion
+- general reported-quantity wrapper
 
 No FermUnits definition needed:
 
@@ -363,26 +414,44 @@ No FermUnits definition needed:
 
 ## 11. Solution-chemistry bibliography
 
-### [SC-PENDING-01] Chemical equivalents and normality
+### [SC-IUPAC-01] Equivalent entity
 
-- Status: pending authoritative terminology and metrology review.
+- Organization: International Union of Pure and Applied Chemistry
+- Source: IUPAC Gold Book, “equivalent entity”
+- URL: https://goldbook.iupac.org/terms/view/E02192
+- Accessed: 2026-08-06
+- Source tier: 2
+- Supports:
+  - equivalence depends on the specified reaction or charge relationship;
+  - equivalents must not be treated as universally interchangeable with
+    moles without an explicit factor.
 
-### [SC-PENDING-02] Qualified parts-per notation
+### [SC-EPA-01] Methods for Chemical Analysis of Water and Wastes
 
-- Status: pending final source and representation review.
+- Organization: United States Environmental Protection Agency
+- Methods:
+  - 130.2, Hardness, Total (Titrimetric, EDTA)
+  - 310.1, Alkalinity (Titrimetric, pH 4.5)
+- URL: https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=30000Q10.TXT
+- Accessed: 2026-08-06
+- Source tier: 2
+- Supports:
+  - hardness and alkalinity reporting in `mg/L as CaCO3`;
+  - the conventional factor of `50,000` in titration formulas;
+  - the equivalent relationship `50 mg/L as CaCO3 = 1 mEq/L`.
 
-### [SC-PENDING-03] Composition conversion equations
+### [SC-USGS-01] Alkalinity and Acid Neutralizing Capacity
 
-- Status: pending implementation-source review.
-
-### [SC-PENDING-04] Reporting-basis semantics
-
-- Status: pending cross-domain design and source review.
-
-### [SC-PENDING-05] pH and pH intervals
-
-- Status: pending authoritative definition and API design.
-
-### [SC-PENDING-06] Bounds, detection limits, and uncertainty
-
-- Status: pending metrology-source review.
+- Organization: United States Geological Survey
+- Publication: National Field Manual, Chapter A6.6
+- URL: https://pubs.usgs.gov/twri/twri9a6/twri9a_6.6.pdf
+- Accessed: 2026-08-06
+- Source tier: 3
+- Supports:
+  - alkalinity as a chemical property rather than a dissolved CaCO3
+    concentration;
+  - reporting alkalinity in equivalent concentration and as CaCO3.
+- Note:
+  - some USGS calculations use a more precise molar-mass-derived factor near
+    `50.044 mg/mEq`; FermUnits uses the conventional EPA water-reporting factor
+    of exactly `50 mg/mEq` for this API.

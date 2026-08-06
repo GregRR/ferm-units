@@ -7,9 +7,13 @@ from pint import DimensionalityError, UnitRegistry
 from fermunits import (
     amount_concentration_to_equivalent_concentration,
     amount_to_equivalents,
+    caco3_basis_mass_concentration_to_equivalent_concentration,
     create_registry,
     equivalent_concentration_to_amount_concentration,
+    equivalent_concentration_to_caco3_basis_mass_concentration,
+    equivalent_concentration_to_mass_concentration,
     equivalents_to_amount,
+    mass_concentration_to_equivalent_concentration,
 )
 
 
@@ -222,4 +226,197 @@ def test_concentration_conversion_rejects_wrong_dimension(
         amount_concentration_to_equivalent_concentration(
             registry.Quantity(1, "gram / liter"),
             equivalence_factor=1.0,
+        )
+
+
+@pytest.mark.parametrize(
+    (
+        "mass_milligrams_per_liter",
+        "equivalent_mass_grams_per_equivalent",
+        "expected_meq_per_liter",
+    ),
+    [
+        (0.0, 50.0, 0.0),
+        (50.0, 50.0, 1.0),
+        (100.0, 50.0, 2.0),
+        (75.0, 75.0, 1.0),
+    ],
+)
+def test_mass_concentration_to_equivalent_concentration(
+    registry: UnitRegistry[Any],
+    mass_milligrams_per_liter: float,
+    equivalent_mass_grams_per_equivalent: float,
+    expected_meq_per_liter: float,
+) -> None:
+    mass_concentration = registry.Quantity(
+        mass_milligrams_per_liter,
+        "milligram / liter",
+    )
+
+    result = mass_concentration_to_equivalent_concentration(
+        mass_concentration,
+        equivalent_mass_grams_per_equivalent,
+    )
+
+    assert result.to("milliequivalent / liter").magnitude == pytest.approx(
+        expected_meq_per_liter
+    )
+
+
+@pytest.mark.parametrize(
+    (
+        "meq_per_liter",
+        "equivalent_mass_grams_per_equivalent",
+        "expected_milligrams_per_liter",
+    ),
+    [
+        (0.0, 50.0, 0.0),
+        (1.0, 50.0, 50.0),
+        (2.0, 50.0, 100.0),
+        (1.0, 75.0, 75.0),
+    ],
+)
+def test_equivalent_concentration_to_mass_concentration(
+    registry: UnitRegistry[Any],
+    meq_per_liter: float,
+    equivalent_mass_grams_per_equivalent: float,
+    expected_milligrams_per_liter: float,
+) -> None:
+    equivalent_concentration = registry.Quantity(
+        meq_per_liter,
+        "milliequivalent / liter",
+    )
+
+    result = equivalent_concentration_to_mass_concentration(
+        equivalent_concentration,
+        equivalent_mass_grams_per_equivalent,
+    )
+
+    assert result.to("milligram / liter").magnitude == pytest.approx(
+        expected_milligrams_per_liter
+    )
+
+
+@pytest.mark.parametrize(
+    ("mg_per_liter_as_caco3", "expected_meq_per_liter"),
+    [
+        (0.0, 0.0),
+        (50.0, 1.0),
+        (100.0, 2.0),
+        (125.0, 2.5),
+    ],
+)
+def test_caco3_basis_mass_concentration_to_equivalent_concentration(
+    registry: UnitRegistry[Any],
+    mg_per_liter_as_caco3: float,
+    expected_meq_per_liter: float,
+) -> None:
+    reported_concentration = registry.Quantity(
+        mg_per_liter_as_caco3,
+        "milligram / liter",
+    )
+
+    result = caco3_basis_mass_concentration_to_equivalent_concentration(
+        reported_concentration
+    )
+
+    assert result.to("milliequivalent / liter").magnitude == pytest.approx(
+        expected_meq_per_liter
+    )
+
+
+@pytest.mark.parametrize(
+    ("meq_per_liter", "expected_mg_per_liter_as_caco3"),
+    [
+        (0.0, 0.0),
+        (1.0, 50.0),
+        (2.0, 100.0),
+        (2.5, 125.0),
+    ],
+)
+def test_equivalent_concentration_to_caco3_basis_mass_concentration(
+    registry: UnitRegistry[Any],
+    meq_per_liter: float,
+    expected_mg_per_liter_as_caco3: float,
+) -> None:
+    equivalent_concentration = registry.Quantity(
+        meq_per_liter,
+        "milliequivalent / liter",
+    )
+
+    result = equivalent_concentration_to_caco3_basis_mass_concentration(
+        equivalent_concentration
+    )
+
+    assert result.to("milligram / liter").magnitude == pytest.approx(
+        expected_mg_per_liter_as_caco3
+    )
+
+
+def test_caco3_basis_conversion_accepts_other_mass_concentration_units(
+    registry: UnitRegistry[Any],
+) -> None:
+    reported_concentration = registry.Quantity(
+        0.1,
+        "gram / liter",
+    )
+
+    result = caco3_basis_mass_concentration_to_equivalent_concentration(
+        reported_concentration
+    )
+
+    assert result.to("milliequivalent / liter").magnitude == pytest.approx(2.0)
+
+
+def test_caco3_basis_conversion_round_trip(
+    registry: UnitRegistry[Any],
+) -> None:
+    original = registry.Quantity(137.5, "milligram / liter")
+
+    equivalents = caco3_basis_mass_concentration_to_equivalent_concentration(original)
+    restored = equivalent_concentration_to_caco3_basis_mass_concentration(equivalents)
+
+    assert restored.to("milligram / liter").magnitude == pytest.approx(137.5)
+
+
+@pytest.mark.parametrize(
+    "equivalent_mass",
+    [
+        0.0,
+        -1.0,
+        math.nan,
+        math.inf,
+        -math.inf,
+    ],
+)
+def test_mass_equivalent_conversions_reject_invalid_equivalent_mass(
+    registry: UnitRegistry[Any],
+    equivalent_mass: float,
+) -> None:
+    mass_concentration = registry.Quantity(50, "milligram / liter")
+
+    with pytest.raises(ValueError):
+        mass_concentration_to_equivalent_concentration(
+            mass_concentration,
+            equivalent_mass,
+        )
+
+
+def test_mass_equivalent_conversion_rejects_wrong_dimension(
+    registry: UnitRegistry[Any],
+) -> None:
+    with pytest.raises(DimensionalityError):
+        mass_concentration_to_equivalent_concentration(
+            registry.Quantity(1, "mole / liter"),
+            equivalent_mass_grams_per_equivalent=50.0,
+        )
+
+
+def test_reverse_mass_equivalent_conversion_rejects_wrong_dimension(
+    registry: UnitRegistry[Any],
+) -> None:
+    with pytest.raises(DimensionalityError):
+        equivalent_concentration_to_mass_concentration(
+            registry.Quantity(1, "mole / liter"),
+            equivalent_mass_grams_per_equivalent=50.0,
         )

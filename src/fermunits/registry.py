@@ -11,6 +11,7 @@ _DEFINITION_FILES = (
     "vessels.txt",
 )
 _CHEMICAL_EQUIVALENCE_CONTEXT = "chemical_equivalence"
+_CHEMICAL_EQUIVALENT_MASS_CONTEXT = "chemical_equivalent_mass"
 
 
 def _substance_to_chemical_equivalent(
@@ -41,8 +42,36 @@ def _chemical_equivalent_to_substance(
     )
 
 
+def _mass_concentration_to_chemical_equivalent_concentration(
+    ureg: UnitRegistry[Any],
+    value: PlainQuantity[Any],
+    **kwargs: Any,
+) -> PlainQuantity[Any]:
+    """Convert mass concentration to chemical-equivalent concentration."""
+    equivalent_mass = float(kwargs["equivalent_mass_grams_per_equivalent"])
+
+    return cast(
+        PlainQuantity[Any],
+        value / equivalent_mass * ureg.Unit("equivalent / gram"),
+    )
+
+
+def _chemical_equivalent_concentration_to_mass_concentration(
+    ureg: UnitRegistry[Any],
+    value: PlainQuantity[Any],
+    **kwargs: Any,
+) -> PlainQuantity[Any]:
+    """Convert chemical-equivalent concentration to mass concentration."""
+    equivalent_mass = float(kwargs["equivalent_mass_grams_per_equivalent"])
+
+    return cast(
+        PlainQuantity[Any],
+        value * equivalent_mass * ureg.Unit("gram / equivalent"),
+    )
+
+
 def _add_chemical_equivalence_context(registry: UnitRegistry[Any]) -> None:
-    """Add explicit factor-based mole/equivalent conversions."""
+    """Add factor-based amount/equivalent conversions."""
     context = Context(_CHEMICAL_EQUIVALENCE_CONTEXT)
 
     context.add_transformation(
@@ -69,6 +98,26 @@ def _add_chemical_equivalence_context(registry: UnitRegistry[Any]) -> None:
     registry.add_context(context)
 
 
+def _add_chemical_equivalent_mass_context(
+    registry: UnitRegistry[Any],
+) -> None:
+    """Add equivalent-mass concentration conversions."""
+    context = Context(_CHEMICAL_EQUIVALENT_MASS_CONTEXT)
+
+    context.add_transformation(
+        "[mass] / [volume]",
+        "[chemical_equivalent] / [volume]",
+        _mass_concentration_to_chemical_equivalent_concentration,
+    )
+    context.add_transformation(
+        "[chemical_equivalent] / [volume]",
+        "[mass] / [volume]",
+        _chemical_equivalent_concentration_to_mass_concentration,
+    )
+
+    registry.add_context(context)
+
+
 def create_registry() -> UnitRegistry[Any]:
     """Return a new Pint registry containing all FermUnits definitions.
 
@@ -85,6 +134,7 @@ def create_registry() -> UnitRegistry[Any]:
             registry.load_definitions(definition_path)
 
     _add_chemical_equivalence_context(registry)
+    _add_chemical_equivalent_mass_context(registry)
 
     return registry
 

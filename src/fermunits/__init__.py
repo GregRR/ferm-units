@@ -30,8 +30,12 @@ from fermunits.registry import Q_, create_registry, ureg
 from fermunits.solution_chemistry import (
     amount_concentration_to_equivalent_concentration,
     amount_to_equivalents,
+    caco3_basis_mass_concentration_to_equivalent_concentration,
     equivalent_concentration_to_amount_concentration,
+    equivalent_concentration_to_caco3_basis_mass_concentration,
+    equivalent_concentration_to_mass_concentration,
     equivalents_to_amount,
+    mass_concentration_to_equivalent_concentration,
 )
 
 __all__ = [
@@ -40,15 +44,19 @@ __all__ = [
     "amount_concentration_to_equivalent_concentration",
     "amount_to_equivalents",
     "bitterness_units_to_absorbance_275nm",
+    "caco3_basis_mass_concentration_to_equivalent_concentration",
     "co2_grams_per_liter_to_volumes",
     "co2_volumes_to_grams_per_liter",
     "create_registry",
     "ebc_to_srm",
     "equivalent_concentration_to_amount_concentration",
+    "equivalent_concentration_to_caco3_basis_mass_concentration",
+    "equivalent_concentration_to_mass_concentration",
     "equivalents_to_amount",
     "gravity_points_to_sg",
     "lintner_to_windisch_kolbach",
     "lovibond_to_srm_approx",
+    "mass_concentration_to_equivalent_concentration",
     "plato_to_sg",
     "plato_to_wort_refractometer_brix",
     "sg_to_gravity_points",

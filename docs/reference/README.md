@@ -1,18 +1,19 @@
 # FermUnits Reference Inventories
 
 This directory contains the maintained technical inventories used to plan,
-implement, test, and review FermUnits definitions, calculations, analytical
-scales, and semantic quantity types.
+implement, test, and review FermUnits definitions and domain-specific
+calculations.
 
-These files are not merely wish lists. Each entry should state what the term
-means, where it is used, whether it is a physical unit or a method-defined
-quantity, how FermUnits intends to represent it, and which sources support the
+The reference files are not merely wish lists. Each entry should state what the
+term means, where it is used, whether it is a physical unit or a method-defined
+scale, how FermUnits intends to represent it, and which sources support the
 claim.
 
 ## Files
 
 | Domain | Reference file | Current state |
 |---|---|---|
+| Solution chemistry | [solution-chemistry.md](solution-chemistry.md) | Active and partly implemented |
 | Brewing | [brewing-units.md](brewing-units.md) | Revised and sourced |
 | Wine | [wine-units.md](wine-units.md) | Revised and sourced |
 | Distilling | `distilling-units.md` | Migration pending |
@@ -20,7 +21,6 @@ claim.
 | Cider and perry | `cider-perry-units.md` | Migration pending |
 | Biofuels | `biofuel-units.md` | Migration pending |
 | Acid-tier and other fermentation | `acid-tier-units.md` | Migration pending |
-| Solution chemistry | [solution-chemistry.md](solution-chemistry.md) | Initial maintained inventory |
 
 The domain files are the maintained source documents. A combined project-wide
 inventory may be generated from them, but it should not be edited independently.
@@ -34,11 +34,10 @@ Every stable or proposed entry should identify, as applicable:
 - rejected or ambiguous aliases;
 - the exact numerical definition or calculation;
 - dimensionality and reference conditions;
-- jurisdiction, region, industry, analytical method, or reporting basis;
-- modern, historical, customary, legal, provisional, or semantic status;
+- jurisdiction, region, industry, or analytical method;
+- modern, historical, customary, legal, or provisional status;
 - implementation status;
-- one or more source identifiers;
-- relevant Pint behavior and the resulting FermUnits decision.
+- one or more source identifiers.
 
 Source identifiers point to the bibliography at the bottom of the same domain
 file or to a shared source recorded in [`../sources.md`](../sources.md).
@@ -47,6 +46,7 @@ file or to a shared source recorded in [`../sources.md`](../sources.md).
 
 Domain source identifiers use a short prefix:
 
+- `SC-` — shared solution chemistry
 - `BR-` — brewing
 - `WI-` — wine
 - `DI-` — distilling
@@ -54,50 +54,32 @@ Domain source identifiers use a short prefix:
 - `CP-` — cider and perry
 - `BF-` — biofuels
 - `AT-` — acid-tier and other fermentation
-- `SC-` — solution chemistry
 - `SH-` — shared project sources
+
+Examples:
+
+```text
+Sources: [WI-OIV-01], [SH-OIML-01]
+Status: Verified physical definition; analytical application provisional.
+```
+
+A source identifier must be defined exactly once. Domain-specific sources belong
+in the bibliography of that domain file. Sources used across multiple domains
+belong in `docs/sources.md`.
 
 ## Status vocabulary
 
-Use the status terms defined in [`../sources.md`](../sources.md):
+Use the status terms defined in [`../sources.md`](../sources.md). In brief:
 
-- **Verified**
-- **Provisional**
-- **Pending**
-- **Rejected**
-- **Ambiguous**
+- **Verified** — the cited authoritative source directly supports the claim.
+- **Provisional** — useful and implemented or proposed, but not yet supported
+  strongly enough to be stable.
+- **Pending** — research or restricted-source review is still required.
+- **Rejected** — reviewed and intentionally not used.
+- **Ambiguous** — the unqualified name has multiple legitimate meanings.
 
-Implementation status and source status are separate.
-
-## Pint-first extension policy
-
-Before adding any FermUnits unit definition or alias:
-
-1. Review the Pint documentation for the pinned project version.
-2. Review Pint's bundled unit definitions.
-3. Verify the behavior of the pinned local registry.
-4. Check aliases, dimensionality, and naming collisions.
-5. Decide whether the Pint meaning is correct for the FermUnits use case.
-
-Apply these rules:
-
-- Use Pint directly when Pint already provides the correct unit and meaning.
-- Do not duplicate a Pint unit under a FermUnits name solely for convenience.
-- Do not create named aliases for compound expressions that Pint already
-  composes correctly, such as `gram / mole` or `millimole / liter`.
-- Preserve a legitimate Pint definition when a fermentation-domain meaning
-  conflicts with it.
-- Add an explicit domain- or region-qualified FermUnits name when a collision
-  must be resolved.
-- Add calculations or semantic metadata, rather than a duplicate unit, when
-  Pint already represents the physical dimensions but not the analytical or
-  chemical meaning.
-- Add a FermUnits definition only when Pint genuinely lacks the required unit
-  or qualified meaning.
-- Treat a unit's absence from the local Pint registry as an implementation
-  candidate, not as automatic justification for adding it.
-
-Record the Pint result and FermUnits decision in the relevant reference entry.
+Implementation and source status are separate. A function may be implemented
+while its scientific relationship remains provisional.
 
 ## Naming rules
 
@@ -106,30 +88,22 @@ Record the Pint result and FermUnits decision in the relevant reference entry.
 - Do not assign a universal value to a variable regional or historical term.
 - Keep analytical scales and empirical calculations separate from ordinary
   multiplicative physical units.
-- Keep reporting bases, chemical identity, hydration state, and analytical
-  method separate from the unit when they are not part of the dimensionality.
 - Record aliases that were considered and rejected.
-- Prefer explicit stored unit identifiers over locale-dependent interpretation.
-
-## Physical units, calculations, and semantic quantities
-
-Reference entries should distinguish among:
-
-- **physical units**
-- **compound units**
-- **analytical scales**
-- **calculations**
-- **reporting bases**
-- **semantic quantities**
-
-A numerically valid unit conversion must not discard the scientific meaning of
-the original value.
 
 ## Copyright and restricted methods
 
 Do not commit full copyrighted methods, restricted tables, scans, or substantial
 verbatim extracts unless the project has permission to redistribute them.
 
-It is appropriate to record method titles and identifiers, bibliographic
-citations, concise original summaries, lawful formulas or definitions, and
-notes describing what still needs verification.
+It is appropriate to record:
+
+- method titles and identifiers;
+- bibliographic citations;
+- URLs;
+- concise original summaries;
+- formulas or definitions that may lawfully be recorded;
+- notes describing what still needs verification.
+
+When a restricted authoritative method is known to exist, mark the item pending
+and use the strongest accessible supporting source without claiming that the
+restricted text was reviewed.
