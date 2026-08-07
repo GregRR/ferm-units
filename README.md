@@ -301,3 +301,8 @@ docs/asbc-verification.md
 
 Items remain on that checklist until the original ASBC or EBC method, table,
 or publication can be reviewed directly.
+
+## License
+
+FermUnits is distributed under the MIT License. See [`LICENSE`](LICENSE).
+
