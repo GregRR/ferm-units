@@ -260,11 +260,25 @@ Status: **Implemented.**
 
 ### Mass concentration and amount concentration
 
-- Required input: explicit molar mass.
-- FermUnits rule:
-  - molar mass must match chemical identity and hydration state;
-  - hydration state is not a unit.
-- Status: **Planned calculation.**
+Public functions:
+
+- `mass_concentration_to_amount_concentration`
+- `amount_concentration_to_mass_concentration`
+
+Rules:
+
+- molar mass is required explicitly as a Pint quantity;
+- molar mass must be finite, positive, and dimensionally mass per amount of
+  substance;
+- molar mass must match the chemical identity and hydration state of the
+  concentration being converted;
+- hydration state is not encoded in the unit;
+- FermUnits does not infer chemical identity or choose a molar mass from an
+  analyte name.
+
+Status: **Implemented.**
+
+Sources: [SH-SI-01]
 
 ### Volume fraction and mass fraction
 
@@ -389,7 +403,9 @@ Implemented calculations:
 - mass concentration to and from equivalent concentration using an explicit
   equivalent mass;
 - CaCO3-basis mass concentration to and from equivalent concentration;
-- mass concentration to and from mass fraction using explicit solution density.
+- mass concentration to and from mass fraction using explicit solution density;
+- mass concentration to and from amount concentration using explicit molar
+  mass.
 
 Representation decisions:
 
@@ -404,7 +420,6 @@ Deferred:
 - `normality`
 - `molal` convenience alias
 - pH semantic type
-- general mass/amount concentration conversion
 - general reported-quantity wrapper
 
 No FermUnits definition needed:

@@ -41,6 +41,21 @@ def _validated_solution_density(
     return density
 
 
+def _validated_molar_mass(
+    molar_mass: Quantity[Any],
+) -> Quantity[Any]:
+    """Return a positive finite molar mass in grams per mole."""
+    normalized = molar_mass.to("gram / mole")
+    magnitude = float(normalized.magnitude)
+
+    _require_positive_finite_value(
+        magnitude,
+        name="Molar mass",
+    )
+
+    return normalized
+
+
 def amount_to_equivalents(
     amount: Quantity[Any],
     equivalence_factor: float,
@@ -212,3 +227,34 @@ def mass_fraction_to_mass_concentration(
     density = _validated_solution_density(solution_density)
 
     return cast(Quantity[Any], fraction * density)
+
+
+def mass_concentration_to_amount_concentration(
+    mass_concentration: Quantity[Any],
+    molar_mass: Quantity[Any],
+) -> Quantity[Any]:
+    """Convert mass concentration to amount concentration using molar mass.
+
+    ``molar_mass`` must identify the same chemical entity, including hydration
+    state where applicable, as ``mass_concentration``. No chemical identity is
+    inferred from either unit expression.
+    """
+    concentration = mass_concentration.to("gram / liter")
+    normalized_molar_mass = _validated_molar_mass(molar_mass)
+
+    return cast(Quantity[Any], concentration / normalized_molar_mass)
+
+
+def amount_concentration_to_mass_concentration(
+    amount_concentration: Quantity[Any],
+    molar_mass: Quantity[Any],
+) -> Quantity[Any]:
+    """Convert amount concentration to mass concentration using molar mass.
+
+    ``molar_mass`` must identify the same chemical entity, including hydration
+    state where applicable, as ``amount_concentration``.
+    """
+    concentration = amount_concentration.to("mole / liter")
+    normalized_molar_mass = _validated_molar_mass(molar_mass)
+
+    return cast(Quantity[Any], concentration * normalized_molar_mass)
