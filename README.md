@@ -171,6 +171,73 @@ implemented with:
 * supported temperature and specific-gravity ranges;
 * a clearly identified sample matrix.
 
+## Solution chemistry and water treatment
+
+FermUnits also provides shared solution-chemistry conversions intended for
+water-treatment and other fermentation engineering applications. These APIs
+keep chemical semantics explicit rather than hiding them inside ambiguous unit
+labels.
+
+Chemical-equivalent concentration uses FermUnits' separate `equivalent`
+dimension. Converting from amount concentration requires an explicit
+equivalence factor:
+
+```python
+from fermunits import Q_, amount_concentration_to_equivalent_concentration
+
+calcium = Q_(1.0, "millimole / liter")
+charge_equivalents = amount_concentration_to_equivalent_concentration(
+    calcium,
+    equivalence_factor=2.0,
+)
+```
+
+For conventional water-analysis reporting, FermUnits implements the relationship
+`50 mg/L as CaCO3 = 1 mEq/L`. The `as CaCO3` reporting basis remains application
+metadata; it is not encoded as though calcium carbonate were necessarily the
+dissolved analyte.
+
+```python
+from fermunits import (
+    Q_,
+    caco3_basis_mass_concentration_to_equivalent_concentration,
+)
+
+alkalinity_as_caco3 = Q_(100.0, "milligram / liter")
+alkalinity = caco3_basis_mass_concentration_to_equivalent_concentration(
+    alkalinity_as_caco3
+)
+```
+
+Mass concentration and mass fraction are not treated as interchangeable. A
+conversion such as `mg/L` to `mg/kg` requires explicit solution density:
+
+```python
+from fermunits import Q_, mass_concentration_to_mass_fraction
+
+concentration = Q_(100.0, "milligram / liter")
+density = Q_(1.05, "kilogram / liter")
+mass_fraction = mass_concentration_to_mass_fraction(concentration, density)
+```
+
+Likewise, conversion between mass concentration and amount concentration
+requires an explicit molar mass supplied as a Pint quantity:
+
+```python
+from fermunits import Q_, mass_concentration_to_amount_concentration
+
+sodium_chloride = Q_(58.44, "milligram / liter")
+molar_mass = Q_(58.44, "gram / mole")
+amount_concentration = mass_concentration_to_amount_concentration(
+    sodium_chloride,
+    molar_mass,
+)
+```
+
+FermUnits preserves Pint's generic `ppm` unit, but canonical chemistry data
+should use an explicit ratio such as `mg/kg` or `microgram / kilogram` when the intended basis
+is mass fraction. FermUnits does not define a generic `ppb` alias.
+
 ## Design principles
 
 * Pint remains the physical-unit engine.

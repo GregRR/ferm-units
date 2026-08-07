@@ -5,7 +5,17 @@ from typing import Any
 import pytest
 from pint import DimensionalityError, UnitRegistry
 
-from fermunits import Q_, create_registry
+from fermunits import (
+    Q_,
+    amount_concentration_to_equivalent_concentration,
+    amount_concentration_to_mass_concentration,
+    caco3_basis_mass_concentration_to_equivalent_concentration,
+    create_registry,
+    equivalent_concentration_to_caco3_basis_mass_concentration,
+    mass_concentration_to_amount_concentration,
+    mass_concentration_to_mass_fraction,
+    mass_fraction_to_mass_concentration,
+)
 
 
 @pytest.fixture
@@ -33,6 +43,10 @@ def registry() -> UnitRegistry[Any]:
         "gram / liter",
         "mole / liter",
         "millimole / liter",
+        "equivalent / liter",
+        "milliequivalent / liter",
+        "milligram / kilogram",
+        "microgram / kilogram",
         "gram / milliliter",
         "kilogram / liter",
         "degree_Celsius",
@@ -129,3 +143,66 @@ def test_package_level_quantity_alias_uses_fermunits_registry() -> None:
     converted = Q_(1, "us_beer_barrel").to("US_liquid_gallon")
 
     assert converted.magnitude == pytest.approx(31.0)
+
+
+def test_water_engine_equivalence_factor_conversion(
+    registry: UnitRegistry[Any],
+) -> None:
+    """Equivalent concentration requires an explicit equivalence factor."""
+    concentration = registry.Quantity(1.0, "millimole / liter")
+
+    result = amount_concentration_to_equivalent_concentration(
+        concentration,
+        equivalence_factor=2.0,
+    )
+
+    assert result.to("milliequivalent / liter").magnitude == pytest.approx(2.0)
+
+
+def test_water_engine_caco3_reporting_basis_conversion(
+    registry: UnitRegistry[Any],
+) -> None:
+    """The conventional CaCO3 reporting relationship must remain stable."""
+    reported = registry.Quantity(50.0, "milligram / liter")
+
+    equivalents = caco3_basis_mass_concentration_to_equivalent_concentration(reported)
+    restored = equivalent_concentration_to_caco3_basis_mass_concentration(equivalents)
+
+    assert equivalents.to("milliequivalent / liter").magnitude == pytest.approx(1.0)
+    assert restored.to("milligram / liter").magnitude == pytest.approx(50.0)
+
+
+def test_water_engine_density_assisted_mass_fraction_conversion(
+    registry: UnitRegistry[Any],
+) -> None:
+    """Mass concentration and mass fraction require explicit solution density."""
+    concentration = registry.Quantity(100.0, "milligram / liter")
+    density = registry.Quantity(1.05, "kilogram / liter")
+
+    mass_fraction = mass_concentration_to_mass_fraction(concentration, density)
+    restored = mass_fraction_to_mass_concentration(mass_fraction, density)
+
+    assert mass_fraction.to("milligram / kilogram").magnitude == pytest.approx(
+        95.23809523809524
+    )
+    assert restored.to("milligram / liter").magnitude == pytest.approx(100.0)
+
+
+def test_water_engine_molar_mass_conversion(
+    registry: UnitRegistry[Any],
+) -> None:
+    """Mass and amount concentrations require an explicit molar mass."""
+    mass_concentration = registry.Quantity(58.44, "milligram / liter")
+    molar_mass = registry.Quantity(58.44, "gram / mole")
+
+    amount_concentration = mass_concentration_to_amount_concentration(
+        mass_concentration,
+        molar_mass,
+    )
+    restored = amount_concentration_to_mass_concentration(
+        amount_concentration,
+        molar_mass,
+    )
+
+    assert amount_concentration.to("millimole / liter").magnitude == pytest.approx(1.0)
+    assert restored.to("milligram / liter").magnitude == pytest.approx(58.44)
