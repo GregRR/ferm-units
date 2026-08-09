@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ferm-units"
-version = "0.1.0"
+version = "0.1.1"
 description = "Fermentation beverage units and conversions built on Pint"
 readme = "README.md"
 requires-python = ">=3.14"

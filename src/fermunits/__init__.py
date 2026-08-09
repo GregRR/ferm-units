@@ -76,4 +76,4 @@ __all__ = [
     "wort_refractometer_brix_to_plato",
 ]
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"

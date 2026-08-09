@@ -2,6 +2,22 @@
 
 All notable changes to FermUnits will be documented in this file.
 
+## 0.1.1 - 2026-08-09
+
+Typing-only maintenance release.
+
+### Fixed
+
+- Preserve Pint's inferred quantity magnitude type through the public `Q_`
+  constructor instead of exposing constructed quantities as `Quantity[Any]`.
+- Add static regression coverage for `float`, `int`, `Decimal`, and `Fraction`
+  quantity magnitudes constructed through `from fermunits import Q_`.
+
+### Notes
+
+- No runtime unit or conversion behavior changed.
+- Pint remains constrained to the existing supported `>=0.25,<0.26` range.
+
 ## 0.1.0 - 2026-08-06
 
 Initial pre-alpha distributable release.
