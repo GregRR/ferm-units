@@ -10,6 +10,6 @@ lint:
 	uv run ruff check .
 
 typecheck:
-	uv run mypy src
+	uv run mypy src tests/typecheck
 
 check: lint typecheck test

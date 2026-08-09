@@ -3,7 +3,7 @@
 from importlib.resources import as_file, files
 from typing import Any, cast
 
-from pint import Context, Quantity, UnitRegistry
+from pint import Context, UnitRegistry
 from pint.facets.plain import PlainQuantity
 
 _DEFINITION_FILES = (
@@ -140,4 +140,4 @@ def create_registry() -> UnitRegistry[Any]:
 
 
 ureg: UnitRegistry[Any] = create_registry()
-Q_: type[Quantity[Any]] = ureg.Quantity
+Q_ = ureg.Quantity
