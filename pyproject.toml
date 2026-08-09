@@ -22,7 +22,7 @@ classifiers = [
   "Topic :: Scientific/Engineering",
 ]
 dependencies = [
-  "pint>=0.25,<0.26",
+  "pint>=0.25.3,<0.26",
 ]
 
 [project.urls]
