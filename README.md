@@ -4,12 +4,18 @@ FermUnits is a Pint-based Python library for units, measurement scales, and
 conversions used in brewing, winemaking, cider making, mead making, distilling,
 and related fermentation industries.
 
-> **Status:** pre-alpha. The brewing implementation now includes vessel units,
-> gravity calculations, color indices, analytical bitterness, diastatic power,
-> and carbonation conversions. Some relationships remain provisional pending
-> verification against original ASBC or EBC methods and tables.
+> **Status:** alpha (current release: **0.1.1**). FermUnits has a released,
+> tested core covering brewing units and calculations plus shared
+> solution-chemistry conversions for downstream fermentation-engineering work.
+> Public APIs and domain coverage may still evolve before 1.0. Relationships
+> awaiting primary-source verification remain explicitly provisional and are
+> tracked in the project documentation.
 
-## Installation for development
+## Installation and development
+
+FermUnits requires Python 3.14 or later and currently supports Pint >=0.25.3,<0.26.
+
+For a development checkout:
 
 ```bash
 uv sync --dev

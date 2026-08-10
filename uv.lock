@@ -72,7 +72,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "pint", specifier = ">=0.25,<0.26" }]
+requires-dist = [{ name = "pint", specifier = ">=0.25.3,<0.26" }]
 
 [package.metadata.requires-dev]
 dev = [

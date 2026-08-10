@@ -2,6 +2,16 @@
 
 All notable changes to FermUnits will be documented in this file.
 
+## Unreleased
+
+### Changed
+
+- Reclassify the project from pre-alpha to alpha in package metadata and the
+  README.
+- Clarify that the current release is 0.1.1 and that provisional scientific
+  relationships remain explicitly source-tracked despite the project maturity
+  change.
+
 ## 0.1.1 - 2026-08-09
 
 Typing-only maintenance release.
