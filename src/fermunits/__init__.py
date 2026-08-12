@@ -6,7 +6,9 @@ from fermunits.bitterness import (
 )
 from fermunits.carbonation import (
     co2_grams_per_liter_to_volumes,
+    co2_mass_concentration_to_volumes,
     co2_volumes_to_grams_per_liter,
+    co2_volumes_to_mass_concentration,
 )
 from fermunits.color import (
     ebc_to_srm,
@@ -51,7 +53,9 @@ __all__ = [
     "bitterness_units_to_absorbance_275nm",
     "caco3_basis_mass_concentration_to_equivalent_concentration",
     "co2_grams_per_liter_to_volumes",
+    "co2_mass_concentration_to_volumes",
     "co2_volumes_to_grams_per_liter",
+    "co2_volumes_to_mass_concentration",
     "create_registry",
     "ebc_to_srm",
     "equivalent_concentration_to_amount_concentration",

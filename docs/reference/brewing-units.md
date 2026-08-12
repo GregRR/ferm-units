@@ -208,8 +208,15 @@ and reporting conventions remain verification pending.**
 
 Public functions:
 
-- `co2_volumes_to_grams_per_liter`
-- `co2_grams_per_liter_to_volumes`
+- `co2_volumes_to_mass_concentration`
+- `co2_mass_concentration_to_volumes`
+- `co2_volumes_to_grams_per_liter` (scalar compatibility API)
+- `co2_grams_per_liter_to_volumes` (scalar compatibility API)
+
+The quantity-aware APIs return or accept Pint mass-concentration quantities so
+physical concentration units remain explicit at downstream engineering
+boundaries. The semantic "volumes CO2" value remains a scalar rather than an
+ordinary multiplicative Pint unit.
 
 The current implementation uses one reciprocal factor in both directions:
 

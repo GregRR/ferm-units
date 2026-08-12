@@ -125,10 +125,23 @@ FermUnits may include contract tests for downstream applications when those
 tests protect the unit boundary without importing the application's model.
 
 For example, the water-treatment contract tests confirm that required physical
-units parse, convert, and retain the expected dimensionality. A draft-system
-contract can similarly verify temperature, pressure, length, flow, density,
-viscosity, and pressure-gradient quantities without moving draft-system balance
-or gas-equilibrium calculations into FermUnits.
+units parse, convert, and retain the expected dimensionality. The draft-system
+contract similarly verifies temperature, temperature differences, pressure,
+length, flow, density, viscosity, pressure-gradient, and CO2 mass-concentration
+quantities without moving draft-system balance or gas-equilibrium calculations
+into FermUnits.
+
+The draft-system boundary intentionally preserves several semantic distinctions:
+
+- gauge versus absolute pressure is metadata about the pressure reference, not a
+  separate `psig` or `psia` unit;
+- tubing restriction is represented dimensionally as pressure drop per length,
+  such as `psi / foot`, not literal force per length;
+- explicit US-liquid aliases are preferred where US and Imperial volume names
+  could otherwise be confused;
+- carbonation may cross the boundary as a Pint mass-concentration quantity,
+  while the beverage-industry "volumes CO2" value remains an explicit semantic
+  scale handled by FermUnits conversion functions.
 
 These tests are compatibility guarantees for FermUnits behavior, not application
 implementations.

@@ -35,12 +35,12 @@ status are tracked separately.
 
 ## Milestone 1 — Draft-system compatibility
 
-**Status: next**
+**Status: complete in current development**
 
 Make FermUnits a reliable unit boundary for the Draft System Engine without
 moving draft-system engineering models into this library.
 
-Planned work:
+Implemented work:
 
 - add a draft-system unit-contract test suite covering:
   - absolute temperature and temperature differences;
@@ -75,7 +75,7 @@ boundary.
 
 ## Milestone 2 — Carbonation source verification
 
-**Status: research priority after Milestone 1**
+**Status: next research priority**
 
 Carbonation is already implemented provisionally and is an important dependency
 for draft-system work. Strengthen its source record before treating the
@@ -89,10 +89,6 @@ Investigate and document:
 - any density assumptions or distinctions between physical concentration and
   beverage-industry reporting practice;
 - appropriate valid range and reporting precision, if method-defined.
-
-Do not reproduce restricted methods or proprietary tables in the repository.
-Record bibliographic details, concise original summaries, implementation
-decisions, and lawfully documentable formulas or test values.
 
 **Completion criterion:** either promote the current carbonation relationship to
 Verified under `docs/sources.md`, or document precisely why it must remain

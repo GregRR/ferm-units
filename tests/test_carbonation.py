@@ -1,10 +1,14 @@
 import math
 
 import pytest
+from pint import DimensionalityError
 
 from fermunits import (
+    Q_,
     co2_grams_per_liter_to_volumes,
+    co2_mass_concentration_to_volumes,
     co2_volumes_to_grams_per_liter,
+    co2_volumes_to_mass_concentration,
 )
 
 EXPECTED_GRAMS_PER_LITER_PER_VOLUME = 10.0 / 5.0607
@@ -66,6 +70,58 @@ def test_carbonation_round_trip(co2_volumes: float) -> None:
 
 
 @pytest.mark.parametrize(
+    "co2_volumes",
+    [
+        0.0,
+        1.0,
+        2.5,
+        4.5,
+    ],
+)
+def test_quantity_aware_carbonation_round_trip(co2_volumes: float) -> None:
+    concentration = co2_volumes_to_mass_concentration(co2_volumes)
+    restored = co2_mass_concentration_to_volumes(concentration)
+
+    assert concentration.to("gram / liter").magnitude == pytest.approx(
+        co2_volumes * EXPECTED_GRAMS_PER_LITER_PER_VOLUME
+    )
+    assert restored == pytest.approx(co2_volumes)
+
+
+@pytest.mark.parametrize(
+    ("unit_name", "magnitude"),
+    [
+        ("gram / liter", 2.5 * EXPECTED_GRAMS_PER_LITER_PER_VOLUME),
+        ("milligram / liter", 2500.0 * EXPECTED_GRAMS_PER_LITER_PER_VOLUME),
+        ("kilogram / meter ** 3", 2.5 * EXPECTED_GRAMS_PER_LITER_PER_VOLUME),
+    ],
+)
+def test_co2_mass_concentration_to_volumes_accepts_compatible_units(
+    unit_name: str,
+    magnitude: float,
+) -> None:
+    result = co2_mass_concentration_to_volumes(Q_(magnitude, unit_name))
+
+    assert result == pytest.approx(2.5)
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        -1.0,
+        math.nan,
+        math.inf,
+        -math.inf,
+    ],
+)
+def test_co2_volumes_to_mass_concentration_rejects_invalid_value(
+    value: float,
+) -> None:
+    with pytest.raises(ValueError):
+        co2_volumes_to_mass_concentration(value)
+
+
+@pytest.mark.parametrize(
     "value",
     [
         -1.0,
@@ -95,3 +151,24 @@ def test_co2_grams_per_liter_to_volumes_rejects_invalid_value(
 ) -> None:
     with pytest.raises(ValueError):
         co2_grams_per_liter_to_volumes(value)
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        -1.0,
+        math.nan,
+        math.inf,
+        -math.inf,
+    ],
+)
+def test_co2_mass_concentration_to_volumes_rejects_invalid_value(
+    value: float,
+) -> None:
+    with pytest.raises(ValueError):
+        co2_mass_concentration_to_volumes(Q_(value, "gram / liter"))
+
+
+def test_co2_mass_concentration_to_volumes_rejects_wrong_dimension() -> None:
+    with pytest.raises(DimensionalityError):
+        co2_mass_concentration_to_volumes(Q_(2.5, "psi"))

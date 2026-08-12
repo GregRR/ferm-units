@@ -4,6 +4,14 @@ All notable changes to FermUnits will be documented in this file.
 
 ## Unreleased
 
+### Added
+
+- Add quantity-aware dissolved-CO2 conversions between volumes of CO2 and Pint
+  mass-concentration quantities while retaining the original scalar g/L APIs.
+- Add a downstream draft-system unit contract covering temperature, pressure,
+  length, volumetric flow, density, viscosity, pressure gradient, explicit US
+  liquid measures, and the quantity-aware carbonation boundary.
+
 ### Changed
 
 - Reclassify the project from pre-alpha to alpha in package metadata and the

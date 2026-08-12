@@ -151,6 +151,23 @@ verification against the original ASBC and EBC analytical methods.
 
 ## Carbonation
 
+The quantity-aware APIs keep physical CO2 mass concentration explicit for
+unit-aware downstream applications:
+
+```python
+from fermunits import (
+    Q_,
+    co2_mass_concentration_to_volumes,
+    co2_volumes_to_mass_concentration,
+)
+
+concentration = co2_volumes_to_mass_concentration(2.5)
+kilograms_per_cubic_meter = concentration.to("kilogram / meter ** 3")
+volumes = co2_mass_concentration_to_volumes(Q_(4.94, "gram / liter"))
+```
+
+The original scalar grams-per-liter APIs remain available for compatibility:
+
 ```python
 from fermunits import (
     co2_grams_per_liter_to_volumes,
@@ -166,6 +183,9 @@ reference temperature, pressure, and relationship to the complete analytical
 method remain pending verification.
 
 The same factor is used in both directions to preserve round-trip consistency.
+Gauge versus absolute pressure, carbonation-equilibrium pressure, gas blends,
+and draft-system balancing are downstream engineering semantics rather than
+FermUnits unit definitions.
 
 ## Hydrometer temperature correction
 
@@ -290,7 +310,8 @@ Implemented brewing calculations include:
 * approximate Lovibond and SRM conversion;
 * analytical bitterness units from 275 nm absorbance;
 * provisional Lintner and Windisch-Kolbach conversion;
-* dissolved CO2 conversion between volumes and grams per liter.
+* dissolved CO2 conversion between volumes and physical mass concentration,
+  with scalar grams-per-liter compatibility APIs.
 
 Not yet implemented:
 
