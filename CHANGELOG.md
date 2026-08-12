@@ -18,6 +18,9 @@ All notable changes to FermUnits will be documented in this file.
   legacy area.
 - Align the development Makefile with the locked test, lint, format, type-check,
   and diff verification gate used for releases.
+- Add a milestone-oriented project roadmap covering downstream compatibility,
+  source verification, semantic boundaries, Python support, and future domain
+  expansion.
 
 ## 0.1.1 - 2026-08-09
 

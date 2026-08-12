@@ -46,6 +46,7 @@ include = [
   "/docs",
   "/README.md",
   "/DESIGN.md",
+  "/ROADMAP.md",
   "/CHANGELOG.md",
   "/LICENSE",
   "/THIRD_PARTY_LICENSES.md",

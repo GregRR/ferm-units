@@ -1,0 +1,229 @@
+# FermUnits roadmap
+
+FermUnits is an alpha-stage library for fermentation-industry units,
+measurement scales, and reusable conversions built on Pint.
+
+The latest published release is **0.1.1**. This roadmap describes development
+priorities after that release. It is intentionally milestone-oriented rather
+than tied to speculative release numbers or dates.
+
+`DESIGN.md` defines the architectural boundaries of the project. This roadmap
+tracks work within those boundaries.
+
+## Current baseline
+
+The current core includes:
+
+- a shared Pint `UnitRegistry` and typed `Q_` constructor;
+- brewing vessel units with qualified names where plain names are ambiguous;
+- gravity-point and SG/Plato calculations;
+- wort refractometer correction with an explicit caller-supplied correction
+  factor;
+- beer color, analytical bitterness, diastatic-power, and carbonation
+  conversions;
+- chemical equivalents and equivalent concentration;
+- calcium-carbonate reporting-basis conversion;
+- density-assisted concentration and mass-fraction conversion;
+- molar-mass-assisted mass/amount concentration conversion;
+- downstream unit-contract coverage for the water-treatment engine;
+- maintained source-status documentation and an explicit scientific
+  verification policy.
+
+Some implemented brewing relationships remain provisional pending stronger
+primary-source verification. Implementation status and scientific verification
+status are tracked separately.
+
+## Milestone 1 — Draft-system compatibility
+
+**Status: next**
+
+Make FermUnits a reliable unit boundary for the Draft System Engine without
+moving draft-system engineering models into this library.
+
+Planned work:
+
+- add a draft-system unit-contract test suite covering:
+  - absolute temperature and temperature differences;
+  - pressure;
+  - tubing length and inside diameter;
+  - volumetric flow;
+  - density and dynamic viscosity;
+  - pressure gradient / line restriction;
+  - CO2 mass concentration;
+  - dimensional-incompatibility failures;
+  - explicit US-liquid-unit behavior where US and Imperial measures could be
+    confused;
+- add quantity-aware carbonation conversion APIs while retaining the existing
+  scalar APIs for compatibility;
+- document the downstream boundary for gauge versus absolute pressure,
+  pressure-gradient representation, and carbonation quantities.
+
+The following remain downstream concerns and are not FermUnits features:
+
+- `psig`/`psia` as artificial units — gauge versus absolute is a pressure
+  reference semantic;
+- tubing/manufacturer restriction coefficients;
+- component-loss tables;
+- carbonation-equilibrium pressure models;
+- mixed-gas calculations;
+- complete draft-system balancing or solver logic.
+
+**Completion criterion:** the Draft System Engine can use FermUnits/Pint for all
+v1 quantity parsing, conversion, and dimensional validation without relying on
+implicit unit conventions or naked dimensional values at the carbonation
+boundary.
+
+## Milestone 2 — Carbonation source verification
+
+**Status: research priority after Milestone 1**
+
+Carbonation is already implemented provisionally and is an important dependency
+for draft-system work. Strengthen its source record before treating the
+relationship as verified.
+
+Investigate and document:
+
+- the formal definition of one volume of CO2;
+- reference temperature and pressure;
+- the authoritative ASBC method or table identity and scope;
+- any density assumptions or distinctions between physical concentration and
+  beverage-industry reporting practice;
+- appropriate valid range and reporting precision, if method-defined.
+
+Do not reproduce restricted methods or proprietary tables in the repository.
+Record bibliographic details, concise original summaries, implementation
+decisions, and lawfully documentable formulas or test values.
+
+**Completion criterion:** either promote the current carbonation relationship to
+Verified under `docs/sources.md`, or document precisely why it must remain
+Provisional.
+
+## Milestone 3 — Brewing verification backlog
+
+**Status: planned**
+
+Continue converting implemented-but-provisional brewing relationships into
+well-sourced, explicitly scoped behavior.
+
+Priority topics include:
+
+- SG and gravity-point conventions;
+- SG-to-Plato polynomial provenance, valid range, and reference conditions;
+- Plato-to-SG inversion rationale and accuracy;
+- Brix, Plato, and Balling distinctions;
+- wort refractometer correction provenance and scope;
+- hydrometer temperature correction, which remains unimplemented until a
+  defensible method is available;
+- SRM/EBC method qualification;
+- Lovibond approximation provenance and limitations;
+- analytical bitterness method semantics;
+- Lintner/Windisch-Kolbach conversion;
+- remaining brewing vessel definitions and regional meanings.
+
+The goal is not merely more formulas. It is to make the scientific status and
+scope of existing functionality increasingly precise.
+
+**Completion criterion:** every implemented brewing relationship has a current
+maintained source record and an intentional Verified, Provisional, Ambiguous, or
+Rejected status, with Pending used for identified but not responsibly
+implementable work.
+
+## Milestone 4 — Solution-chemistry semantic boundaries
+
+**Status: planned after active downstream requirements are clearer**
+
+Revisit semantic quantities that go beyond ordinary Pint dimensionality, using
+Water Treatment and FermentationJSON requirements to decide what belongs in
+FermUnits versus downstream domain models or serialization schemas.
+
+Topics to evaluate include:
+
+- volume-fraction semantics;
+- pH as a logarithmic semantic value;
+- pH intervals and other transformations that must not be treated linearly;
+- reported bounds such as `<5 mg/L`;
+- ranges;
+- measurement uncertainty;
+- detection and quantitation limits.
+
+Do not duplicate FermentationJSON's reporting/provenance model or embed
+water-treatment calculation policy in FermUnits merely for convenience.
+
+**Completion criterion:** ownership of each semantic concern is documented, and
+only the reusable unit/conversion behavior that clearly belongs in FermUnits is
+implemented.
+
+## Milestone 5 — Python compatibility and adoption
+
+**Status: planned**
+
+Evaluate whether the current Python `>=3.14` requirement can be lowered without
+compromising the implementation or maintenance burden.
+
+Planned investigation:
+
+- run the complete test, Ruff, formatting, and mypy gates under Python 3.12,
+  3.13, and 3.14;
+- investigate Python 3.11 compatibility as an additional data point because the
+  supported Pint line permits it;
+- identify any syntax, typing, dependency, or behavior differences;
+- lower `requires-python` only after all claimed interpreter versions are
+  continuously tested in CI;
+- align Ruff targets, classifiers, documentation, and CI with the supported
+  matrix.
+
+**Completion criterion:** the minimum supported Python version is deliberate,
+CI-enforced, and no higher than necessary for FermUnits' actual requirements.
+
+## Milestone 6 — Additional fermentation domains
+
+**Status: later**
+
+Migrate legacy research into maintained domain references and add functionality
+when there is a concrete downstream need and adequate sourcing.
+
+Candidate domains include:
+
+- wine;
+- cider and perry;
+- distilling;
+- sake;
+- biofuels;
+- other fermentation and acid-tier processes.
+
+Legacy inventories under `docs/reference/legacy/` are research inputs, not a
+feature checklist. A term appearing there does not imply that FermUnits should
+implement it.
+
+**Completion criterion:** additions are demand-driven, source-traceable, and
+consistent with the naming and ownership rules in `DESIGN.md`.
+
+## Pre-1.0 stabilization
+
+Before a 1.0 release, review the project as a whole for:
+
+- public API consistency and naming stability;
+- registry aliases and collision behavior;
+- source-verification status of implemented relationships;
+- downstream contract coverage;
+- supported Python/Pint compatibility policy;
+- documentation completeness and internal consistency;
+- deprecation policy for any alpha-era APIs that need adjustment.
+
+A 1.0 release should indicate that the supported public API and documented
+semantics are intentionally stable, not that every conceivable fermentation
+domain has been implemented.
+
+## Roadmap principles
+
+- Prefer concrete downstream requirements over speculative unit accumulation.
+- Preserve Pint behavior when it already represents the correct physical unit.
+- Qualify ambiguous domain terms instead of silently redefining legitimate
+  existing names.
+- Keep empirical and analytical scales explicit rather than pretending they are
+  universal multiplicative units.
+- Keep implementation status separate from source-verification status.
+- Do not block unrelated development merely because one research item awaits
+  access to an authoritative source.
+- Revisit this roadmap when downstream projects expose new reusable unit or
+  conversion requirements.

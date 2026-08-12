@@ -307,7 +307,8 @@ meanings are documented.
 ## Design and source verification
 
 The architectural boundary between Pint, FermUnits, and downstream engineering
-applications is documented in [`DESIGN.md`](DESIGN.md).
+applications is documented in [`DESIGN.md`](DESIGN.md). Development priorities
+and milestone sequencing are tracked in [`ROADMAP.md`](ROADMAP.md).
 
 Project-wide source status and citation conventions are documented in
 [`docs/sources.md`](docs/sources.md). Maintained domain inventories live under
