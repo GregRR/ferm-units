@@ -107,16 +107,18 @@ FermUnits definitions.
 
 | Domain | File | Notes |
 |---|---|---|
-| Brewing | [`reference/brewing-units.md`](reference/brewing-units.md) | Revised and sourced |
-| Wine | [`reference/wine-units.md`](reference/wine-units.md) | Revised and sourced |
-| Distilling | `reference/distilling-units.md` | Migration pending |
-| Sake | `reference/sake-units.md` | Migration pending |
-| Cider and perry | `reference/cider-perry-units.md` | Migration pending |
-| Biofuels | `reference/biofuel-units.md` | Migration pending |
-| Acid-tier and other fermentation | `reference/acid-tier-units.md` | Migration pending |
+| Solution chemistry | [`reference/solution-chemistry.md`](reference/solution-chemistry.md) | Active and partly implemented |
+| Brewing | [`reference/brewing-units.md`](reference/brewing-units.md) | Active; implementation and verification status reconciled |
+| Wine | [`reference/wine-units.md`](reference/wine-units.md) | Current implementation status documented; broader migration pending |
+| Distilling | — | Migration pending |
+| Sake | — | Migration pending |
+| Cider and perry | — | Migration pending |
+| Biofuels | — | Migration pending |
+| Acid-tier and other fermentation | — | Migration pending |
 
-The domain files contain their own bibliographies. Do not duplicate those full
-bibliographies here.
+Historical planning inventories are retained under
+[`reference/legacy/`](reference/legacy/) as research context only. They are not
+current FermUnits specifications.
 
 ## Shared sources
 
@@ -184,25 +186,3 @@ bibliographies here.
   - authoritative analytical-method structure for wine and must;
   - methods shared with wine, cider, distilling, and other fermented-beverage
     work where applicable.
-
-## Restricted and copyrighted material
-
-Do not commit:
-
-- full ASBC, EBC, ISO, OIV, or other methods when redistribution is restricted;
-- copied proprietary tables;
-- scans or photographs of copyrighted books or paywalled standards;
-- long verbatim passages from technical publications.
-
-Do commit:
-
-- method names and numbers;
-- complete bibliographic records;
-- concise original summaries;
-- implementation decisions and unresolved questions;
-- formulas that are independently established and lawfully documented;
-- test values derived from redistributable or user-supplied sources.
-
-If a friend or collaborator provides access to a restricted publication, use it
-to verify the implementation and record the citation. Do not add the restricted
-pages themselves to the repository.

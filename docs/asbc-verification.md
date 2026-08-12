@@ -78,7 +78,8 @@ When an authoritative method is known to exist but is not fully accessible:
   * that interval is an implementation limit, not an ASBC-approved range.
 * Rejected formula:
 
-  * the inverse formula originally listed in `All Units.txt` was not
+  * the inverse formula originally listed in
+    [the legacy brewing inventory](reference/legacy/brewing-inventory.txt) was not
     implemented because it was not numerically consistent with the selected
     SG-to-Plato polynomial.
 * Confirm:
@@ -132,7 +133,8 @@ When an authoritative method is known to exist but is not fully accessible:
 
 * Status: implementation blocked pending authoritative method
 
-* Rejected provisional formula from `All Units.txt`:
+* Rejected provisional formula from
+  [the legacy brewing inventory](reference/legacy/brewing-inventory.txt):
 
   `SG_corrected = SG_measured + 0.000004811(T²) - 0.005408(T) + 0.1292`
 
@@ -260,7 +262,8 @@ When an authoritative method is known to exist but is not fully accessible:
 * Current treatment:
 
   * one factor is used in both directions to preserve round-trip consistency;
-  * the rounded `1.96` and `0.51` pair from `All Units.txt` was not used
+  * the rounded `1.96` and `0.51` pair from
+    [the legacy brewing inventory](reference/legacy/brewing-inventory.txt) was not used
     because the values are not exact reciprocals;
   * values must be finite and nonnegative.
 * Confirm:

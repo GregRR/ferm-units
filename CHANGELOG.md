@@ -8,9 +8,16 @@ All notable changes to FermUnits will be documented in this file.
 
 - Reclassify the project from pre-alpha to alpha in package metadata and the
   README.
-- Clarify that the current release is 0.1.1 and that provisional scientific
+- Clarify that the latest release is 0.1.1 and that provisional scientific
   relationships remain explicitly source-tracked despite the project maturity
   change.
+- Reconcile the README, project metadata, design documentation, source policy,
+  and maintained reference indexes.
+- Replace stale domain inventories with maintained current-status documents and
+  retain the original planning inventories under an explicitly non-normative
+  legacy area.
+- Align the development Makefile with the locked test, lint, format, type-check,
+  and diff verification gate used for releases.
 
 ## 0.1.1 - 2026-08-09
 
@@ -26,7 +33,7 @@ Typing-only maintenance release.
 ### Notes
 
 - No runtime unit or conversion behavior changed.
-- Pint remains constrained to the existing supported `>=0.25,<0.26` range.
+- Pint remains constrained to the supported `>=0.25.3,<0.26` range.
 
 ## 0.1.0 - 2026-08-06
 

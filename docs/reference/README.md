@@ -1,29 +1,38 @@
 # FermUnits Reference Inventories
 
-This directory contains the maintained technical inventories used to plan,
-implement, test, and review FermUnits definitions and domain-specific
-calculations.
+This directory contains the maintained technical inventories used to describe
+FermUnits definitions, domain-specific calculations, implementation status, and
+source-verification status.
 
-The reference files are not merely wish lists. Each entry should state what the
-term means, where it is used, whether it is a physical unit or a method-defined
-scale, how FermUnits intends to represent it, and which sources support the
-claim.
+The maintained files are not wish lists. Entries distinguish current public
+behavior from proposed work and identify whether a term is a physical unit, a
+method-defined scale, a reusable calculation, or application-level semantics
+that belong outside FermUnits.
 
 ## Files
 
 | Domain | Reference file | Current state |
 |---|---|---|
 | Solution chemistry | [solution-chemistry.md](solution-chemistry.md) | Active and partly implemented |
-| Brewing | [brewing-units.md](brewing-units.md) | Revised and sourced |
-| Wine | [wine-units.md](wine-units.md) | Revised and sourced |
-| Distilling | `distilling-units.md` | Migration pending |
-| Sake | `sake-units.md` | Migration pending |
-| Cider and perry | `cider-perry-units.md` | Migration pending |
-| Biofuels | `biofuel-units.md` | Migration pending |
-| Acid-tier and other fermentation | `acid-tier-units.md` | Migration pending |
+| Brewing | [brewing-units.md](brewing-units.md) | Active; current implementation reconciled |
+| Wine | [wine-units.md](wine-units.md) | Current implementation documented; broader migration pending |
+| Distilling | — | Migration pending |
+| Sake | — | Migration pending |
+| Cider and perry | — | Migration pending |
+| Biofuels | — | Migration pending |
+| Acid-tier and other fermentation | — | Migration pending |
 
-The domain files are the maintained source documents. A combined project-wide
-inventory may be generated from them, but it should not be edited independently.
+The maintained domain files are the source documents for current FermUnits
+behavior and planned definitions. A project-wide inventory may be generated from
+them, but should not be maintained independently.
+
+## Legacy research inventories
+
+The original planning inventories are retained in [`legacy/`](legacy/). They may
+contain superseded formulas, unsupported assumptions, provisional names, or
+research leads that were never implemented. They are preserved for historical
+context and future source investigation, not as normative FermUnits
+documentation.
 
 ## Required entry fields
 
@@ -56,10 +65,10 @@ Domain source identifiers use a short prefix:
 - `AT-` — acid-tier and other fermentation
 - `SH-` — shared project sources
 
-Examples:
+Example:
 
 ```text
-Sources: [WI-OIV-01], [SH-OIML-01]
+Sources: [SC-IUPAC-01], [SH-SI-01]
 Status: Verified physical definition; analytical application provisional.
 ```
 
@@ -74,7 +83,7 @@ Use the status terms defined in [`../sources.md`](../sources.md). In brief:
 - **Verified** — the cited authoritative source directly supports the claim.
 - **Provisional** — useful and implemented or proposed, but not yet supported
   strongly enough to be stable.
-- **Pending** — research or restricted-source review is still required.
+- **Pending** — further source verification is still required.
 - **Rejected** — reviewed and intentionally not used.
 - **Ambiguous** — the unqualified name has multiple legitimate meanings.
 
@@ -89,21 +98,3 @@ while its scientific relationship remains provisional.
 - Keep analytical scales and empirical calculations separate from ordinary
   multiplicative physical units.
 - Record aliases that were considered and rejected.
-
-## Copyright and restricted methods
-
-Do not commit full copyrighted methods, restricted tables, scans, or substantial
-verbatim extracts unless the project has permission to redistribute them.
-
-It is appropriate to record:
-
-- method titles and identifiers;
-- bibliographic citations;
-- URLs;
-- concise original summaries;
-- formulas or definitions that may lawfully be recorded;
-- notes describing what still needs verification.
-
-When a restricted authoritative method is known to exist, mark the item pending
-and use the strongest accessible supporting source without claiming that the
-restricted text was reviewed.

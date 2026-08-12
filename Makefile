@@ -1,15 +1,24 @@
-.PHONY: install test lint typecheck check
+.PHONY: install lockcheck test lint formatcheck typecheck diffcheck check
 
 install:
-	uv sync --dev
+	uv sync --locked --dev
+
+lockcheck:
+	uv lock --check
 
 test:
-	uv run pytest
+	uv run --locked pytest
 
 lint:
-	uv run ruff check .
+	uv run --locked ruff check .
+
+formatcheck:
+	uv run --locked ruff format --check .
 
 typecheck:
-	uv run mypy src tests/typecheck
+	uv run --locked mypy src tests/typecheck
 
-check: lint typecheck test
+diffcheck:
+	git diff --check
+
+check: lockcheck test lint formatcheck typecheck diffcheck

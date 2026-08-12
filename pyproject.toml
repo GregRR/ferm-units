@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "ferm-units"
 version = "0.1.1"
-description = "Fermentation beverage units and conversions built on Pint"
+description = "Fermentation-industry units, measurement scales, and conversions built on Pint"
 readme = "README.md"
 requires-python = ">=3.14"
 license = "MIT"
@@ -45,6 +45,7 @@ include = [
   "/tests",
   "/docs",
   "/README.md",
+  "/DESIGN.md",
   "/CHANGELOG.md",
   "/LICENSE",
   "/THIRD_PARTY_LICENSES.md",

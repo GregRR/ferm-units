@@ -1,3 +1,11 @@
+LEGACY RESEARCH INVENTORY — NOT CURRENT FERMUNITS DOCUMENTATION
+
+This file is preserved as historical planning and research context. It may
+contain superseded formulas, unsupported claims, approximate values, proposed
+names that were never implemented, or items still awaiting authoritative source
+verification. See ../README.md and the maintained reference documents in the
+parent directory for current FermUnits behavior.
+
 ================================================================================
           MASTER FERMENTATION CALCULATOR SPECIFICATION - PART 1: BREWING
 ================================================================================

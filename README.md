@@ -4,7 +4,7 @@ FermUnits is a Pint-based Python library for units, measurement scales, and
 conversions used in brewing, winemaking, cider making, mead making, distilling,
 and related fermentation industries.
 
-> **Status:** alpha (current release: **0.1.1**). FermUnits has a released,
+> **Project status:** alpha. **Latest release:** 0.1.1. FermUnits has a released,
 > tested core covering brewing units and calculations plus shared
 > solution-chemistry conversions for downstream fermentation-engineering work.
 > Public APIs and domain coverage may still evolve before 1.0. Relationships
@@ -13,7 +13,14 @@ and related fermentation industries.
 
 ## Installation and development
 
-FermUnits requires Python 3.14 or later and currently supports Pint >=0.25.3,<0.26.
+FermUnits requires Python 3.14 or later and currently supports Pint
+`>=0.25.3,<0.26`.
+
+Install the latest release from PyPI:
+
+```bash
+pip install ferm-units
+```
 
 For a development checkout:
 
@@ -256,10 +263,10 @@ is mass fraction. FermUnits does not define a generic `ppb` alias.
 * Input validation rejects nonfinite or physically invalid values.
 * Every domain definition and calculation should have a documented source and
   tests.
-* Restricted authoritative methods are recorded for later verification rather
-  than treated as though their details were directly confirmed.
+* Scientific verification status is tracked separately from implementation
+  status.
 * Unsupported formulas are rejected rather than implemented merely because
-  they appeared in the initial project inventory.
+  they appeared in an early project inventory.
 
 ## Current brewing scope
 
@@ -297,16 +304,15 @@ Additional wine, distilling, sake, cider, biofuel, and fermentation-process
 definitions will be added after their regional, historical, legal, or technical
 meanings are documented.
 
-## Source verification
+## Design and source verification
 
-Detailed source-status notes and unresolved questions are tracked in:
+The architectural boundary between Pint, FermUnits, and downstream engineering
+applications is documented in [`DESIGN.md`](DESIGN.md).
 
-```text
-docs/asbc-verification.md
-```
-
-Items remain on that checklist until the original ASBC or EBC method, table,
-or publication can be reviewed directly.
+Project-wide source status and citation conventions are documented in
+[`docs/sources.md`](docs/sources.md). Maintained domain inventories live under
+[`docs/reference/`](docs/reference/), and unresolved ASBC/EBC verification work
+is tracked in [`docs/asbc-verification.md`](docs/asbc-verification.md).
 
 ## License
 
