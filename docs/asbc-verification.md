@@ -250,27 +250,60 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ## Carbonation
 
-### Volumes of CO2 and grams per liter
+### Volumes of CO2 and physical mass concentration
 
-* Status: supporting ASBC-hosted relationship identified; method details
-  pending
+* Status: **Milestone 2 accessible-source review complete; remains Provisional
+  pending direct ASBC method-text verification**
 * Implemented relationship:
 
   * `grams per liter per volume = 10 / 5.0607`
   * approximately `1.976 g/L` per volume of CO2;
   * inverse calculated from the same factor.
+* Confirmed from accessible sources:
+
+  * current ASBC materials identify Beer-13 as the dissolved-CO2 analytical
+    method family and Beer-13C as a manometric/volumetric method;
+  * current ASBC materials identify Fills-1 as a packaging/net-content method,
+    so Fills-1 must not be described as the primary dissolved-CO2 analytical
+    method;
+  * Torrent (2006), submitted on behalf of the EBC Analysis Committee, reports
+    an ASBC-adopted Fills-1 equation using `k = 506.07 mL/g` as the conversion
+    constant for CO2 in volumes to CO2 by weight;
+  * independent physical data give CO2 gas density near `1.976 g/L` at `0 °C`
+    and `760 mmHg`;
+  * University of Florida beverage guidance defines volumes of CO2 as
+    standard-state gas volume per liquid volume and uses `1.96 g/L` as its
+    calculation convention.
+* Density/specific-gravity interpretation:
+
+  * the direct standardized-gas-volume-to-mass-concentration relationship does
+    not require a beverage-density input in the FermUnits API;
+  * beverage density/specific gravity and CO2 partial molal volume enter the
+    separate package-density, mass-percent, and net-content correction context;
+  * FermUnits does not implement that Fills-1/EBC package-correction model.
 * Current treatment:
 
   * one factor is used in both directions to preserve round-trip consistency;
   * the rounded `1.96` and `0.51` pair from
-    [the legacy brewing inventory](reference/legacy/brewing-inventory.txt) was not used
-    because the values are not exact reciprocals;
-  * values must be finite and nonnegative.
-* Confirm:
+    [the legacy brewing inventory](reference/legacy/brewing-inventory.txt) is
+    not used as a reciprocal pair;
+  * the more precise ASBC/EBC-associated approximately `1.976 g/L` factor is
+    retained while the official ASBC reporting precision remains unresolved;
+  * values must be finite and nonnegative;
+  * no validity range from partial-molal-volume/package-density studies is
+    applied to the direct conversion without source support.
+* Still pending direct ASBC verification:
 
-  * original ASBC analytical method;
-  * reference temperature and pressure;
-  * definition of one volume of CO2;
-  * treatment of beverage density or specific gravity;
-  * whether different industries use different standard conditions;
-  * expected reporting precision.
+  * inspect the applicable current Beer-13 method text directly;
+  * inspect the applicable current Fills-1 method text directly;
+  * confirm whether ASBC normatively defines one volume of CO2 at `0 °C` and
+    `760 mmHg` (`101.325 kPa`) or another reference state;
+  * confirm official rounding/reporting precision;
+  * document any legitimate alternative standard states used by other beverage
+    industries.
+
+The maintained source records and their limitations are in
+[`reference/brewing-units.md`](reference/brewing-units.md), including
+`BR-ASBC-BEER13-01`, `BR-ASBC-FILLS1-01`, and `BR-EBC-TORRENT-2006`. Shared
+physical and beverage-guidance sources are recorded in [`sources.md`](sources.md)
+as `SH-PUBCHEM-CO2-01` and `SH-UF-CO2-01`.

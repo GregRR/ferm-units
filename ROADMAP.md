@@ -75,7 +75,7 @@ boundary.
 
 ## Milestone 2 — Carbonation source verification
 
-**Status: next research priority**
+**Status: complete for accessible-source review; direct ASBC method-text verification remains pending**
 
 Carbonation is already implemented provisionally and is an important dependency
 for draft-system work. Strengthen its source record before treating the
@@ -90,13 +90,14 @@ Investigate and document:
   beverage-industry reporting practice;
 - appropriate valid range and reporting precision, if method-defined.
 
-**Completion criterion:** either promote the current carbonation relationship to
-Verified under `docs/sources.md`, or document precisely why it must remain
-Provisional.
+**Completion criterion:** met for the accessible-source review. The current
+relationship remains Provisional because authoritative method-text verification
+has not yet established the normative reference state and reporting precision.
+The unresolved direct ASBC checks remain tracked in `docs/asbc-verification.md`.
 
 ## Milestone 3 — Brewing verification backlog
 
-**Status: planned**
+**Status: next**
 
 Continue converting implemented-but-provisional brewing relationships into
 well-sourced, explicitly scoped behavior.

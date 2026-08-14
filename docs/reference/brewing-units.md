@@ -227,9 +227,127 @@ grams per liter per volume = 10 / 5.0607
 This is approximately `1.976 g/L` per volume of CO2. The legacy `1.96` and
 `0.51` pair is not used because those rounded values are not exact reciprocals.
 
-Status: **Implemented provisionally; exact reference temperature, pressure,
-definition of one volume, beverage-density treatment, and complete ASBC method
-context remain verification pending.**
+### Accessible-source verification result
+
+The Milestone 2 source review narrowed the remaining uncertainty substantially:
+
+- ASBC materials identify **Beer 13 — Dissolved Carbon Dioxide** as the
+  analytical method family for dissolved CO2 in brewery products, and *The
+  Brewing Science Laboratory* identifies **Beer 13C** as the
+  manometric/volumetric method. [BR-ASBC-BEER13-01]
+- ASBC **Fills-1** is a packaging/net-content calculation, not the primary
+  dissolved-CO2 analytical method. [BR-ASBC-FILLS1-01]
+- Torrent (2006), submitted on behalf of the EBC Analysis Committee, reproduces
+  an ASBC-adopted Fills-1 density-correction equation and explicitly identifies
+  `k = 506.07 mL/g` as the conversion constant for CO2 in volumes to CO2 by
+  weight. [BR-EBC-TORRENT-2006]
+- Independent physical data report CO2 gas density of approximately `1.976 g/L`
+  at `0 °C` and `760 mmHg`. [SH-PUBCHEM-CO2-01]
+- University of Florida beverage guidance defines carbonation in volumes as
+  volumes of CO2 at STP per volume of liquid and uses
+  `1 vol/vol = 1.96 g/L` as its calculation convention. [SH-UF-CO2-01]
+
+These sources make the current approximately `1.976 g/L` factor physically and
+industrially well supported. They do **not**, however, expose enough of the
+current applicable ASBC method text to establish that ASBC normatively defines
+one reported volume using exactly `0 °C` and `760 mmHg`, or to establish the
+official reporting precision. Under FermUnits' verification policy, the
+relationship therefore remains **Provisional**, not Verified.
+
+### Density and specific-gravity boundary
+
+The accessible sources also clarify two different uses of density that should
+not be conflated:
+
+- converting a standardized gas-volume ratio to physical CO2 mass concentration
+  uses the gas reference-state conversion factor;
+- converting carbonation to mass percent, or correcting packaged-beer density
+  and net contents for dissolved CO2, can additionally involve beverage density
+  or specific gravity and CO2 partial molal volume.
+
+FermUnits' direct volumes-to-`g/L` API implements the first relationship. It does
+not implement the separate Fills-1/EBC package-density correction model. This is
+an implementation interpretation supported by the dimensional and method-scope
+separation in the accessible sources; direct ASBC method-text review is still
+required before treating the convention as normative.
+
+No beverage-specific validity range is currently imposed on the direct
+volumes-to-mass-concentration conversion. Experimental ranges reported for
+package-density/partial-molal-volume correction models must not be reused as a
+validity range for the simpler reference-state conversion without direct source
+support.
+
+### Remaining verification questions
+
+- inspect the applicable current ASBC Beer-13 method text directly;
+- inspect the applicable current ASBC Fills-1 text directly;
+- confirm the normative reference temperature and pressure for reported
+  "volumes of CO2";
+- confirm whether ASBC reporting uses the approximately `1.976 g/L`
+  relationship, a `1.96 g/L` convention, or another stated precision;
+- document any legitimate industry-specific alternative standard states rather
+  than silently treating one convention as universal.
+
+Status: **Implemented provisionally; accessible-source review complete. Direct
+ASBC method-text verification of reference state and reporting precision remains
+pending.**
+
+### Carbonation-specific sources
+
+#### [BR-ASBC-BEER13-01] ASBC Beer 13 — Dissolved Carbon Dioxide
+
+- Organization: American Society of Brewing Chemists (ASBC)
+- Method index: `https://www.asbcnet.org/Methods/BeerMethods/pages/default.aspx`
+- Supporting publication: *The Brewing Science Laboratory*
+- URL: `https://www.asbcnet.org/publications/Pages/BSL.aspx`
+- Accessed: 2026-08-12
+- Tier: 2
+- Supports:
+  - Beer 13 as the ASBC dissolved-carbon-dioxide method family for brewery
+    products;
+  - the Beer 13C method name, "Dissolved Carbon Dioxide—Manometric/Volumetric
+    Method."
+- Limitations:
+  - the public method listing and book contents do not expose the complete
+    Beer-13 method text;
+  - they do not by themselves establish the reference state or numerical
+    conversion used by FermUnits.
+
+#### [BR-ASBC-FILLS1-01] ASBC Fills-1 — Total Contents of Bottles and Cans by Calculation from Measured Net Weight
+
+- Organization: American Society of Brewing Chemists (ASBC)
+- URL: `https://www.asbcnet.org/Methods/PackagingMethods/pages/default.aspx`
+- Accessed: 2026-08-12
+- Tier: 2
+- Supports:
+  - Fills-1 as a packaging/net-content calculation from measured net weight;
+  - separation of the Fills-1 packaging role from Beer-13 dissolved-CO2
+    analysis.
+- Limitation:
+  - the complete current Fills-1 equation and its definitions were not publicly
+    exposed during this review.
+
+#### [BR-EBC-TORRENT-2006] CO2 correction factor for the net contents of containers
+
+- Author: J. Torrent
+- Submitted on behalf of: Analysis Committee of the European Brewery Convention
+- Publication: *BrewingScience*, 60(11/12), 3–4, 2006
+- URL: `https://brewingscience.de/index.php/brewingscience/article/view/503`
+- Accessed: 2026-08-12
+- Tier: 4
+- Supports:
+  - `k = 506.07 mL/g` as the conversion constant for CO2 in volumes to CO2 by
+    weight in an equation described as adopted by ASBC;
+  - identification of the historical ASBC source as Fills-1/Fills-2 in the
+    eighth revised edition (1992);
+  - the distinct role of beverage density, specific gravity, residual CO2, and
+    CO2 partial molal volume in package-density/net-content corrections.
+- Limitation:
+  - this is an EBC Analysis Committee technical publication discussing
+    packaging correction, not the current ASBC Beer-13 or Fills-1 method text;
+  - ranges in the paper concern the density-correction model and must not be
+    treated as a validity range for FermUnits' direct volumes-to-`g/L`
+    conversion.
 
 ## Explicitly superseded legacy claims
 

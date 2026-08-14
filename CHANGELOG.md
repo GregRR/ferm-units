@@ -29,6 +29,11 @@ All notable changes to FermUnits will be documented in this file.
 - Add a milestone-oriented project roadmap covering downstream compatibility,
   source verification, semantic boundaries, Python support, and future domain
   expansion.
+- Complete the accessible-source carbonation verification pass, distinguish
+  ASBC Beer-13 dissolved-CO2 analysis from Fills-1 packaging/net-content
+  calculations, document the `506.07 mL/g` source trail and standard-state
+  physical support, and retain the conversion as Provisional pending direct
+  ASBC method-text verification of reference state and reporting precision.
 
 ## 0.1.1 - 2026-08-09
 

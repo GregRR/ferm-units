@@ -176,6 +176,38 @@ current FermUnits specifications.
 - Limitation:
   - not a brewing- or wine-specific correction table.
 
+### [SH-PUBCHEM-CO2-01] PubChem — Carbon Dioxide physical properties
+
+- Organization: National Library of Medicine, National Center for Biotechnology
+  Information (PubChem)
+- Record: Carbon Dioxide, CID 280
+- URL: https://pubchem.ncbi.nlm.nih.gov/compound/280
+- Accessed: 2026-08-12
+- Tier: 3
+- Supports:
+  - CO2 gas density of approximately `1.976 g/L` at `0 °C` and `760 mmHg`.
+- Limitation:
+  - physical-property support only; does not establish the normative
+    brewing-industry definition or reporting convention for "volumes of CO2."
+
+### [SH-UF-CO2-01] A Guide to Carbonating Beverages at Small Scale
+
+- Organization: University of Florida IFAS Extension
+- Authors: Xuwei Song, Nicholas Wendrick, Charles A. Sims, Andrew MacIntosh
+- Publication: FS379
+- URL: https://ask.ifas.ufl.edu/publication/FS379
+- Accessed: 2026-08-12
+- Tier: 6
+- Supports:
+  - beverage carbonation reported as grams CO2 per liter or volumes of CO2 at
+    STP per volume of liquid;
+  - the guide's operational conversion `1 vol/vol = 1.96 g/L`.
+- Limitation:
+  - technical extension guidance rather than an ASBC/EBC analytical standard;
+  - the `1.96 g/L` value is the guide's calculation convention and differs
+    from the ASBC/EBC-associated approximately `1.976 g/L` factor retained by
+    FermUnits.
+
 ### [SH-OIV-01] Compendium of International Methods of Wine and Must Analysis
 
 - Organization: International Organisation of Vine and Wine (OIV)

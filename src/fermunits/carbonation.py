@@ -41,12 +41,13 @@ def co2_volumes_to_mass_concentration(co2_volumes: float) -> Quantity[Any]:
     The result is returned in grams per liter and can be converted to any
     dimensionally compatible Pint mass-concentration unit.
 
-    The factor is derived from an ASBC-hosted presentation relating volumes
-    of CO₂ to mass percent and beverage specific gravity. It gives
-    approximately 1.976 g/L per volume.
+    The factor is based on the 506.07 mL/g conversion constant reported by an
+    EBC Analysis Committee publication for an ASBC-adopted Fills-1 equation. It
+    gives approximately 1.976 g/L per volume.
 
-    The exact reference conditions and relationship to the complete ASBC
-    analytical method remain pending verification.
+    The applicable ASBC Beer-13/Fills-1 method text has not yet been reviewed
+    directly for its normative reference state and reporting precision, so the
+    carbonation convention remains provisional.
     """
     _require_nonnegative_finite(co2_volumes, "CO2 volumes")
 
