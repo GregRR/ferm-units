@@ -9,6 +9,14 @@ and related fermentation industries.
 > and carbonation conversions. Some relationships remain provisional pending
 > verification against original ASBC or EBC methods and tables.
 
+## Installation
+
+FermUnits requires Python 3.11 or later and Pint `>=0.25.3,<0.26`.
+
+```bash
+pip install ferm-units
+```
+
 ## Installation for development
 
 ```bash
