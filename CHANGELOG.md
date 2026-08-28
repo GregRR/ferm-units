@@ -16,7 +16,7 @@ All notable changes to FermUnits will be documented in this file.
 
 - Reclassify the project from pre-alpha to alpha in package metadata and the
   README.
-- Clarify that the latest release is 0.1.1 and that provisional scientific
+- Clarify that the latest release is 0.1.2 and that provisional scientific
   relationships remain explicitly source-tracked despite the project maturity
   change.
 - Reconcile the README, project metadata, design documentation, source policy,
@@ -35,6 +35,22 @@ All notable changes to FermUnits will be documented in this file.
   physical support, and retain the conversion as Provisional pending direct
   ASBC method-text verification of reference state and reporting precision.
 
+## 0.1.2 - 2026-08-28
+
+Python compatibility and release-automation maintenance release.
+
+### Changed
+
+- Lower the supported Python floor from 3.14 to 3.11 and test Python 3.11,
+  3.12, 3.13, and 3.14 in CI.
+- Require Pint `>=0.25.3,<0.26`, retaining the fixes required by FermUnits.
+- Align Ruff and mypy compatibility targets with the Python 3.11 support floor.
+- Publish GitHub releases to PyPI through Trusted Publishing.
+
+### Notes
+
+- No runtime unit or conversion behavior changed.
+
 ## 0.1.1 - 2026-08-09
 
 Typing-only maintenance release.
@@ -49,7 +65,7 @@ Typing-only maintenance release.
 ### Notes
 
 - No runtime unit or conversion behavior changed.
-- Pint remains constrained to the supported `>=0.25.3,<0.26` range.
+- Pint remains constrained to the existing supported `>=0.25,<0.26` range.
 
 ## 0.1.0 - 2026-08-06
 
