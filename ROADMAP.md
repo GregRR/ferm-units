@@ -3,7 +3,7 @@
 FermUnits is an alpha-stage library for fermentation-industry units,
 measurement scales, and reusable conversions built on Pint.
 
-The latest published release is **0.1.1**. This roadmap describes development
+The latest published release is **0.1.2**. This roadmap describes development
 priorities after that release. It is intentionally milestone-oriented rather
 than tied to speculative release numbers or dates.
 
@@ -75,7 +75,7 @@ boundary.
 
 ## Milestone 2 — Carbonation source verification
 
-**Status: complete for accessible-source review; direct ASBC method-text verification remains pending**
+**Status: complete for the current development cycle; direct ASBC method-text verification remains pending**
 
 Carbonation is already implemented provisionally and is an important dependency
 for draft-system work. Strengthen its source record before treating the
@@ -97,7 +97,7 @@ The unresolved direct ASBC checks remain tracked in `docs/asbc-verification.md`.
 
 ## Milestone 3 — Brewing verification backlog
 
-**Status: next**
+**Status: in progress**
 
 Continue converting implemented-but-provisional brewing relationships into
 well-sourced, explicitly scoped behavior.
@@ -152,25 +152,22 @@ implemented.
 
 ## Milestone 5 — Python compatibility and adoption
 
-**Status: planned**
+**Status: complete in 0.1.2**
 
-Evaluate whether the current Python `>=3.14` requirement can be lowered without
-compromising the implementation or maintenance burden.
+FermUnits 0.1.2 established Python 3.11 as the deliberate minimum supported
+version and added continuous coverage through Python 3.14.
 
-Planned investigation:
+Completed work:
 
-- run the complete test, Ruff, formatting, and mypy gates under Python 3.12,
-  3.13, and 3.14;
-- investigate Python 3.11 compatibility as an additional data point because the
-  supported Pint line permits it;
-- identify any syntax, typing, dependency, or behavior differences;
-- lower `requires-python` only after all claimed interpreter versions are
-  continuously tested in CI;
-- align Ruff targets, classifiers, documentation, and CI with the supported
-  matrix.
+- lower `requires-python` from `>=3.14` to `>=3.11`;
+- continuously test Python 3.11, 3.12, 3.13, and 3.14 in CI;
+- align Ruff and mypy compatibility targets with Python 3.11;
+- require Pint `>=0.25.3,<0.26`, whose supported Python floor is also 3.11;
+- verify the published 0.1.2 artifact installs and imports under Python 3.11.
 
-**Completion criterion:** the minimum supported Python version is deliberate,
-CI-enforced, and no higher than necessary for FermUnits' actual requirements.
+**Completion criterion:** met. The minimum supported Python version is
+deliberate, CI-enforced, and no higher than necessary for the current
+implementation and supported Pint line.
 
 ## Milestone 6 — Additional fermentation domains
 

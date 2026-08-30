@@ -54,8 +54,10 @@ def gravity_points_to_sg(gravity_points: float) -> float:
 def sg_to_plato(specific_gravity: float) -> float:
     """Estimate degrees Plato from specific gravity.
 
-    This polynomial is provisional pending verification against an
-    authoritative ASBC method or extract table.
+    The coefficients are published in a 1984 Journal of the American Society
+    of Brewing Chemists article as a regression from tabular Plato data. The
+    underlying table reference, reference conditions, and scientific validity
+    range still require direct verification.
 
     No scientific validity range is asserted yet. The input must be finite and
     greater than zero.
@@ -74,8 +76,9 @@ def plato_to_sg(plato: float) -> float:
     """Estimate specific gravity from degrees Plato.
 
     This function numerically inverts ``sg_to_plato`` so the two provisional
-    conversions remain internally consistent. The underlying polynomial is
-    pending verification against an authoritative ASBC method or extract table.
+    conversions remain internally consistent. The underlying polynomial has
+    published JASBC provenance, but its table reference and scientific range
+    still require direct verification.
 
     The current numerical search interval is SG 0.5 through 2.0. This is an
     implementation limit and must not be interpreted as an ASBC-approved

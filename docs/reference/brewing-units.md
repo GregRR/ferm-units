@@ -48,10 +48,13 @@ SG = 1 + GU / 1000
 ```
 
 Specific gravity is treated as a dimensionless ratio. The numeric value does not
-encode reference temperature.
+encode reference temperature. The gravity-points arithmetic is independently
+documented as brewing shorthand by the Canadian Homebrewers Association,
+including the example `1.046 = 46` gravity points. [BR-CHA-GU-2021]
 
-Status: **Implemented; ASBC terminology and reference-condition verification
-pending.**
+Status: **Implemented; the gravity-points convention is sourced as brewing
+shorthand, while ASBC terminology and specific-gravity reference-condition
+verification remain pending.**
 
 ### Specific gravity and degrees Plato
 
@@ -69,12 +72,21 @@ The current SG-to-Plato polynomial is:
 `plato_to_sg` numerically inverts that same polynomial rather than using an
 independent approximate inverse. This preserves round-trip consistency.
 
-Status: **Implemented provisionally; primary source, reference conditions,
-scientific validity range, and expected precision remain ASBC verification
-pending.**
+A 1984 *Journal of the American Society of Brewing Chemists* article titled
+*Statistical Analysis* publishes these coefficients as a regression for degrees
+Plato from specific gravity obtained from tabular data. The accessible record
+therefore establishes substantially stronger provenance for the implemented
+polynomial than the legacy inventory did. [BR-JASBC-PLATO-1984]
+
+Status: **Implemented provisionally; polynomial provenance identified in a JASBC
+publication, while the underlying table reference, reference conditions,
+scientific validity range, and full precision qualification remain direct
+verification items.**
 
 The numerical SG search interval used by the inverse is an implementation limit,
-not an asserted scientific range.
+not an asserted scientific range. The inverse itself is a FermUnits numerical
+implementation choice: it solves the published forward polynomial rather than
+claiming a separately standardized Plato-to-SG equation.
 
 ### Brix, Plato, and Balling
 
@@ -83,9 +95,16 @@ currently provide separate Balling functions. These scales have distinct
 historical and analytical contexts and are not treated as interchangeable unit
 aliases.
 
-Status: **Not implemented; verification pending.**
+A peer-reviewed laboratory brewing protocol describes degrees Plato as the
+mass percentage of dissolved solids in wort by reference to the density of an
+equivalent sucrose solution. [BR-THESSELING-2019] OIML guidance separately
+anchors Brix to sucrose mass-fraction/refractometer practice. [SH-OIML-01]
+These related measurement traditions are enough to support keeping the names
+semantically distinct rather than defining a universal arithmetic conversion.
 
-Sources: [SH-OIML-01] for Brix instrument context.
+Status: **Not implemented by design; the modern Plato and Brix meanings are
+sourced, while historical Balling details and any stated cross-scale tolerance
+remain verification pending.**
 
 ### Wort refractometer correction
 
@@ -105,8 +124,14 @@ The wort correction factor is required explicitly. FermUnits does not define a
 default correction factor, and these functions are not represented as generic
 Brix/Plato scale conversions.
 
-Status: **Implemented provisionally; ASBC procedure and recommended calibration
-practice remain verification pending.**
+The current M3 review found no authoritative support for a universal wort
+correction factor. OIML's Brix treatment is tied to sucrose/refractometer
+measurement conditions rather than to a universal wort composition, so the
+caller-supplied-factor boundary remains intentionally conservative.
+
+Status: **Implemented provisionally; the explicit-factor API is retained, while
+ASBC procedure, calibration practice, and any defensible factor range remain
+verification pending.**
 
 Sources: [SH-OIML-01] for refractometer/Brix measurement context.
 
@@ -126,6 +151,62 @@ Status: **Rejected legacy formula; replacement implementation blocked pending an
 authoritative method.**
 
 Sources: [SH-NIST-01] for hydrometer calibration and temperature-effect context.
+
+
+### Gravity and extract sources
+
+#### [BR-CHA-GU-2021] Beer Math—Working With Percentages and Gravity Units
+
+- Author: Aaron Brown
+- Organization: Canadian Homebrewers Association
+- URL: https://canadahomebrews.ca/2021/04/08/beer-math-working-with-percentages-and-gravity-units/
+- Accessed: 2026-08-30
+- Tier: 4
+- Supports:
+  - gravity units/points as the digits after the decimal place of specific
+    gravity multiplied by 1000;
+  - the concrete brewing convention that SG `1.046` corresponds to 46 gravity
+    points.
+- Limitation:
+  - brewing-practice guidance rather than an ASBC analytical method; does not
+    establish a specific-gravity reference temperature or reporting precision.
+
+#### [BR-JASBC-PLATO-1984] Statistical Analysis
+
+- Publication: *Journal of the American Society of Brewing Chemists*, 42(3),
+  138–143, 1984
+- DOI: https://doi.org/10.1094/ASBCJ-42-0138
+- Accessed: 2026-08-30
+- Tier: 5
+- Supports:
+  - the exact implemented cubic coefficients for regression of degrees Plato
+    from specific gravity;
+  - description of that regression as being obtained from tabular data.
+- Limitations:
+  - the complete article text and its referenced source table were not directly
+    accessible during this review;
+  - the accessible record does not establish the table's normative reference
+    conditions, complete validity range, or the full precision qualification;
+  - this journal article is evidence for provenance, not a substitute for direct
+    review of any applicable current ASBC method or table.
+
+#### [BR-THESSELING-2019] A Hands-On Guide to Brewing and Analyzing Beer in the Laboratory
+
+- Authors: Florian A. Thesseling, Peter W. Bircham, Stijn Mertens, Karin
+  Voordeckers, Kevin J. Verstrepen
+- Publication: *Current Protocols in Microbiology*, 54(1), e91, 2019
+- DOI: https://doi.org/10.1002/cpmc.91
+- PMCID: PMC9286407
+- Accessed: 2026-08-30
+- Tier: 5
+- Supports:
+  - degrees Plato as a brewing measure tied to mass percentage of dissolved
+    solids in wort;
+  - the sucrose-solution reference meaning used to interpret degrees Plato.
+- Limitation:
+  - does not establish the provenance, coefficients, or range of FermUnits'
+    SG-to-Plato polynomial;
+  - does not establish a universal Brix/Plato/Balling conversion rule.
 
 ## Beer color
 

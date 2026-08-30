@@ -30,11 +30,18 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Gravity points
 
-* Status: ASBC verification pending
+* Status: brewing shorthand sourced; ASBC terminology verification pending
 * Implemented formulas:
 
   * `GU = (SG - 1) * 1000`
   * `SG = 1 + (GU / 1000)`
+* Accessible-source result:
+
+  * Canadian Homebrewers Association guidance defines gravity units as the
+    digits after the SG decimal multiplied by 1000 and gives SG `1.046` as
+    46 gravity points;
+  * this supports the implemented arithmetic as brewing shorthand but does not
+    make gravity points an ASBC analytical measurement.
 * Confirm:
 
   * whether ASBC formally defines gravity points;
@@ -44,28 +51,40 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Specific gravity to degrees Plato
 
-* Status: ASBC verification pending
+* Status: polynomial provenance identified; underlying ASBC table and
+  reference-condition verification pending
 
-* Implemented provisional polynomial:
+* Implemented polynomial:
 
   `°P = -616.868 + 1111.14(SG) - 630.272(SG²) + 135.997(SG³)`
 
+* Accessible-source result:
+
+  * a 1984 *Journal of the American Society of Brewing Chemists* article,
+    *Statistical Analysis* (42(3), 138–143; DOI
+    `10.1094/ASBCJ-42-0138`), publishes the exact implemented coefficients;
+  * the accessible article record describes the regression as being obtained
+    from tabular data;
+  * this establishes provenance for the polynomial but does not expose enough
+    of the article/reference table to establish all normative conditions.
+
 * Current treatment:
 
-  * the function is explicitly documented as provisional;
+  * the function remains explicitly documented as provisional;
   * no ASBC-approved scientific validity range is claimed;
   * SG 1.000 evaluates to approximately `-0.003 °P` because of the rounded
     polynomial coefficients;
   * the result is not silently clamped to zero.
 
-* Confirm:
+* Still confirm directly:
 
-  * original source of the polynomial;
-  * whether it is endorsed or merely commonly used;
-  * valid SG range;
-  * expected precision;
-  * reference temperature;
-  * whether ASBC recommends an official extract table instead.
+  * the identity and edition of the tabular source referenced by the 1984
+    article;
+  * whether that table or regression remains the applicable ASBC convention;
+  * valid SG range and the complete precision/error qualification;
+  * reference temperature and apparent-specific-gravity convention;
+  * whether a current ASBC extract table should be preferred over the fitted
+    regression for any use case.
 
 ### Degrees Plato to specific gravity
 
@@ -91,7 +110,17 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Degrees Brix, Plato, and Balling
 
-* Status: ASBC verification pending
+* Status: modern Plato/Brix semantic boundary supported; historical Balling and
+  cross-scale tolerance verification pending
+* Accessible-source result:
+
+  * Thesseling et al. (2019), *Current Protocols in Microbiology* 54:e91,
+    describes degrees Plato in wort through an equivalent sucrose-solution
+    density/mass-percentage meaning;
+  * OIML R 142-1 anchors Brix to sucrose mass-fraction/refractometer practice;
+  * these sources support retaining distinct scale names rather than defining a
+    universal Brix-to-Plato alias or conversion.
+
 * Current treatment:
 
   * FermUnits does not provide a generic Brix-to-Plato conversion;
@@ -113,6 +142,15 @@ When an authoritative method is known to exist but is not fully accessible:
 
   * `corrected Plato = apparent Brix / wort correction factor`
   * `apparent Brix = Plato * wort correction factor`
+* Accessible-source review result (2026-08-30):
+
+  * OIML R 142-1 supports treating Brix as a sucrose/refractometer scale whose
+    measurement meaning depends on defined instrument and temperature
+    conditions;
+  * no authoritative source reviewed in this pass justified a universal default
+    wort correction factor;
+  * the explicit caller-supplied factor therefore remains the conservative API
+    boundary.
 * Current treatment:
 
   * the correction factor is required explicitly;
