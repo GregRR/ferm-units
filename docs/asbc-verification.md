@@ -209,38 +209,58 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### SRM and EBC
 
-* Status: supporting analytical basis identified
+* Status: numerical scale relationship strongly supported; full primary method
+  text still pending
 * Implemented relationship:
 
   * `EBC = SRM * (25 / 12.7)`
   * `SRM = EBC / (25 / 12.7)`
+* Confirmed from accessible sources:
+
+  * ASBC Beer-10A is the current identified spectrophotometric beer-color
+    method;
+  * Analytica EBC 9.6 is the current identified spectrophotometric beer-color
+    method and refers to EBC 8.5;
+  * accessible technical material gives 430 nm, a 10 mm cell, `12.7` as the
+    ASBC/SRM scale factor, and `25` as the EBC scale factor;
+  * peer-reviewed brewing literature independently gives `EBC = 25 * d * A430`
+    and the rounded relation `SRM = 0.508 * EBC`.
 * Current treatment:
 
-  * represented as modern spectrophotometric color-index conversions;
-  * values must be finite and nonnegative.
-* Confirm against original methods:
+  * represented as conversion between already reported modern
+    spectrophotometric color indices;
+  * the exact ratio `25 / 12.7` is used rather than rounded `1.97`/`0.508`;
+  * values must be finite and nonnegative;
+  * FermUnits does not implement sample clarification, dilution, turbidity
+    assessment, or full Beer-10A/EBC 9.6 procedures.
+* Remaining direct verification:
 
-  * ASBC Beer-10 method details;
-  * EBC method details;
-  * wavelength, path length, dilution, turbidity, and reporting conventions;
-  * whether the direct scale-factor relationship requires qualifications.
+  * inspect current Beer-10A and EBC 9.6/8.5 method text;
+  * confirm procedural qualifications for clarification, dilution, turbidity,
+    instrument range, and reporting precision.
 
 ### Lovibond and SRM
 
-* Status: empirical approximation pending primary-source verification
+* Status: empirical approximation retained as Provisional
 * Implemented provisional approximation:
 
   * `SRM = 1.3546 * Lovibond - 0.76`
   * inverse calculated algebraically.
+* Confirmed from accessible sources:
+
+  * the relationship is widely reproduced in brewing guidance;
+  * contemporary malt guidance uses Lovibond, SRM, and EBC in malt color
+    reporting and warns that Lovibond and SRM diverge increasingly above pale
+    malt colors.
 * Current treatment:
 
   * function names include `_approx`;
-  * the conversion is not presented as equivalent to the modern SRM/EBC
-    spectrophotometric relationship;
+  * the approximation is not presented as equivalent to the modern SRM/EBC
+    spectrophotometric relationship or as a universal physical conversion;
   * inputs that would produce a negative SRM result are rejected.
 * Confirm:
 
-  * original source of the coefficients;
+  * primary source of the coefficients;
   * intended material, such as malt, wort, or beer;
   * valid Lovibond range;
   * expected error and precision;
@@ -250,28 +270,41 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Analytical bitterness units
 
-* Status: coordinated ASBC/EBC method relationship identified
+* Status: **Verified** for the Beer-23A numerical reporting factor and
+  operational meaning represented by the FermUnits helper; current EBC 9.8
+  identity confirmed
 * Implemented relationship:
 
-  * `bitterness units = absorbance at 275 nm * 50`
+  * `bitterness units = method-extract absorbance at 275 nm * 50`
   * inverse calculated algebraically.
+* Confirmed from accessible sources:
+
+  * ASBC Beer-23A is *Beer Bitterness—Bitterness Units (International Method)*;
+  * ASBC educational material shows acid/nonpolar liquid-liquid extraction,
+    measurement at 275 nm, and the `* 50` reporting factor;
+  * that ASBC material explicitly states that one bitterness unit is not one ppm
+    iso-alpha-acid;
+  * Analytica EBC 9.8 is the current international beer-bitterness method and
+    its precision chapter includes dry-hopped beer data;
+  * ASBC dry-hop method work demonstrates divergence between IBU and direct
+    iso-alpha-acid measurements.
 * Current treatment:
 
   * functions use the neutral term `bitterness_units`;
+  * the absorbance argument is documented as the method-derived nonpolar
+    extract absorbance, not raw beer absorbance;
+  * FermUnits applies the reporting factor but does not implement sample
+    preparation or extraction;
   * the result is described as an operational analytical measurement;
   * FermUnits does not equate the result exactly with iso-alpha-acid
-    concentration;
-  * FermUnits does not claim that the result directly measures perceived
-    bitterness;
+    concentration or perceived bitterness;
   * no separate arithmetic IBU-to-EBU conversion is provided.
-* Confirm against original methods:
+* Remaining direct verification:
 
-  * ASBC Beer-23 procedure;
-  * EBC Method 9.8 procedure;
-  * extraction solvent and sample preparation;
-  * path length and absorbance conventions;
-  * applicability to dry-hopped beer;
-  * official naming and reporting conventions.
+  * inspect the current full Beer-23A and EBC 9.8 procedures;
+  * confirm formal cuvette/path-length, blank, extraction-volume, and reporting
+    precision requirements before documenting those procedural details as
+    normative.
 
 ## Diastatic Power
 

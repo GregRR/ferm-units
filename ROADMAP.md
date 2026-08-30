@@ -120,6 +120,11 @@ Priority topics include:
 The goal is not merely more formulas. It is to make the scientific status and
 scope of existing functionality increasingly precise.
 
+Completed verification batches in current development:
+
+- gravity/extract measurement semantics and source-status review;
+- SRM/EBC, Lovibond, and analytical bitterness source/status review.
+
 **Completion criterion:** every implemented brewing relationship has a current
 maintained source record and an intentional Verified, Provisional, Ambiguous, or
 Rejected status, with Pending used for identified but not responsibly

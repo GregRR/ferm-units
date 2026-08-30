@@ -14,6 +14,11 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Continue the Milestone 3 brewing verification pass by confirming current
+  ASBC/EBC color and bitterness method identities, strengthening the SRM/EBC
+  scale-factor and Beer-23A bitterness-factor source records, clarifying that
+  bitterness helpers consume method-derived extract absorbance, and retaining
+  the Lovibond relationship as an explicitly provisional approximation.
 - Begin the Milestone 3 gravity/extract verification pass by sourcing the
   gravity-points convention, locating peer-reviewed reproduction and ASBC
   attribution for the SG-to-Plato polynomial, clarifying the Plato/Brix

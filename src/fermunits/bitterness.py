@@ -15,15 +15,20 @@ def _require_nonnegative_finite(value: float, name: str) -> None:
 
 
 def absorbance_275nm_to_bitterness_units(absorbance: float) -> float:
-    """Calculate beer bitterness units from absorbance at 275 nm.
+    """Calculate beer bitterness units from method-derived 275 nm absorbance.
 
-    ASBC Beer-23 and EBC Method 9.8 calculate bitterness units as:
+    ASBC Beer-23A and EBC Method 9.8 determine beer bitterness after acidic
+    liquid-liquid extraction of bitter compounds into a nonpolar phase. For
+    the method-derived extract absorbance:
 
     ``bitterness units = absorbance at 275 nm * 50``
 
-    The result is an operational analytical measurement of extracted bitter
-    substances. It must not be interpreted as an exact concentration of
-    iso-alpha-acids or as a direct measurement of perceived bitterness.
+    This helper applies that reporting factor; it does not implement the
+    extraction or sample-preparation procedure. Raw beer absorbance at 275 nm
+    is therefore not an equivalent input. The result is an operational
+    analytical measurement and must not be interpreted as an exact
+    iso-alpha-acid concentration or direct measurement of perceived
+    bitterness.
     """
     _require_nonnegative_finite(absorbance, "Absorbance at 275 nm")
 
@@ -33,10 +38,11 @@ def absorbance_275nm_to_bitterness_units(absorbance: float) -> float:
 def bitterness_units_to_absorbance_275nm(
     bitterness_units: float,
 ) -> float:
-    """Calculate the corresponding 275 nm absorbance from bitterness units.
+    """Calculate the method-extract 275 nm absorbance for bitterness units.
 
     This is the numerical inverse of
-    ``absorbance_275nm_to_bitterness_units``.
+    ``absorbance_275nm_to_bitterness_units`` and refers to the same
+    method-derived extract absorbance, not raw beer absorbance.
     """
     _require_nonnegative_finite(
         bitterness_units,

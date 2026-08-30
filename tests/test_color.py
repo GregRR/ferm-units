@@ -50,6 +50,11 @@ def test_srm_ebc_round_trip(srm: float) -> None:
     assert ebc_to_srm(srm_to_ebc(srm)) == pytest.approx(srm)
 
 
+def test_srm_ebc_scale_factor_anchor() -> None:
+    assert srm_to_ebc(12.7) == pytest.approx(25.0)
+    assert ebc_to_srm(25.0) == pytest.approx(12.7)
+
+
 @pytest.mark.parametrize(
     ("lovibond", "expected_srm"),
     [

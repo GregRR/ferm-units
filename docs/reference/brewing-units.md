@@ -238,11 +238,15 @@ Sources: [SH-NIST-01] for hydrometer calibration and temperature-effect context.
 - Supports:
   - degrees Plato as a brewing measure tied to mass percentage of dissolved
     solids in wort;
-  - the sucrose-solution reference meaning used to interpret degrees Plato.
-- Limitation:
+  - the sucrose-solution reference meaning used to interpret degrees Plato;
+  - `EBC = 25 * dilution factor * A430` for spectrophotometric wort/beer color;
+  - the rounded modern color relation `SRM = 0.508 * EBC`.
+- Limitations:
   - does not establish the provenance, coefficients, or range of FermUnits'
     SG-to-Plato polynomial;
-  - does not establish a universal Brix/Plato/Balling conversion rule.
+  - does not establish a universal Brix/Plato/Balling conversion rule;
+  - gives the rounded SRM/EBC presentation factor rather than primary ASBC/EBC
+    method text.
 
 ## Beer color
 
@@ -260,8 +264,25 @@ EBC = SRM * (25 / 12.7)
 SRM = EBC / (25 / 12.7)
 ```
 
-Status: **Implemented; supporting analytical basis identified, original ASBC
-Beer-10 and EBC method details still to be checked directly.**
+ASBC publicly identifies Beer-10A as its spectrophotometric beer-color method,
+and Analytica EBC identifies 9.6 as the current spectrophotometric beer-color
+method. [BR-ASBC-COLOR-01] [BR-EBC-COLOR-01] A technical presentation by
+Charlie Bamforth gives the corresponding 430 nm scale factors for a 10 mm cell
+as `12.7` for ASBC/SRM and `25` for EBC; a peer-reviewed brewing protocol
+independently gives `EBC = 25 * dilution * A430` and the rounded relation
+`SRM = 0.508 * EBC`. [BR-BAMFORTH-COLOR-2014] [BR-THESSELING-2019]
+
+FermUnits uses the exact ratio of the stated scale factors rather than the
+rounded `1.97`/`0.508` presentation values. These helpers convert already
+reported modern color indices. They do not implement the sample clarification,
+dilution, turbidity assessment, or other procedural requirements of Beer-10A
+or EBC 9.6/8.5, and a single-wavelength index is not a complete description of
+perceived beer color.
+
+Status: **Implemented provisionally; the numerical scale-factor relationship is
+strongly supported by accessible technical and peer-reviewed sources and the
+current ASBC/EBC method identities are confirmed, but the complete primary
+method text has not been directly verified for all procedural qualifications.**
 
 ### Lovibond approximation
 
@@ -276,12 +297,17 @@ Implemented relationship:
 SRM = 1.3546 * Lovibond - 0.76
 ```
 
-The inverse is calculated algebraically. Function names include `_approx` because
-the visual Lovibond scale is not equivalent to modern spectrophotometric color
-indices.
+The inverse is calculated algebraically. The relationship is commonly reproduced
+in brewing guidance, including for malt color reporting, but the current review
+did not locate a primary source that establishes the coefficients, material
+scope, valid range, or expected error. [BR-BYO-MALT-COLOR-01] Function names
+therefore retain `_approx`. The relationship must not be treated as a general
+physical conversion between arbitrary Lovibond-tintometer measurements and
+modern spectrophotometric SRM/EBC measurements.
 
-Status: **Implemented provisionally; coefficient provenance, material, range,
-and expected error remain verification pending.**
+Status: **Implemented provisionally; the approximation is well established in
+secondary brewing practice, while primary coefficient provenance, material
+scope, range, and expected error remain verification pending.**
 
 ## Analytical bitterness
 
@@ -293,16 +319,158 @@ Public functions:
 Implemented relationship:
 
 ```text
-bitterness units = absorbance at 275 nm * 50
+bitterness units = method-extract absorbance at 275 nm * 50
 ```
 
-The result is represented as an operational analytical measurement. FermUnits
-does not define one bitterness unit as an exact concentration of iso-alpha-acid,
-does not equate it with perceived bitterness, and does not provide a separate
-arithmetic IBU-to-EBU conversion.
+ASBC publicly identifies Beer-23A as *Beer Bitterness—Bitterness Units
+(International Method)*. An ASBC conference presentation shows the Beer-23
+liquid-liquid extraction context and states `A275 * 50 = bitterness units`, while
+explicitly warning that the result is not one ppm of iso-alpha-acid.
+[BR-ASBC-BEER23-01] [BR-ASBC-SHELLHAMMER-2016] Analytica EBC identifies 9.8 as
+its current international beer-bitterness method and notes that its precision
+chapter now includes dry-hopped beers. [BR-EBC-BITTERNESS-01]
 
-Status: **Implemented; coordinated ASBC/EBC relationship identified, direct
-method-detail verification pending.**
+The FermUnits helper therefore accepts the absorbance of the method-derived
+nonpolar extract, not raw beer absorbance. It applies only the reporting factor
+and does not implement acidification, extraction, phase separation, cuvette, or
+other sample-preparation requirements. The result remains an operational
+analytical measurement: ASBC dry-hop work shows why IBU values must not be
+collapsed into exact iso-alpha-acid concentration or sensory bitterness.
+[BR-ASBC-DRYHOP-2010]
+
+FermUnits does not provide a synthetic arithmetic IBU-to-EBU conversion.
+
+Status: **Implemented; Verified for the Beer-23A numerical reporting factor
+and the operational meaning represented by this helper. The coordinated current
+EBC 9.8 method identity is confirmed. Full analytical procedures are
+intentionally outside this conversion helper.**
+
+### Beer color and bitterness sources
+
+#### [BR-ASBC-COLOR-01] ASBC Beer 10A — Color—Spectrophotometric Color Method
+
+- Organization: American Society of Brewing Chemists (ASBC)
+- Publication: *The Brewing Science Laboratory*, Chapter 15 data sheets
+- URL: https://my.asbcnet.org/ASBCStore/Product-Detail.aspx?WebsiteKey=c6851855-80ea-47cf-9f71-647744bd0529&iProductCode=96360
+- Accessed: 2026-08-30
+- Tier: 2
+- Supports:
+  - the authoritative method identity `Beer 10A`;
+  - its title as the spectrophotometric color method for beer.
+- Limitation:
+  - the public product page identifies the method but does not expose its full
+    procedure or numerical scale-factor details.
+
+#### [BR-EBC-COLOR-01] Analytica EBC 9.6 — Colour of Beer: Spectrophotometric Method (IM)
+
+- Organization: European Brewery Convention / Brewers of Europe
+- URL: https://brewup.eu/ebc-analytica/beer/colour-of-beer-spectrophotometric-method-im/9.6
+- Accessed: 2026-08-30
+- Tier: 2
+- Supports:
+  - the current EBC method identity `9.6`;
+  - spectrophotometric determination of beer color;
+  - the method's dependency on EBC Method 8.5 for wort color.
+- Limitation:
+  - the public method page does not expose the full procedure or scale-factor
+    equation.
+
+#### [BR-BAMFORTH-COLOR-2014] Color Chemistry: Red and White Beer for St. George's Day
+
+- Presenter: Charles W. Bamforth, UC Davis
+- Organization: American Chemical Society Webinars
+- Date: 2014-04-17
+- URL: https://www.acs.org/content/dam/acsorg/acs-webinars/2014/slides/2014-04-17-beer-color.pdf
+- Accessed: 2026-08-30
+- Tier: 6
+- Supports:
+  - 430 nm as the color measurement wavelength;
+  - `A430 * 12.7` for ASBC/SRM color in a 10 mm cuvette;
+  - `A430 * 25` for EBC color;
+  - the direct `25 / 12.7` scale-factor relationship used by FermUnits.
+- Limitations:
+  - expert technical presentation rather than the primary ASBC/EBC method text;
+  - does not replace procedural requirements of the formal methods.
+
+#### [BR-BYO-MALT-COLOR-01] Understanding Malt COAs
+
+- Organization: Brew Your Own
+- URL: https://byo.com/articles/understanding-malt-coas/
+- Accessed: 2026-08-30
+- Tier: 7
+- Supports:
+  - contemporary brewing use of Lovibond, SRM, and EBC on malt certificates of
+    analysis;
+  - the common approximation `Lovibond = (SRM + 0.76) / 1.3546`;
+  - the warning that Lovibond and SRM diverge increasingly above pale/base-malt
+    colors.
+- Limitations:
+  - secondary brewing guidance, not primary provenance for the coefficients;
+  - does not establish a formal validity range or expected error.
+
+#### [BR-ASBC-BEER23-01] ASBC Beer 23A — Beer Bitterness—Bitterness Units (International Method)
+
+- Organization: American Society of Brewing Chemists (ASBC)
+- Publication: *The Brewing Science Laboratory*, Chapter 15 data sheets
+- URL: https://my.asbcnet.org/ASBCStore/Product-Detail.aspx?WebsiteKey=c6851855-80ea-47cf-9f71-647744bd0529&iProductCode=96360
+- Accessed: 2026-08-30
+- Tier: 2
+- Supports:
+  - the authoritative method identity `Beer 23A`;
+  - its status as the international bitterness-unit method for beer.
+- Limitation:
+  - the public product page identifies the method but does not expose the full
+    analytical procedure.
+
+#### [BR-ASBC-SHELLHAMMER-2016] Beer 23 — International Bitterness Unit
+
+- Presenter: Thomas H. Shellhammer, Oregon State University
+- Event: 2016 World Brewing Congress / ASBC proceedings
+- URL: https://www.asbcnet.org/events/archives/2016/proceedings/Documents/W_Hops_Shellhammer.pdf
+- Accessed: 2026-08-30
+- Tier: 4
+- Supports:
+  - acidic liquid-liquid extraction of beer bitter compounds into a nonpolar
+    solvent before measurement;
+  - absorbance measurement at 275 nm;
+  - `absorbance at 275 nm * 50 = bitterness units`;
+  - explicit distinction between bitterness units and one ppm iso-alpha-acid;
+  - contribution of iso-alpha-acids, oxidized hop acids, polyphenols, and other
+    compounds to the extracted/absorbing material.
+- Limitation:
+  - conference educational material rather than the full Beer-23A method text.
+
+#### [BR-EBC-BITTERNESS-01] Analytica EBC 9.8 — Bitterness of Beer (IM)
+
+- Organization: European Brewery Convention / Brewers of Europe
+- URL: https://brewup.eu/ebc-analytica/beer/bitterness-of-beer-im/9.8
+- Accessed: 2026-08-30
+- Tier: 2
+- Supports:
+  - the current EBC method identity `9.8`;
+  - determination of bitter substances in beer, mainly iso-alpha-acids;
+  - the 2020 precision update including collaborative data for dry-hopped beers.
+- Limitation:
+  - the public method page does not expose the full analytical procedure or the
+    numerical reporting equation.
+
+#### [BR-ASBC-DRYHOP-2010] Determination of Bitterness Units and Iso-alpha-acid Levels in Dry-Hopped Beers
+
+- Organization: American Society of Brewing Chemists (ASBC)
+- Publication: ASBC Technical Committee/Subcommittee Report, 2010
+- DOI: https://doi.org/10.1094/ASBCJ-2010-0825-01
+- URL: https://www.asbcnet.org/publications/TechReports/2010Technical_Sub_Committee_Reports.pdf
+- Accessed: 2026-08-30
+- Tier: 2
+- Supports:
+  - Beer-23 bitterness units as operational measurements distinct from HPLC
+    iso-alpha-acid concentration;
+  - the observed divergence between IBU and iso-alpha-acid results in dry-hopped
+    beer;
+  - the need to avoid interpreting IBU as direct sensory bitterness.
+- Limitation:
+  - focused on comparative method performance in dry-hopped beer, not a
+    replacement for the Beer-23A procedure itself.
 
 ## Diastatic power
 

@@ -17,12 +17,17 @@ def _require_nonnegative_finite(value: float, name: str) -> None:
 
 
 def srm_to_ebc(srm: float) -> float:
-    """Convert a modern ASBC SRM color index to an EBC color index.
+    """Convert a modern method-derived ASBC SRM index to EBC.
 
-    The conversion uses the ratio between the modern EBC and ASBC
-    spectrophotometric scale factors:
+    For the modern 430 nm spectrophotometric scales in a 10 mm cell,
+    ASBC color uses a factor of 12.7 and EBC color uses a factor of 25.
+    FermUnits therefore converts the reported indices with:
 
     ``EBC = SRM * (25 / 12.7)``
+
+    This helper converts reported color indices only. It does not perform the
+    analytical sample preparation, clarification, dilution, or turbidity
+    checks required by the underlying methods.
     """
     _require_nonnegative_finite(srm, "SRM")
 
@@ -30,7 +35,7 @@ def srm_to_ebc(srm: float) -> float:
 
 
 def ebc_to_srm(ebc: float) -> float:
-    """Convert a modern EBC color index to an ASBC SRM color index."""
+    """Convert a modern method-derived EBC color index to ASBC SRM."""
     _require_nonnegative_finite(ebc, "EBC")
 
     return ebc / _SRM_TO_EBC_FACTOR
@@ -39,8 +44,11 @@ def ebc_to_srm(ebc: float) -> float:
 def lovibond_to_srm_approx(lovibond: float) -> float:
     """Approximate SRM from degrees Lovibond.
 
-    This is an empirical approximation involving the older Lovibond visual
-    scale. It is not equivalent to the direct modern SRM/EBC relationship.
+    This is a common empirical brewing approximation involving the older
+    Lovibond visual scale. Its primary coefficient provenance, material scope,
+    valid range, and expected error remain unverified, so it must not be
+    treated as a general physical conversion between arbitrary Lovibond and
+    modern spectrophotometric measurements.
 
     Values that would produce a negative SRM result are rejected because a
     negative brewing color index is not meaningful.
@@ -60,7 +68,8 @@ def lovibond_to_srm_approx(lovibond: float) -> float:
 def srm_to_lovibond_approx(srm: float) -> float:
     """Approximate degrees Lovibond from SRM.
 
-    This numerically inverts ``lovibond_to_srm_approx``.
+    This algebraically inverts ``lovibond_to_srm_approx`` and inherits the
+    same provisional scope and limitations.
     """
     _require_nonnegative_finite(srm, "SRM")
 
