@@ -15,9 +15,10 @@ All notable changes to FermUnits will be documented in this file.
 ### Changed
 
 - Begin the Milestone 3 gravity/extract verification pass by sourcing the
-  gravity-points convention, identifying published JASBC provenance for
-  the SG-to-Plato polynomial, clarifying the Plato/Brix semantic boundary,
-  and retaining explicit conservative refractometer/hydrometer behavior.
+  gravity-points convention, locating peer-reviewed reproduction and ASBC
+  attribution for the SG-to-Plato polynomial, clarifying the Plato/Brix
+  semantic boundary, and retaining explicit conservative
+  refractometer/hydrometer behavior.
 - Reclassify the project from pre-alpha to alpha in package metadata and the
   README.
 - Clarify that the latest release is 0.1.2 and that provisional scientific
@@ -38,6 +39,14 @@ All notable changes to FermUnits will be documented in this file.
   calculations, document the `506.07 mL/g` source trail and standard-state
   physical support, and retain the conversion as Provisional pending direct
   ASBC method-text verification of reference state and reporting precision.
+
+### Fixed
+
+- Derive `fermunits.__version__` from installed distribution metadata so it
+  cannot drift from the packaged project version.
+- Correct the gravity/extract source record so an inaccessible 1984 JASBC item
+  is retained only as a verification lead rather than cited as proven
+  provenance for the SG-to-Plato coefficients.
 
 ## 0.1.2 - 2026-08-28
 

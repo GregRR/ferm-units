@@ -1,5 +1,8 @@
+from importlib.metadata import version
+
 import pytest
 
+import fermunits
 from fermunits import (
     create_registry,
     gravity_points_to_sg,
@@ -31,3 +34,7 @@ def test_gravity_functions_are_available_from_public_api() -> None:
     assert plato_to_sg(11.9120807562) == pytest.approx(1.048)
     assert wort_refractometer_brix_to_plato(12.48, 1.04) == pytest.approx(12.0)
     assert plato_to_wort_refractometer_brix(12.0, 1.04) == pytest.approx(12.48)
+
+
+def test_package_version_matches_distribution_metadata() -> None:
+    assert fermunits.__version__ == version("ferm-units")

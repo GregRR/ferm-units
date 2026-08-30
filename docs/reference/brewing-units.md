@@ -52,9 +52,13 @@ encode reference temperature. The gravity-points arithmetic is independently
 documented as brewing shorthand by the Canadian Homebrewers Association,
 including the example `1.046 = 46` gravity points. [BR-CHA-GU-2021]
 
-Status: **Implemented; the gravity-points convention is sourced as brewing
-shorthand, while ASBC terminology and specific-gravity reference-condition
-verification remain pending.**
+FermUnits applies the formula algebraically below SG 1.000 as well, so SG
+`0.998` maps to `-2` gravity points. The cited brewing-practice source does not
+independently standardize that below-1.000 extension.
+
+Status: **Implemented; the ordinary gravity-points convention is sourced as
+brewing shorthand, while the below-1.000 extension, ASBC terminology, and
+specific-gravity reference-condition verification remain pending.**
 
 ### Specific gravity and degrees Plato
 
@@ -72,16 +76,27 @@ The current SG-to-Plato polynomial is:
 `plato_to_sg` numerically inverts that same polynomial rather than using an
 independent approximate inverse. This preserves round-trip consistency.
 
-A 1984 *Journal of the American Society of Brewing Chemists* article titled
-*Statistical Analysis* publishes these coefficients as a regression for degrees
-Plato from specific gravity obtained from tabular data. The accessible record
-therefore establishes substantially stronger provenance for the implemented
-polynomial than the legacy inventory did. [BR-JASBC-PLATO-1984]
+Quek et al. (2019) reproduce the exact implemented coefficients in a
+peer-reviewed brewing paper and identify the equation as a formula from the
+American Society of Brewing Chemists. [BR-QUEK-2019] This is substantially
+stronger support than the legacy inventory provided, but it is still secondary
+evidence for the primary ASBC table or method.
 
-Status: **Implemented provisionally; polynomial provenance identified in a JASBC
-publication, while the underlying table reference, reference conditions,
-scientific validity range, and full precision qualification remain direct
-verification items.**
+Recent JASBC work by Buhl (2024) independently confirms that ASBC extract
+tables are used as reference data when evaluating equations relating relative
+density and percent-by-mass extract. [BR-BUHL-2024] It does not establish the
+provenance of the implemented cubic.
+
+A 1984 JASBC item titled *Statistical Analysis* was identified as a possible
+historical lead during this review, but the accessible journal metadata does not
+expose the equation or enough article text to establish it as the source of the
+coefficients. It therefore remains a verification lead rather than a supporting
+source record.
+
+Status: **Implemented provisionally; the exact polynomial is independently
+reproduced in peer-reviewed brewing literature with ASBC attribution, while the
+primary ASBC source, reference conditions, scientific validity range, and full
+precision qualification remain direct verification items.**
 
 The numerical SG search interval used by the inverse is an implementation limit,
 not an asserted scientific range. The inverse itself is a FermUnits numerical
@@ -167,28 +182,49 @@ Sources: [SH-NIST-01] for hydrometer calibration and temperature-effect context.
     gravity multiplied by 1000;
   - the concrete brewing convention that SG `1.046` corresponds to 46 gravity
     points.
-- Limitation:
-  - brewing-practice guidance rather than an ASBC analytical method; does not
-    establish a specific-gravity reference temperature or reporting precision.
+- Limitations:
+  - brewing-practice guidance rather than an ASBC analytical method;
+  - does not establish a specific-gravity reference temperature or reporting
+    precision;
+  - does not independently standardize the algebraic extension to negative
+    gravity points for SG below 1.000.
 
-#### [BR-JASBC-PLATO-1984] Statistical Analysis
+#### [BR-QUEK-2019] Molecular structure-property relations controlling mashing performance of amylases as a function of barley grain size
 
-- Publication: *Journal of the American Society of Brewing Chemists*, 42(3),
-  138–143, 1984
-- DOI: https://doi.org/10.1094/ASBCJ-42-0138
+- Authors: Wei Ping Quek, Wenwen Yu, Glen P. Fox, Robert G. Gilbert
+- Publication: *Amylase*, 3(1), 1–18, 2019
+- DOI: https://doi.org/10.1515/amylase-2019-0001
 - Accessed: 2026-08-30
 - Tier: 5
 - Supports:
-  - the exact implemented cubic coefficients for regression of degrees Plato
-    from specific gravity;
-  - description of that regression as being obtained from tabular data.
+  - the exact implemented cubic coefficients for conversion from specific
+    gravity to degrees Plato;
+  - attribution of that equation to the American Society of Brewing Chemists in
+    peer-reviewed brewing research.
 - Limitations:
-  - the complete article text and its referenced source table were not directly
-    accessible during this review;
-  - the accessible record does not establish the table's normative reference
-    conditions, complete validity range, or the full precision qualification;
-  - this journal article is evidence for provenance, not a substitute for direct
-    review of any applicable current ASBC method or table.
+  - this is a secondary use of the equation, not the primary ASBC table or
+    method;
+  - it does not establish the equation's original provenance, normative
+    reference conditions, complete validity range, or ASBC reporting precision.
+
+#### [BR-BUHL-2024] Physical Equations Relating Extract and Relative Density
+
+- Author: Josh Buhl
+- Publication: *Journal of the American Society of Brewing Chemists*, 82(3),
+  225–237, 2024
+- DOI: https://doi.org/10.1080/03610470.2023.2267947
+- Accessed: 2026-08-30
+- Tier: 5
+- Supports:
+  - ASBC extract tables as reference data for evaluating relationships between
+    relative density and percent-by-mass extract;
+  - continued modern analytical interest in converting between those
+    quantities.
+- Limitations:
+  - does not establish the provenance or coefficients of FermUnits' implemented
+    cubic;
+  - does not by itself establish the cubic's normative reference conditions,
+    validity range, or reporting precision.
 
 #### [BR-THESSELING-2019] A Hands-On Guide to Brewing and Analyzing Beer in the Laboratory
 

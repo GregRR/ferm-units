@@ -1,5 +1,12 @@
 """Fermentation-industry units and conversions built on Pint."""
 
+from importlib.metadata import (
+    PackageNotFoundError,
+)
+from importlib.metadata import (
+    version as _distribution_version,
+)
+
 from fermunits.bitterness import (
     absorbance_275nm_to_bitterness_units,
     bitterness_units_to_absorbance_275nm,
@@ -80,4 +87,7 @@ __all__ = [
     "wort_refractometer_brix_to_plato",
 ]
 
-__version__ = "0.1.1"
+try:
+    __version__ = _distribution_version("ferm-units")
+except PackageNotFoundError:
+    __version__ = "0+unknown"

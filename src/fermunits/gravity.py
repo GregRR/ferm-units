@@ -31,14 +31,14 @@ def _require_positive_correction_factor(wort_correction_factor: float) -> None:
 
 
 def sg_to_gravity_points(specific_gravity: float) -> float:
-    """Convert specific gravity to gravity points."""
+    """Convert specific gravity to algebraic gravity points relative to SG 1.000."""
     _require_positive_specific_gravity(specific_gravity)
 
     return (specific_gravity - 1.0) * 1000.0
 
 
 def gravity_points_to_sg(gravity_points: float) -> float:
-    """Convert gravity points to specific gravity."""
+    """Convert algebraic gravity points relative to SG 1.000 to specific gravity."""
     _require_finite(gravity_points, "Gravity points")
 
     specific_gravity = 1.0 + (gravity_points / 1000.0)
@@ -54,10 +54,10 @@ def gravity_points_to_sg(gravity_points: float) -> float:
 def sg_to_plato(specific_gravity: float) -> float:
     """Estimate degrees Plato from specific gravity.
 
-    The coefficients are published in a 1984 Journal of the American Society
-    of Brewing Chemists article as a regression from tabular Plato data. The
-    underlying table reference, reference conditions, and scientific validity
-    range still require direct verification.
+    The exact coefficients are reproduced in peer-reviewed brewing literature
+    and attributed there to the American Society of Brewing Chemists. The
+    original ASBC table or method, reference conditions, and scientific
+    validity range still require direct verification.
 
     No scientific validity range is asserted yet. The input must be finite and
     greater than zero.
@@ -76,9 +76,10 @@ def plato_to_sg(plato: float) -> float:
     """Estimate specific gravity from degrees Plato.
 
     This function numerically inverts ``sg_to_plato`` so the two provisional
-    conversions remain internally consistent. The underlying polynomial has
-    published JASBC provenance, but its table reference and scientific range
-    still require direct verification.
+    conversions remain internally consistent. The underlying polynomial is
+    reproduced in peer-reviewed brewing literature with ASBC attribution, but
+    its primary table or method and scientific range still require direct
+    verification.
 
     The current numerical search interval is SG 0.5 through 2.0. This is an
     implementation limit and must not be interpreted as an ASBC-approved

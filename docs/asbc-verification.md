@@ -40,8 +40,10 @@ When an authoritative method is known to exist but is not fully accessible:
   * Canadian Homebrewers Association guidance defines gravity units as the
     digits after the SG decimal multiplied by 1000 and gives SG `1.046` as
     46 gravity points;
-  * this supports the implemented arithmetic as brewing shorthand but does not
-    make gravity points an ASBC analytical measurement.
+  * this supports the ordinary implemented arithmetic as brewing shorthand but
+    does not independently standardize FermUnits' algebraic extension to
+    negative points for SG below 1.000 or make gravity points an ASBC
+    analytical measurement.
 * Confirm:
 
   * whether ASBC formally defines gravity points;
@@ -51,8 +53,8 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Specific gravity to degrees Plato
 
-* Status: polynomial provenance identified; underlying ASBC table and
-  reference-condition verification pending
+* Status: exact polynomial independently reproduced with ASBC attribution;
+  primary ASBC source and reference-condition verification pending
 
 * Implemented polynomial:
 
@@ -60,13 +62,18 @@ When an authoritative method is known to exist but is not fully accessible:
 
 * Accessible-source result:
 
-  * a 1984 *Journal of the American Society of Brewing Chemists* article,
-    *Statistical Analysis* (42(3), 138–143; DOI
-    `10.1094/ASBCJ-42-0138`), publishes the exact implemented coefficients;
-  * the accessible article record describes the regression as being obtained
-    from tabular data;
-  * this establishes provenance for the polynomial but does not expose enough
-    of the article/reference table to establish all normative conditions.
+  * Quek et al. (2019), *Amylase* 3(1):1–18, reproduce the exact implemented
+    coefficients and identify the equation as a formula from ASBC;
+  * this provides peer-reviewed secondary support for the exact polynomial and
+    its ASBC attribution, but it does not identify or expose the primary ASBC
+    table or method;
+  * Buhl (2024), *Journal of the American Society of Brewing Chemists* 82(3),
+    225–237, independently confirms ASBC extract tables as reference data for
+    evaluating relative-density/extract equations, but does not establish the
+    provenance of this cubic;
+  * a 1984 JASBC item titled *Statistical Analysis* (42(3), 138–143; DOI
+    `10.1094/ASBCJ-42-0138`) remains a possible historical lead, but accessible
+    metadata does not expose the equation or establish that item as its source.
 
 * Current treatment:
 
@@ -78,9 +85,11 @@ When an authoritative method is known to exist but is not fully accessible:
 
 * Still confirm directly:
 
-  * the identity and edition of the tabular source referenced by the 1984
-    article;
-  * whether that table or regression remains the applicable ASBC convention;
+  * the primary ASBC method/table that defines or tabulates the relationship;
+  * whether the 1984 *Statistical Analysis* item is actually part of the
+    polynomial's provenance;
+  * whether the polynomial or an extract table remains the applicable ASBC
+    convention;
   * valid SG range and the complete precision/error qualification;
   * reference temperature and apparent-specific-gravity convention;
   * whether a current ASBC extract table should be preferred over the fitted
