@@ -37,6 +37,7 @@ from fermunits.gravity import (
 )
 from fermunits.registry import Q_, create_registry, ureg
 from fermunits.solution_chemistry import (
+    PHValue,
     amount_concentration_to_equivalent_concentration,
     amount_concentration_to_mass_concentration,
     amount_to_equivalents,
@@ -45,14 +46,17 @@ from fermunits.solution_chemistry import (
     equivalent_concentration_to_caco3_basis_mass_concentration,
     equivalent_concentration_to_mass_concentration,
     equivalents_to_amount,
+    hydrogen_ion_activity_to_ph,
     mass_concentration_to_amount_concentration,
     mass_concentration_to_equivalent_concentration,
     mass_concentration_to_mass_fraction,
     mass_fraction_to_mass_concentration,
+    ph_to_hydrogen_ion_activity,
 )
 
 __all__ = [
     "Q_",
+    "PHValue",
     "absorbance_275nm_to_bitterness_units",
     "amount_concentration_to_equivalent_concentration",
     "amount_concentration_to_mass_concentration",
@@ -70,12 +74,14 @@ __all__ = [
     "equivalent_concentration_to_mass_concentration",
     "equivalents_to_amount",
     "gravity_points_to_sg",
+    "hydrogen_ion_activity_to_ph",
     "lintner_to_windisch_kolbach",
     "lovibond_to_srm_approx",
     "mass_concentration_to_amount_concentration",
     "mass_concentration_to_equivalent_concentration",
     "mass_concentration_to_mass_fraction",
     "mass_fraction_to_mass_concentration",
+    "ph_to_hydrogen_ion_activity",
     "plato_to_sg",
     "plato_to_wort_refractometer_brix",
     "sg_to_gravity_points",

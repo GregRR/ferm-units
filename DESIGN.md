@@ -22,12 +22,18 @@ The project separates responsibilities into four layers:
 3. **Downstream engineering applications** own system models and decisions such
    as water-treatment optimization, draft-system balance, recipe estimation,
    equipment behavior, and process simulation.
-4. **Serialization schemas** own persistence and reporting semantics such as
-   source-reported precision, qualifiers, ranges, provenance, and application
-   records.
+4. **Downstream measurement and serialization models** own measurement-result
+   semantics such as source-reported precision, qualifiers, bounds and ranges,
+   detection and quantitation metadata, uncertainty declarations, provenance,
+   and application records.
 
 A feature belongs in FermUnits only when its meaning is reusable across
 fermentation applications and does not require an application-specific model.
+
+FermUnits may provide a reusable transformation for a semantic scale when the
+scientific definition itself is stable and explicit. It does not thereby own the
+laboratory method, uncertainty model, reporting qualifier, or application policy
+used to interpret a measurement result on that scale.
 
 ## Pint-first registry design
 
@@ -129,7 +135,7 @@ inventory or common secondary reference.
 FermUnits may include contract tests for downstream applications when those
 tests protect the unit boundary without importing the application's model.
 
-For example, the water-treatment contract tests confirm that required physical
+For example, the Water Chemistry Engine contract tests confirm that required physical
 units parse, convert, and retain the expected dimensionality. The draft-system
 contract similarly verifies temperature, temperature differences, pressure,
 length, flow, density, viscosity, pressure-gradient, and CO2 mass-concentration

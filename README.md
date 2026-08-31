@@ -289,6 +289,27 @@ FermUnits preserves Pint's generic `ppm` unit, but canonical chemistry data
 should use an explicit ratio such as `mg/kg` or `microgram / kilogram` when the intended basis
 is mass fraction. FermUnits does not define a generic `ppb` alias.
 
+FermUnits treats pH as a logarithmic semantic value rather than a Pint unit.
+`PHValue` provides a small non-Pint representation for the finite numeric scale
+value, while the public pH helpers convert only between that value and the
+dimensionless hydrogen-ion activity appearing in the IUPAC definition. They do
+not equate activity with hydrogen-ion concentration or infer an activity
+coefficient. Pint's `pH` spelling remains untouched because it is the standard
+prefixed-unit spelling for picohenry in the underlying registry.
+
+```python
+from fermunits import PHValue, hydrogen_ion_activity_to_ph, ph_to_hydrogen_ion_activity
+
+ph = PHValue(5.0)
+activity = ph_to_hydrogen_ion_activity(ph)
+restored_ph = hydrogen_ion_activity_to_ph(activity)
+```
+
+Reported bounds, ranges, nondetects, detection or quantitation limits, and
+measurement uncertainty remain downstream measurement/reporting semantics.
+FermUnits converts the underlying Pint quantities but does not choose how such a
+measurement should be resolved to a scalar.
+
 ## Design principles
 
 * Pint remains the physical-unit engine.

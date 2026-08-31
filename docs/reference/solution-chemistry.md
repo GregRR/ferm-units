@@ -6,8 +6,9 @@ reporting forms, chemical-equivalent calculations, and semantic requirements
 used across brewing, wine, cider and perry, sake, distilling, water treatment,
 biofuels, and other fermentation-related applications.
 
-A source identifier after an entry points to the bibliography at the bottom of
-this file or to a shared source in [`../sources.md`](../sources.md).
+Every source identifier used here has a master bibliographic record in
+[`../sources.md`](../sources.md). Claim-specific context may also be repeated
+below when it helps explain the solution-chemistry decision.
 
 ## Scope and architectural boundary
 
@@ -181,11 +182,20 @@ composes correctly.
 ### Volume fraction
 
 - Dimensionality: dimension one.
+- IUPAC definition: constituent volume divided by the sum of constituent
+  volumes before mixing. [SC-IUPAC-FRACTION-01]
 - FermUnits rule:
-  - preserve the volume/volume basis;
-  - retain reference temperature when material;
-  - do not assume additive volumes for non-ideal mixtures.
-- Status: **Physical representation available; semantic API pending.**
+  - use Pint dimensionless arithmetic and Pint's existing `percent` unit;
+  - do not add a `percent_by_volume`, `% v/v`, or similar registry alias;
+  - preserve the fact that a value is a volume fraction in downstream quantity
+    metadata because Pint dimensionality cannot distinguish mass, amount, and
+    volume fractions;
+  - retain reference conditions when a domain method requires them;
+  - do not infer a mass fraction or final-mixture composition from volume
+    fraction without an explicit physical model.
+- Status: **Representation decision complete; no FermUnits semantic API
+  required.**
+- Sources: [SC-IUPAC-FRACTION-01], [SH-PINT-01]
 
 ### Mass-per-volume composition
 
@@ -335,50 +345,72 @@ Sources: [SC-EPA-01], [SC-USGS-01]
 
 ### pH
 
-- Representation: validated semantic value, not a multiplicative Pint unit.
-- Arithmetic rule:
-  - do not blend or average pH using generic linear-quantity operations;
-  - activity conversions must be explicit.
-- Status: **Documented; implementation pending.**
+IUPAC defines pH as the negative base-10 logarithm of hydrogen-ion activity.
+The definition is explicitly activity-based, not a hydrogen-ion concentration
+identity, and IUPAC also notes the special metrological difficulty of assigning
+single-ion activity. [SC-IUPAC-PH-01] [SC-IUPAC-PH-02]
 
-### pH interval
+FermUnits representation:
 
-- Needed for buffering capacity expressed per pH-unit change.
-- FermUnits rule:
-  - distinguish absolute pH from a pH difference;
-  - do not model this as division by an absolute pH reading.
-- Status: **Pending semantic design.**
+- `PHValue` is a small immutable semantic type for a finite numeric pH scale
+  value; it is not a Pint quantity and does not define ordinary quantity
+  arithmetic;
+- `ph_to_hydrogen_ion_activity` accepts `PHValue` and returns the dimensionless
+  activity appearing in the pH definition;
+- `hydrogen_ion_activity_to_ph` performs the inverse definition and returns a
+  `PHValue`;
+- neither function converts between activity and concentration or infers an
+  activity coefficient;
+- FermUnits does not impose a 0-through-14 validation rule; it validates
+  finiteness and floating-point representability rather than inventing a
+  universal scientific range;
+- Pint's existing `pH` unit spelling is preserved: with `p` as the pico prefix
+  and `H` as henry, `pH` is picohenry in the supported Pint registry.
+  [SH-PINT-01]
 
-## 8. Measurement qualifiers, bounds, and uncertainty
+Status: **Verified definition; implemented as a semantic value type plus
+explicit activity conversion functions.**
 
-Required qualifiers include:
+### pH difference
 
-- exact;
-- approximate;
-- less than;
-- less than or equal;
-- greater than;
-- greater than or equal;
-- interval or range;
-- uncertainty;
-- stated statistic;
-- detection or quantitation limit.
+A difference between two pH values is a difference on a logarithmic scale. It
+must not be represented as a multiplicative Pint unit or confused with a linear
+change in hydrogen-ion concentration or activity. Buffer-capacity and similar
+models may use an explicitly named numeric pH difference downstream. FermUnits
+does not currently need a separate `delta_pH` type.
 
-FermUnits requirement:
+Status: **Boundary decision complete; no separate API required.**
 
-- conversion changes value and unit;
-- conversion preserves the qualifier;
-- interval endpoints convert independently;
-- uncertainty converts with the quantity;
-- a bound never becomes an unqualified exact value.
+## 8. Measurement results, bounds, detection limits, and uncertainty
 
-Example invariant:
+Bounds, intervals, source-reported qualifiers, detection/quantitation limits,
+and measurement uncertainty describe a measurement result or analytical
+procedure rather than a new physical unit. The VIM treats a measurement result
+as a quantity value together with relevant information, defines measurement
+uncertainty as a parameter characterizing dispersion, and defines detection
+limit in terms of a specified measurement procedure and error probabilities.
+[SH-JCGM-VIM-01]
 
-```text
-< 10 milligram/liter -> < 0.010 gram/liter
-```
+FermUnits rule:
 
-Status: **Requirement accepted; API pending.**
+- do not add a general reported-quantity, bounded-quantity, nondetect, LOD, LOQ,
+  or uncertainty wrapper;
+- keep exact/approximate, `<`, `<=`, `>`, `>=`, interval/range, nondetect,
+  reporting-limit, LOD/LOQ, stated-statistic, and provenance semantics in the
+  downstream measurement or serialization model;
+- keep any numeric threshold itself as an ordinary Pint quantity so the
+  downstream model can convert it without changing its qualifier or meaning;
+- never resolve a bound, range, or nondetect to a scalar value inside FermUnits;
+- do not add an uncertainty-propagation framework. Pint already offers optional
+  `Measurement` integration when the third-party `uncertainties` package is
+  installed, but its documented scope is limited and FermUnits does not require
+  that dependency. [SH-PINT-MEASUREMENT-01]
+
+The expected downstream invariant remains, for example, that converting a
+reported `< 10 mg/L` threshold to `g/L` yields `< 0.010 g/L`; the `<` semantic is
+owned by the wrapper, while Pint/FermUnits owns the quantity conversion.
+
+Status: **Boundary decision complete; no FermUnits wrapper API required.**
 
 ## 9. Boundary with FermentationJSON and water engines
 
@@ -387,7 +419,7 @@ Status: **Requirement accepted; API pending.**
   it for imported or user-entered data.
 - FermUnits provides conversion behavior and reusable semantics, but does not
   own the complete serialized document model.
-- A water-treatment engine owns chemical identity, ion charge, analyte,
+- Water Chemistry Engine owns chemical identity, ion charge, analyte,
   quantity kind, and reporting basis.
 - FermUnits does not infer alkalinity or hardness from a mass-concentration
   value alone.
@@ -410,7 +442,9 @@ Implemented calculations:
 - CaCO3-basis mass concentration to and from equivalent concentration;
 - mass concentration to and from mass fraction using explicit solution density;
 - mass concentration to and from amount concentration using explicit molar
-  mass.
+  mass;
+- `PHValue` representation plus pH to and from dimensionless hydrogen-ion
+  activity, without concentration or activity-coefficient inference.
 
 Representation decisions:
 
@@ -424,8 +458,14 @@ Deferred:
 - `normal`
 - `normality`
 - `molal` convenience alias
-- pH semantic type
-- general reported-quantity wrapper
+
+Explicitly downstream rather than deferred FermUnits APIs:
+
+- general reported-quantity wrappers for bounds, ranges, nondetects, and
+  source qualifiers;
+- detection/reporting/quantitation-limit semantics;
+- measurement-uncertainty models and propagation policy;
+- domain policy for resolving any of those values to a scalar.
 
 No FermUnits definition needed:
 

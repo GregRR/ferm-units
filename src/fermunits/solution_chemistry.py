@@ -1,6 +1,7 @@
 """Conversions for shared solution-chemistry quantities."""
 
 import math
+from dataclasses import dataclass
 from typing import Any, cast
 
 from pint import Quantity
@@ -54,6 +55,65 @@ def _validated_molar_mass(
     )
 
     return normalized
+
+
+@dataclass(frozen=True, slots=True)
+class PHValue:
+    """Finite numeric value on the pH scale.
+
+    pH is logarithmic and is intentionally not represented as a Pint quantity.
+    The type carries only the scale value; measurement metadata and chemical
+    modeling remain downstream concerns.
+    """
+
+    value: float
+
+    def __post_init__(self) -> None:
+        """Normalize the stored value to a finite ``float``."""
+        normalized = float(self.value)
+        if not math.isfinite(normalized):
+            raise ValueError("pH must be finite")
+        object.__setattr__(self, "value", normalized)
+
+
+def ph_to_hydrogen_ion_activity(ph: PHValue) -> float:
+    """Return the hydrogen-ion activity corresponding to ``ph``.
+
+    pH is defined as the negative base-10 logarithm of hydrogen-ion
+    activity. The returned value is the dimensionless activity, not a
+    hydrogen-ion concentration. No activity coefficient or concentration
+    model is inferred.
+
+    FermUnits imposes no fixed 0-to-14 range. The pH value must map to a
+    positive finite activity representable by ``float``.
+    """
+    try:
+        activity = math.pow(10.0, -ph.value)
+    except OverflowError as exc:
+        raise ValueError(
+            "pH is outside the representable hydrogen-ion activity range"
+        ) from exc
+
+    if not math.isfinite(activity) or activity <= 0.0:
+        raise ValueError("pH is outside the representable hydrogen-ion activity range")
+
+    return activity
+
+
+def hydrogen_ion_activity_to_ph(hydrogen_ion_activity: float) -> PHValue:
+    """Return pH from a positive dimensionless hydrogen-ion activity.
+
+    ``hydrogen_ion_activity`` is the single-ion activity appearing in the
+    IUPAC pH definition. It is not a concentration, and FermUnits does not
+    infer an activity coefficient or model how a pH measurement realizes that
+    notional activity.
+    """
+    _require_positive_finite_value(
+        hydrogen_ion_activity,
+        name="Hydrogen-ion activity",
+    )
+
+    return PHValue(-math.log10(hydrogen_ion_activity))
 
 
 def amount_to_equivalents(

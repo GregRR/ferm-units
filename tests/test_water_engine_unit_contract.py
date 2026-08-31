@@ -1,4 +1,4 @@
-"""Water-treatment engine unit contract tests."""
+"""Water Chemistry Engine unit contract tests."""
 
 from typing import Any
 

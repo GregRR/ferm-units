@@ -137,6 +137,7 @@ CANDIDATE_UNITS: dict[str, list[str]] = {
         "normality",
         "percent",
         "ppm",
+        "pH",
         "ppb",
         "ppm_mass",
         "ppb_mass",

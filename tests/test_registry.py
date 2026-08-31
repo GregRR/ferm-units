@@ -38,3 +38,10 @@ def test_gravity_functions_are_available_from_public_api() -> None:
 
 def test_package_version_matches_distribution_metadata() -> None:
     assert fermunits.__version__ == version("ferm-units")
+
+
+def test_pint_ph_symbol_remains_picohenry() -> None:
+    registry = create_registry()
+    converted = registry.Quantity(1.0, "pH").to("henry")
+
+    assert converted.magnitude == pytest.approx(1e-12)

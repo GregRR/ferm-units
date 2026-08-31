@@ -6,6 +6,10 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Added
 
+- Add a small non-Pint `PHValue` semantic type and explicit
+  pH-to-hydrogen-ion-activity conversion helpers while preserving the
+  distinction between thermodynamic activity and concentration and leaving
+  Pint's existing `pH` picohenry spelling untouched.
 - Add the qualified `brewing_tun` historical British brewery measure as
   216 Imperial gallons, completing the implemented large-cask hierarchy without
   assigning a universal bare `tun` meaning.
@@ -17,6 +21,10 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Define the Milestone 4 ownership boundary for volume fraction, pH
+  differences, reported bounds/ranges, detection and quantitation limits, and
+  measurement uncertainty without adding downstream reporting policy to
+  FermUnits.
 - Incorporate the two-pass external Milestone 3 review by restricting the simple
   wort correction-factor documentation to unfermented wort, clarifying the
   provisional standalone interpretation of Torrent's `506.07 mL/g` carbonation

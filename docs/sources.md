@@ -150,10 +150,45 @@ current FermUnits specifications.
   - the exact units and aliases currently supplied by Pint;
   - collision checks for `barrel`, `beer_barrel`, `hogshead`,
     `imperial_barrel`, `imperial_gallon`, and other built-ins in the supported
-    Pint 0.25.3 line.
+    Pint 0.25.3 line;
+  - preservation of `pH` as the prefixed SI spelling picohenry (`p` pico +
+    `H` henry), rather than reassigning that spelling to the chemical pH scale.
 - Limitation:
   - does not establish that Pint's historical interpretation is the only
     legitimate industry meaning.
+
+### [SH-JCGM-VIM-01] International Vocabulary of Metrology (VIM), 3rd edition
+
+- Organization: Joint Committee for Guides in Metrology (JCGM)
+- Publication: JCGM 200:2012, *International vocabulary of metrology — Basic
+  and general concepts and associated terms (VIM)*, 3rd edition
+- Online entries: https://jcgm.bipm.org/vim/en/
+- Accessed: 2026-08-30
+- Tier: 1
+- Supports:
+  - a measurement result as a quantity value together with other relevant
+    information;
+  - measurement uncertainty as a non-negative parameter characterizing the
+    dispersion of quantity values attributed to a measurand;
+  - detection limit as procedure- and error-probability-dependent measurement
+    semantics rather than a physical unit;
+  - the distinction between a measuring interval/range and a detection limit.
+
+### [SH-PINT-MEASUREMENT-01] Pint 0.25.3 — Using Measurements
+
+- Organization: Pint project
+- Source: `docs/advanced/measurement.rst` from Pint 0.25.3
+- URL: https://github.com/hgrecco/pint/blob/0.25.3/docs/advanced/measurement.rst
+- Accessed: 2026-08-30
+- Tier: project-primary source for Pint behavior
+- Supports:
+  - Pint's optional `Measurement` support when the third-party
+    `uncertainties` package is installed;
+  - the documented limitation that only linear combinations are currently
+    supported.
+- Limitation:
+  - does not provide FermUnits with a complete metrology/reporting model and is
+    not a reason to add `uncertainties` as a FermUnits runtime dependency.
 
 ### [SH-OIML-01] OIML R 142-1:2025 — Automated refractometers
 
@@ -647,6 +682,54 @@ claims.
   - equivalence depends on the specified reaction or charge relationship;
   - equivalents must not be treated as universally interchangeable with
     moles without an explicit factor.
+
+### [SC-IUPAC-PH-01] pH
+
+- Organization: International Union of Pure and Applied Chemistry
+- Source: IUPAC Gold Book, “pH”
+- DOI: https://doi.org/10.1351/goldbook.P04524
+- URL: https://goldbook.iupac.org/terms/view/P04524
+- Accessed: 2026-08-30
+- Source tier: 2
+- Supports:
+  - the definition of pH as the negative base-10 logarithm of hydrogen-ion
+    activity;
+  - the dimensionless standard-state activity formulation;
+  - the qualification that single-ion activity is not independently measurable
+    and the thermodynamic definition is therefore notional.
+
+### [SC-IUPAC-PH-02] Measurement of pH: Definition, standards, and procedures
+
+- Organization: International Union of Pure and Applied Chemistry
+- Authors: R. P. Buck, S. Rondinini, A. K. Covington, F. G. K. Baucke,
+  C. M. A. Brett, M. F. Camões, M. J. T. Milton, T. Mussini, R. Naumann,
+  K. W. Pratt, P. Spitzer, and G. S. Wilson
+- Publication: *Pure and Applied Chemistry* 74(11), 2169–2200 (2002)
+- DOI: https://doi.org/10.1351/pac200274112169
+- URL: https://publications.iupac.org/pac/74/11/2169/index.html
+- Accessed: 2026-08-30
+- Source tier: 2
+- Supports:
+  - the conventional/metrological status of pH and its activity-based
+    definition;
+  - the distinction between defining pH and operationally realizing pH
+    measurements and standards.
+
+### [SC-IUPAC-FRACTION-01] Volume fraction and fraction terminology
+
+- Organization: International Union of Pure and Applied Chemistry
+- Sources: IUPAC Gold Book, “volume fraction” and “fraction”
+- DOIs:
+  - https://doi.org/10.1351/goldbook.V06643
+  - https://doi.org/10.1351/goldbook.F02494
+- URL: https://goldbook.iupac.org/terms/view/V06643
+- Accessed: 2026-08-30
+- Source tier: 2
+- Supports:
+  - volume fraction as the volume of a constituent divided by the sum of
+    constituent volumes before mixing;
+  - mass, volume, and amount fractions as distinct kinds of dimension-one
+    composition quantities.
 
 ### [SC-EPA-01] Methods for Chemical Analysis of Water and Wastes
 

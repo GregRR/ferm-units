@@ -5,6 +5,7 @@ import pytest
 from pint import DimensionalityError, UnitRegistry
 
 from fermunits import (
+    PHValue,
     amount_concentration_to_equivalent_concentration,
     amount_to_equivalents,
     caco3_basis_mass_concentration_to_equivalent_concentration,
@@ -13,7 +14,9 @@ from fermunits import (
     equivalent_concentration_to_caco3_basis_mass_concentration,
     equivalent_concentration_to_mass_concentration,
     equivalents_to_amount,
+    hydrogen_ion_activity_to_ph,
     mass_concentration_to_equivalent_concentration,
+    ph_to_hydrogen_ion_activity,
 )
 
 
@@ -528,3 +531,84 @@ def test_reverse_mass_equivalent_conversion_rejects_wrong_dimension(
             registry.Quantity(1, "mole / liter"),
             equivalent_mass_grams_per_equivalent=50.0,
         )
+
+
+def test_ph_value_normalizes_numeric_input() -> None:
+    ph = PHValue(7)
+
+    assert ph.value == pytest.approx(7.0)
+    assert isinstance(ph.value, float)
+
+
+@pytest.mark.parametrize("value", [math.nan, math.inf, -math.inf])
+def test_ph_value_rejects_nonfinite_value(value: float) -> None:
+    with pytest.raises(ValueError, match="pH must be finite"):
+        PHValue(value)
+
+
+def test_ph_value_does_not_support_ordinary_arithmetic() -> None:
+    ph = PHValue(7.0)
+
+    with pytest.raises(TypeError):
+        _ = ph * 2
+
+
+@pytest.mark.parametrize(
+    ("ph", "expected_activity"),
+    [
+        (-1.0, 10.0),
+        (0.0, 1.0),
+        (4.0, 1e-4),
+        (7.0, 1e-7),
+        (14.0, 1e-14),
+    ],
+)
+def test_ph_to_hydrogen_ion_activity(
+    ph: float,
+    expected_activity: float,
+) -> None:
+    assert ph_to_hydrogen_ion_activity(PHValue(ph)) == pytest.approx(
+        expected_activity, rel=1e-12, abs=0.0
+    )
+
+
+@pytest.mark.parametrize(
+    ("activity", "expected_ph"),
+    [
+        (10.0, -1.0),
+        (1.0, 0.0),
+        (1e-4, 4.0),
+        (1e-7, 7.0),
+        (1e-14, 14.0),
+    ],
+)
+def test_hydrogen_ion_activity_to_ph(
+    activity: float,
+    expected_ph: float,
+) -> None:
+    result = hydrogen_ion_activity_to_ph(activity)
+
+    assert isinstance(result, PHValue)
+    assert result.value == pytest.approx(expected_ph)
+
+
+def test_ph_activity_conversion_round_trip() -> None:
+    original = PHValue(5.37)
+    activity = ph_to_hydrogen_ion_activity(original)
+
+    assert hydrogen_ion_activity_to_ph(activity) == original
+
+
+@pytest.mark.parametrize("ph", [-400.0, 400.0])
+def test_ph_to_activity_rejects_unrepresentable_activity(ph: float) -> None:
+    with pytest.raises(ValueError, match="representable hydrogen-ion activity"):
+        ph_to_hydrogen_ion_activity(PHValue(ph))
+
+
+@pytest.mark.parametrize(
+    "activity",
+    [0.0, -1.0, math.nan, math.inf, -math.inf],
+)
+def test_activity_to_ph_rejects_invalid_activity(activity: float) -> None:
+    with pytest.raises(ValueError):
+        hydrogen_ion_activity_to_ph(activity)

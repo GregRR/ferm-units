@@ -25,7 +25,7 @@ The current core includes:
 - calcium-carbonate reporting-basis conversion;
 - density-assisted concentration and mass-fraction conversion;
 - molar-mass-assisted mass/amount concentration conversion;
-- downstream unit-contract coverage for the water-treatment engine;
+- downstream unit-contract coverage for Water Chemistry Engine;
 - maintained source-status documentation and an explicit scientific
   verification policy.
 
@@ -140,21 +140,27 @@ implementable work.
 
 ## Milestone 4 — Solution-chemistry semantic boundaries
 
-**Status: planned; preflight context validation hardened**
+**Status: in progress; ownership audit and pH slice underway**
 
 Revisit semantic quantities that go beyond ordinary Pint dimensionality, using
-Water Treatment and FermentationJSON requirements to decide what belongs in
+Water Chemistry Engine and FermentationJSON requirements to decide what belongs in
 FermUnits versus downstream domain models or serialization schemas.
 
-Topics to evaluate include:
+Audit conclusions for the first M4 pass:
 
-- volume-fraction semantics;
-- pH as a logarithmic semantic value;
-- pH intervals and other transformations that must not be treated linearly;
-- reported bounds such as `<5 mg/L`;
-- ranges;
-- measurement uncertainty;
-- detection and quantitation limits.
+- volume fraction remains an ordinary dimension-one Pint quantity; fraction
+  kind and reference conditions remain downstream semantics rather than new
+  registry units;
+- pH belongs in FermUnits as a small non-Pint `PHValue` semantic type plus
+  explicit activity-based transformations, never as a multiplicative Pint unit
+  or universal concentration conversion;
+- a pH difference is logarithmic and does not require a new Pint unit or
+  FermUnits type at present;
+- reported bounds, ranges, nondetects, detection/quantitation limits, and
+  uncertainty belong to downstream measurement/serialization models, while
+  their numeric thresholds remain ordinary Pint quantities;
+- FermUnits does not resolve bounded or uncertain measurements to scalar values
+  and does not add a general uncertainty-propagation framework.
 
 Do not duplicate FermentationJSON's reporting/provenance model or embed
 water-treatment calculation policy in FermUnits merely for convenience.
