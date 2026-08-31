@@ -97,7 +97,7 @@ The unresolved direct ASBC checks remain tracked in `docs/asbc-verification.md`.
 
 ## Milestone 3 — Brewing verification backlog
 
-**Status: in progress**
+**Status: planned verification batches complete; full M3 review pending**
 
 Continue converting implemented-but-provisional brewing relationships into
 well-sourced, explicitly scoped behavior.
@@ -123,7 +123,13 @@ scope of existing functionality increasingly precise.
 Completed verification batches in current development:
 
 - gravity/extract measurement semantics and source-status review;
-- SRM/EBC, Lovibond, and analytical bitterness source/status review.
+- SRM/EBC, Lovibond, and analytical bitterness source/status review;
+- Lintner/Windisch-Kolbach and British brewery-vessel source/status review,
+  including the qualified historical `brewing_tun` definition.
+
+All planned implementation/source-verification batches are now complete. The
+milestone remains open only for the scheduled whole-M3 internal review and
+external scientific/code review before Milestone 4 begins.
 
 **Completion criterion:** every implemented brewing relationship has a current
 maintained source record and an intentional Verified, Provisional, Ambiguous, or

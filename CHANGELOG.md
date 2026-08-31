@@ -6,6 +6,9 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Added
 
+- Add the qualified `brewing_tun` historical British brewery measure as
+  216 Imperial gallons, completing the implemented large-cask hierarchy without
+  assigning a universal bare `tun` meaning.
 - Add quantity-aware dissolved-CO2 conversions between volumes of CO2 and Pint
   mass-concentration quantities while retaining the original scalar g/L APIs.
 - Add a downstream draft-system unit contract covering temperature, pressure,
@@ -14,6 +17,11 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Complete the planned Milestone 3 verification batches by confirming current
+  ASBC/EBC diastatic-power method identities, strengthening the conventional
+  Lintner/Windisch-Kolbach source record and low-end limitations, and sourcing
+  British brewery cask meanings while keeping larger historical names explicitly
+  qualified.
 - Continue the Milestone 3 brewing verification pass by confirming current
   ASBC/EBC color and bitterness method identities, strengthening the SRM/EBC
   scale-factor and Beer-23A bitterness-factor source records, clarifying that

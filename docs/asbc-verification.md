@@ -310,23 +310,46 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Degrees Lintner and Windisch-Kolbach
 
-* Status: ASBC/EBC verification pending
+* Status: current ASBC/EBC method identities confirmed; conventional numerical
+  relationship independently supported; primary conversion provenance pending
 * Implemented provisional relationships:
 
   * `°WK = 3.5 * °Lintner - 16`
   * `°Lintner = (°WK + 16) / 3.5`
+* Accessible-source result:
+
+  * current ASBC material identifies Malt-6 as the diastatic-power method family
+    and *The Brewing Science Laboratory* names Malt-6A and Malt-6B procedures;
+  * current Analytica EBC 4.12 methods determine combined alpha- and beta-amylase
+    activity under standardized reaction conditions;
+  * EBC reference-material documentation reports diastatic power in WK on a dry
+    matter basis;
+  * Rani and Bhardwaj (2021), a peer-reviewed malt-quality review, reproduces
+    `Lintner = (WK + 16) / 3.5` and identifies the EBC/WK versus Lintner
+    reporting distinction;
+  * none of the accessible primary method listings reviewed here exposes the
+    provenance, exactness, valid range, or formal method-equivalence meaning of
+    the cross-scale formula.
 * Current treatment:
 
-  * negative diastatic-power results are rejected;
-  * the relationship is documented as provisional.
-* Confirm:
+  * the relationship remains documented as provisional;
+  * the functions convert reported numerical scale values, not analytical
+    procedures or raw enzyme-activity measurements;
+  * negative input values are rejected;
+  * forward Lintner values that would produce a negative WK result are rejected;
+  * the nonzero intercept means `0 °WK` maps algebraically to about
+    `4.57 °Lintner`, so low-end interpretation must not be inferred beyond the
+    sourced conventional formula;
+  * degrees Lintner remain distinct from degrees Lovibond despite the common
+    `°L` abbreviation.
+* Still confirm directly:
 
-  * original ASBC and EBC method references;
-  * whether the relationship is exact, conventional, or approximate;
-  * rounding and reporting conventions;
-  * valid range;
-  * distinction between degrees Lintner and degrees Lovibond, both commonly
-    abbreviated with `°L`.
+  * the primary historical or standards source for the Lintner/WK conversion;
+  * whether the relationship is defined as exact, conventional, or approximate;
+  * whether current ASBC and EBC methods produce results intended to be
+    interconverted directly by this equation;
+  * dry-matter/reference-basis details on both sides;
+  * valid range, rounding, and reporting precision.
 
 ## Carbonation
 

@@ -55,7 +55,7 @@ Existing legitimate Pint meanings are preserved.
 
 When one plain-language term has multiple legitimate meanings, FermUnits uses a
 qualified name rather than silently replacing Pint's definition. Bare generic
-terms such as `barrel`, `butt`, or `puncheon` are not assigned one universal
+terms such as `barrel`, `butt`, `puncheon`, or `tun` are not assigned one universal
 fermentation meaning when region, industry, or history changes the capacity.
 
 Qualified names should communicate the distinction directly, for example

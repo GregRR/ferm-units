@@ -15,21 +15,88 @@ Pint's existing unit names are preserved when they have a legitimate meaning.
 FermUnits adds qualified names where brewing terminology would otherwise collide
 with Pint or another fermentation domain.
 
+The modern/traditional British brewery cask family is based on the Imperial
+gallon. Current CAMRA material directly supports the pin, firkin, kilderkin, and
+hogshead capacities, while University of Nottingham historical guidance records
+the wider beer/ale hierarchy through puncheon, butt, and tun. [BR-CAMRA-CASK-01]
+[BR-NOTTINGHAM-CASK-01] The Weights and Measures Act 1824 established the
+Imperial gallon as the standard capacity basis for beer and ale; it does not by
+itself establish every named cask multiple used below. [BR-UK-WM-1824]
+
 | FermUnits name | Definition | Implementation status | Source status |
 |---|---|---|---|
 | `us_beer_barrel` | alias of Pint `beer_barrel` = 31 US liquid gallons | Implemented | Pint behavior verified via [SH-PINT-01] |
-| `imperial_beer_barrel` | 36 Imperial gallons | Implemented | Domain-source verification pending |
-| `pin_cask` | 4.5 Imperial gallons | Implemented | Domain-source verification pending |
-| `firkin` | 9 Imperial gallons | Implemented | Domain-source verification pending |
-| `kilderkin` | 18 Imperial gallons | Implemented | Domain-source verification pending |
-| `brewing_hogshead` | 54 Imperial gallons | Implemented | Domain-source verification pending |
-| `brewing_puncheon` | 72 Imperial gallons | Implemented | Domain-source verification pending |
-| `brewing_butt` | 108 Imperial gallons | Implemented | Domain-source verification pending |
+| `imperial_beer_barrel` | 36 Imperial gallons | Implemented | **Verified** for the British brewery barrel hierarchy via [BR-CAMRA-CASK-01] |
+| `pin_cask` | 4.5 Imperial gallons | Implemented | **Verified** for British brewing use via [BR-CAMRA-CASK-01] |
+| `firkin` | 9 Imperial gallons | Implemented | **Verified** for British brewing use via [BR-CAMRA-CASK-01] |
+| `kilderkin` | 18 Imperial gallons | Implemented | **Verified** for British brewing use via [BR-CAMRA-CASK-01] |
+| `brewing_hogshead` | 54 Imperial gallons | Implemented | **Verified** for British brewing use via [BR-CAMRA-CASK-01] |
+| `brewing_puncheon` | 72 Imperial gallons | Implemented | **Provisional** historical British brewing meaning via [BR-NOTTINGHAM-CASK-01] |
+| `brewing_butt` | 108 Imperial gallons | Implemented | **Provisional** historical British brewing meaning via [BR-NOTTINGHAM-CASK-01] |
+| `brewing_tun` | 216 Imperial gallons | Implemented | **Provisional** historical British brewing meaning via [BR-NOTTINGHAM-CASK-01] |
 | `wine_hogshead` | alias of Pint `hogshead` | Implemented for explicit disambiguation | See [wine-units.md](wine-units.md) |
 
-Bare `barrel`, `hogshead`, `puncheon`, and `butt` are not given new universal
-brewing meanings when a legitimate Pint or cross-domain meaning would be
-changed or obscured.
+The qualified `brewing_puncheon`, `brewing_butt`, and `brewing_tun` names are
+intentional. The same plain-language cask terms have had different capacities in
+wine, spirits, and other regional or historical contexts. The large brewing
+measures are therefore retained as explicitly British/historical brewing
+meanings rather than promoted to universal bare aliases.
+
+Bare `barrel`, `hogshead`, `puncheon`, `butt`, and `tun` are not given new
+universal brewing meanings when a legitimate Pint or cross-domain meaning would
+be changed or obscured.
+
+### Vessel sources
+
+#### [BR-CAMRA-CASK-01] Or, does Whitbread know its kil from its firkin?
+
+- Organization: Campaign for Real Ale (CAMRA), South Hants branch
+- Publication: *Hop Press*, September 1995
+- URL: https://shants.camra.org.uk/hop-press/hop-press40.php
+- Accessed: 2026-08-30
+- Tier: 4
+- Supports:
+  - pin as 4.5 gallons, firkin as 9 gallons, kilderkin as 18 gallons,
+    brewery barrel as 36 gallons, and hogshead as 54 gallons;
+  - the hierarchy of those sizes as multiples/submultiples of the 36-gallon
+    brewery barrel;
+  - continued British brewing use of the smaller cask names.
+- Limitation:
+  - does not document the larger historical puncheon, butt, or tun hierarchy.
+
+#### [BR-NOTTINGHAM-CASK-01] Volumes or Capacity
+
+- Organization: University of Nottingham, Manuscripts and Special Collections
+- URL: https://www.nottingham.ac.uk/manuscriptsandspecialcollections/researchguidance/weightsandmeasures/volumes.aspx
+- Accessed: 2026-08-30
+- Tier: 6
+- Supports:
+  - the beer/ale hierarchy `4.5 gallons = pin`, `2 pins = firkin`,
+    `2 firkins = kilderkin`, `2 kilderkins = barrel`;
+  - `1.5 barrels = 54 gallons = hogshead`;
+  - `2 barrels = 72 gallons = puncheon`;
+  - `2 hogsheads = 108 gallons = butt`;
+  - `3 puncheons = 216 gallons = tun`;
+  - separation of beer/ale measures from different wine/spirit cask meanings.
+- Limitation:
+  - historical research guidance rather than a current statutory brewery-cask
+    standard;
+  - the page spans multiple historical measurement systems, so the large-cask
+    names are retained as explicitly historical/qualified meanings.
+
+#### [BR-UK-WM-1824] Weights and Measures Act 1824 (5 Geo. IV c. 74)
+
+- Organization: Parliament of the United Kingdom
+- URL: https://www.legislation.gov.uk/ukpga/1824/74/pdfs/ukpga_18240074_en.pdf
+- Accessed: 2026-08-30
+- Tier: 1
+- Supports:
+  - establishment of the Imperial gallon as the standard measure of capacity;
+  - application of that common standard to wine, beer, ale, spirits, and other
+    liquids;
+  - use of parts and multiples of the Imperial gallon after the Act took effect.
+- Limitation:
+  - does not itself enumerate every brewery-cask multiple used by FermUnits.
 
 ## Gravity and extract
 
@@ -479,15 +546,92 @@ Public functions:
 - `lintner_to_windisch_kolbach`
 - `windisch_kolbach_to_lintner`
 
-Implemented relationship:
+Implemented conventional relationship:
 
 ```text
 °WK = 3.5 * °Lintner - 16
 °Lintner = (°WK + 16) / 3.5
 ```
 
-Status: **Implemented provisionally; original ASBC/EBC method provenance, range,
-and reporting conventions remain verification pending.**
+ASBC currently identifies Malt-6 as its diastatic-power method family, while
+Analytica EBC 4.12 measures the combined activity of alpha- and beta-amylase of
+malt under standardized reaction conditions. [BR-ASBC-MALT6-01]
+[BR-EBC-DP-01] A peer-reviewed malt-quality review independently reproduces the
+implemented Lintner/Windisch-Kolbach conversion and describes the two reporting
+scales as related by `Lintner = (WK + 16) / 3.5`. [BR-RANI-DP-2021]
+
+The conversion is therefore well established as a conventional reporting-scale
+relationship, but FermUnits does not claim that applying it converts a result
+from one analytical procedure into the result that would have been obtained by
+running the other procedure. Direct primary provenance for the cross-scale
+formula, its formal exactness, valid range, dry-matter basis, and reporting
+precision remains unavailable in the sources reviewed here.
+
+The nonzero intercept also makes the low end important: the conventional formula
+maps `0 °WK` to about `4.57 °Lintner`, while smaller Lintner values would produce
+negative WK values. FermUnits rejects forward conversions that would produce a
+negative reported value rather than silently extending the relationship into
+that physically meaningless region.
+
+Status: **Implemented provisionally; current ASBC/EBC method identities and the
+conventional numerical relationship are sourced, while primary formula
+provenance, method-equivalence scope, range, and reporting conventions remain
+verification pending.**
+
+### Diastatic-power sources
+
+#### [BR-ASBC-MALT6-01] ASBC Malt-6 — Diastatic Power
+
+- Organization: American Society of Brewing Chemists (ASBC)
+- Method index: https://www.asbcnet.org/Methods/MaltMethods/pages/default.aspx
+- Supporting publication: *The Brewing Science Laboratory*
+- URL: https://www.asbcnet.org/publications/Pages/BSL.aspx
+- Accessed: 2026-08-30
+- Tier: 2
+- Supports:
+  - Malt-6 as the ASBC diastatic-power method family;
+  - Malt-6A and Malt-6B as named ASBC diastatic-power procedures.
+- Limitation:
+  - the public listings do not expose the full current method text or establish
+    the Lintner/Windisch-Kolbach conversion used by FermUnits.
+
+#### [BR-EBC-DP-01] Analytica EBC 4.12 — Diastatic Power of Malt
+
+- Organization: European Brewery Convention / Brewers of Europe
+- Current method pages:
+  - https://brewup.eu/ebc-analytica/malt/diastatic-power-of-malt-by-spectrophotometry-manual-method/4.12.1
+  - https://brewup.eu/ebc-analytica/malt/diastatic-power-of-malt-by-segmented-flow-analysis/4.12.2
+  - https://brewup.eu/ebc-analytica/malt/diastatic-power-of-malt-by-automated-discrete-analysis/4.12.3
+- Supporting reference-malt guidance: https://brewup.eu/document/download/270
+- Accessed: 2026-08-30
+- Tier: 2
+- Supports:
+  - the current EBC 4.12 diastatic-power method family;
+  - determination of combined alpha- and beta-amylase activity under
+    standardized reaction conditions;
+  - use of Windisch-Kolbach reporting for EBC malt diastatic power in EBC
+    reference-material documentation.
+- Limitation:
+  - the public method pages do not expose the complete numerical definition of
+    the WK reporting scale or the Lintner/WK cross-scale conversion.
+
+#### [BR-RANI-DP-2021] Quality attributes for barley malt: “The backbone of beer”
+
+- Authors: Heena Rani and Rachana D. Bhardwaj
+- Publication: *Journal of Food Science*, 86(8), 3322-3340, 2021
+- DOI: https://doi.org/10.1111/1750-3841.15858
+- URL: https://ift.onlinelibrary.wiley.com/doi/10.1111/1750-3841.15858
+- Accessed: 2026-08-30
+- Tier: 5
+- Supports:
+  - use of Windisch-Kolbach units for EBC diastatic-power reporting and degrees
+    Lintner in another established brewing-analysis tradition;
+  - the numerical relationship `Lintner = (WK + 16) / 3.5`, algebraically
+    equivalent to the FermUnits pair.
+- Limitation:
+  - peer-reviewed secondary support rather than the primary historical or
+    current standards text establishing the conversion;
+  - does not establish a formal valid range or cross-method equivalence claim.
 
 ## Carbonation
 

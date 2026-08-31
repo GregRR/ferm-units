@@ -16,17 +16,17 @@ def _require_nonnegative_finite(value: float, name: str) -> None:
 
 
 def lintner_to_windisch_kolbach(lintner: float) -> float:
-    """Convert degrees Lintner to Windisch-Kolbach units.
+    """Convert a reported degrees-Lintner value to Windisch-Kolbach units.
 
-    The conventional relationship is:
-
-    ``WK = 3.5 * Lintner - 16``
-
-    The relationship remains provisional pending verification against the
-    original ASBC and EBC analytical methods.
+    FermUnits uses the conventional numerical relationship
+    ``WK = 3.5 * Lintner - 16``. Current ASBC and EBC diastatic-power method
+    identities are documented, and the conversion is independently reproduced
+    in peer-reviewed brewing literature, but the primary provenance, exactness,
+    range, and reporting conventions of the cross-scale relationship remain
+    verification pending.
 
     Values producing a negative Windisch-Kolbach result are rejected because
-    negative diastatic power is not meaningful.
+    negative reported diastatic power is not meaningful.
     """
     _require_nonnegative_finite(lintner, "Degrees Lintner")
 
@@ -41,9 +41,10 @@ def lintner_to_windisch_kolbach(lintner: float) -> float:
 
 
 def windisch_kolbach_to_lintner(windisch_kolbach: float) -> float:
-    """Convert Windisch-Kolbach units to degrees Lintner.
+    """Convert a reported Windisch-Kolbach value to degrees Lintner.
 
-    This is the inverse of ``lintner_to_windisch_kolbach``.
+    This is the algebraic inverse of ``lintner_to_windisch_kolbach`` and has
+    the same provisional source-status limitations.
     """
     _require_nonnegative_finite(
         windisch_kolbach,

@@ -298,14 +298,15 @@ is mass fraction. FermUnits does not define a generic `ppb` alias.
 
 Implemented physical units include:
 
-* modern British brewery cask units;
+* British brewery cask units, including current-use and historical large-cask
+  measures;
 * modern US beer barrel;
 * Imperial beer barrel;
 * pin cask;
 * firkin;
 * kilderkin;
 * domain-qualified wine and brewing hogsheads;
-* domain-qualified brewing puncheon and butt.
+* domain-qualified brewing puncheon, butt, and tun.
 
 Implemented brewing calculations include:
 
