@@ -1,0 +1,94 @@
+# ==============================================================================
+# CLAUDEIGNORE TEMPLATE: PYTHON PROJECTS
+# ==============================================================================
+
+# 1. Version Control & Git Clutter (Essential)
+.git/
+.gitignore
+
+# 2. Virtual Environments (Shreds your token budget instantly)
+.venv/
+venv/
+env/
+ENV/
+pyenv/
+.env/
+.release-smoke-*/
+
+# 3. Python Compiled Files & Caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.black_cache/
+.hypothesis/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+*.cover
+*.py,cover
+.nox/
+.tox/
+
+# 4. Package Build, Distribution & Metadata
+build/
+dist/
+*.egg-info/
+.eggs/
+eggs/
+*.egg
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+.installed.cfg
+MANIFEST
+
+# 5. Sensitive Data & Configuration Secrets
+.env
+.env.*
+*.pem
+*.key
+*.secret
+
+# 6. Database Files & Heavy Logs
+*.log
+*.sqlite
+*.db
+*.local
+
+# 7. Jupyter Notebook Checkpoints & Caches
+.ipynb_checkpoints/
+
+# 8. System & IDE Cache Files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# 9. Zensical / MkDocs Compiled HTML Output
+site/
+sites/
+.cache/
+
+# 10. Native Compiler / C Build Artifacts
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+*.exe
