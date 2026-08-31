@@ -88,7 +88,9 @@ apparent_brix = plato_to_wort_refractometer_brix(
 
 ## Beer color
 
-Modern SRM and EBC color indices can be converted directly.
+FermUnits applies the documented scale-factor relationship between modern
+method-derived SRM and EBC color indices. The full analytical-method qualification
+remains provisional.
 
 ```python
 from fermunits import ebc_to_srm, srm_to_ebc

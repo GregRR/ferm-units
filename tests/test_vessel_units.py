@@ -1,4 +1,5 @@
 import pytest
+from pint import UndefinedUnitError
 
 from fermunits import Q_
 
@@ -59,3 +60,15 @@ def test_brewing_hogshead_equals_54_imperial_gallons() -> None:
 def test_us_beer_barrel_matches_pint_beer_barrel() -> None:
     result = Q_(1, "us_beer_barrel").to("beer_barrel")
     assert result.magnitude == pytest.approx(1)
+
+
+def test_pint_bare_vessel_meanings_are_preserved() -> None:
+    assert Q_(1, "barrel").to("US_liquid_gallon").magnitude == pytest.approx(31.5)
+    assert Q_(1, "hogshead").to("US_liquid_gallon").magnitude == pytest.approx(63)
+    assert Q_(1, "imperial_barrel").to("imperial_gallon").magnitude == pytest.approx(36)
+
+
+@pytest.mark.parametrize("unit_name", ["puncheon", "butt", "tun"])
+def test_ambiguous_large_cask_names_remain_undefined(unit_name: str) -> None:
+    with pytest.raises(UndefinedUnitError):
+        Q_(1, unit_name)

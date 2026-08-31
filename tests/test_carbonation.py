@@ -11,7 +11,7 @@ from fermunits import (
     co2_volumes_to_mass_concentration,
 )
 
-EXPECTED_GRAMS_PER_LITER_PER_VOLUME = 10.0 / 5.0607
+EXPECTED_GRAMS_PER_LITER_PER_VOLUME = 1000.0 / 506.07
 
 
 @pytest.mark.parametrize(

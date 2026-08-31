@@ -156,6 +156,24 @@ def test_plato_conversion_round_trip(specific_gravity: float) -> None:
     assert result == pytest.approx(specific_gravity)
 
 
+def test_plato_inversion_implementation_boundaries_round_trip() -> None:
+    for specific_gravity in (0.5, 2.0):
+        result = plato_to_sg(sg_to_plato(specific_gravity))
+
+        assert result == pytest.approx(specific_gravity)
+
+
+def test_plato_inversion_rejects_values_outside_implementation_bounds() -> None:
+    lower_plato = sg_to_plato(0.5)
+    upper_plato = sg_to_plato(2.0)
+
+    with pytest.raises(ValueError):
+        plato_to_sg(lower_plato - 1e-6)
+
+    with pytest.raises(ValueError):
+        plato_to_sg(upper_plato + 1e-6)
+
+
 @pytest.mark.parametrize(
     "plato",
     [

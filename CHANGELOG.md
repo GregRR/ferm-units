@@ -17,6 +17,10 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Complete the whole-Milestone-3 internal review by aligning source-status
+  vocabulary, expressing the carbonation factor directly from the sourced
+  `506.07 mL/g` constant, strengthening bitterness-factor provenance, and
+  adding inverse-boundary and vessel-collision regression coverage.
 - Complete the planned Milestone 3 verification batches by confirming current
   ASBC/EBC diastatic-power method identities, strengthening the conventional
   Lintner/Windisch-Kolbach source record and low-end limitations, and sourcing

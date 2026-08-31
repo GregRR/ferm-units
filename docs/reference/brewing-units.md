@@ -25,7 +25,7 @@ itself establish every named cask multiple used below. [BR-UK-WM-1824]
 
 | FermUnits name | Definition | Implementation status | Source status |
 |---|---|---|---|
-| `us_beer_barrel` | alias of Pint `beer_barrel` = 31 US liquid gallons | Implemented | Pint behavior verified via [SH-PINT-01] |
+| `us_beer_barrel` | alias of Pint `beer_barrel` = 31 US liquid gallons | Implemented | **Verified** Pint behavior via [SH-PINT-01] |
 | `imperial_beer_barrel` | 36 Imperial gallons | Implemented | **Verified** for the British brewery barrel hierarchy via [BR-CAMRA-CASK-01] |
 | `pin_cask` | 4.5 Imperial gallons | Implemented | **Verified** for British brewing use via [BR-CAMRA-CASK-01] |
 | `firkin` | 9 Imperial gallons | Implemented | **Verified** for British brewing use via [BR-CAMRA-CASK-01] |
@@ -69,7 +69,7 @@ be changed or obscured.
 - Organization: University of Nottingham, Manuscripts and Special Collections
 - URL: https://www.nottingham.ac.uk/manuscriptsandspecialcollections/researchguidance/weightsandmeasures/volumes.aspx
 - Accessed: 2026-08-30
-- Tier: 6
+- Tier: 7
 - Supports:
   - the beer/ale hierarchy `4.5 gallons = pin`, `2 pins = firkin`,
     `2 firkins = kilderkin`, `2 kilderkins = barrel`;
@@ -123,9 +123,9 @@ FermUnits applies the formula algebraically below SG 1.000 as well, so SG
 `0.998` maps to `-2` gravity points. The cited brewing-practice source does not
 independently standardize that below-1.000 extension.
 
-Status: **Implemented; the ordinary gravity-points convention is sourced as
-brewing shorthand, while the below-1.000 extension, ASBC terminology, and
-specific-gravity reference-condition verification remain pending.**
+Status: **Provisional.** Implemented. The ordinary gravity-points convention is
+sourced as brewing shorthand, while the below-1.000 extension, ASBC terminology,
+and specific-gravity reference-condition verification remain pending.
 
 ### Specific gravity and degrees Plato
 
@@ -160,10 +160,10 @@ expose the equation or enough article text to establish it as the source of the
 coefficients. It therefore remains a verification lead rather than a supporting
 source record.
 
-Status: **Implemented provisionally; the exact polynomial is independently
+Status: **Provisional.** Implemented. The exact polynomial is independently
 reproduced in peer-reviewed brewing literature with ASBC attribution, while the
 primary ASBC source, reference conditions, scientific validity range, and full
-precision qualification remain direct verification items.**
+precision qualification remain direct verification items.
 
 The numerical SG search interval used by the inverse is an implementation limit,
 not an asserted scientific range. The inverse itself is a FermUnits numerical
@@ -184,9 +184,9 @@ anchors Brix to sucrose mass-fraction/refractometer practice. [SH-OIML-01]
 These related measurement traditions are enough to support keeping the names
 semantically distinct rather than defining a universal arithmetic conversion.
 
-Status: **Not implemented by design; the modern Plato and Brix meanings are
-sourced, while historical Balling details and any stated cross-scale tolerance
-remain verification pending.**
+Status: **Pending** for any generic cross-scale conversion; not implemented by
+design. The modern Plato and Brix meanings are sourced, while historical Balling
+details and any stated cross-scale tolerance remain verification pending.
 
 ### Wort refractometer correction
 
@@ -211,9 +211,9 @@ correction factor. OIML's Brix treatment is tied to sucrose/refractometer
 measurement conditions rather than to a universal wort composition, so the
 caller-supplied-factor boundary remains intentionally conservative.
 
-Status: **Implemented provisionally; the explicit-factor API is retained, while
+Status: **Provisional.** Implemented with an explicit caller-supplied factor.
 ASBC procedure, calibration practice, and any defensible factor range remain
-verification pending.**
+verification pending.
 
 Sources: [SH-OIML-01] for refractometer/Brix measurement context.
 
@@ -229,8 +229,8 @@ A future API must include explicit sample temperature, hydrometer calibration
 temperature, temperature scale, supported SG/temperature range, and sample
 matrix.
 
-Status: **Rejected legacy formula; replacement implementation blocked pending an
-authoritative method.**
+Status: **Rejected** for the legacy formula. Replacement status: **Pending** an
+authoritative method; no replacement is implemented.
 
 Sources: [SH-NIST-01] for hydrometer calibration and temperature-effect context.
 
@@ -346,10 +346,10 @@ dilution, turbidity assessment, or other procedural requirements of Beer-10A
 or EBC 9.6/8.5, and a single-wavelength index is not a complete description of
 perceived beer color.
 
-Status: **Implemented provisionally; the numerical scale-factor relationship is
+Status: **Provisional.** Implemented. The numerical scale-factor relationship is
 strongly supported by accessible technical and peer-reviewed sources and the
 current ASBC/EBC method identities are confirmed, but the complete primary
-method text has not been directly verified for all procedural qualifications.**
+method text has not been directly verified for all procedural qualifications.
 
 ### Lovibond approximation
 
@@ -372,9 +372,10 @@ therefore retain `_approx`. The relationship must not be treated as a general
 physical conversion between arbitrary Lovibond-tintometer measurements and
 modern spectrophotometric SRM/EBC measurements.
 
-Status: **Implemented provisionally; the approximation is well established in
-secondary brewing practice, while primary coefficient provenance, material
-scope, range, and expected error remain verification pending.**
+Status: **Provisional.** Implemented as an explicitly named approximation. The
+relationship is well established in secondary brewing practice, while primary
+coefficient provenance, material scope, range, and expected error remain
+verification pending.
 
 ## Analytical bitterness
 
@@ -393,7 +394,9 @@ ASBC publicly identifies Beer-23A as *Beer Bitterness—Bitterness Units
 (International Method)*. An ASBC conference presentation shows the Beer-23
 liquid-liquid extraction context and states `A275 * 50 = bitterness units`, while
 explicitly warning that the result is not one ppm of iso-alpha-acid.
-[BR-ASBC-BEER23-01] [BR-ASBC-SHELLHAMMER-2016] Analytica EBC identifies 9.8 as
+[BR-ASBC-BEER23-01] [BR-ASBC-SHELLHAMMER-2016] An EBC Analysis Committee
+publication also directly established the coordinated `A275 * 50` EBC bitterness
+reporting factor in 1967. [BR-EBC-BISHOP-1967] Analytica EBC identifies 9.8 as
 its current international beer-bitterness method and notes that its precision
 chapter now includes dry-hopped beers. [BR-EBC-BITTERNESS-01]
 
@@ -407,10 +410,10 @@ collapsed into exact iso-alpha-acid concentration or sensory bitterness.
 
 FermUnits does not provide a synthetic arithmetic IBU-to-EBU conversion.
 
-Status: **Implemented; Verified for the Beer-23A numerical reporting factor
-and the operational meaning represented by this helper. The coordinated current
-EBC 9.8 method identity is confirmed. Full analytical procedures are
-intentionally outside this conversion helper.**
+Status: **Provisional.** Implemented. The historical `A275 * 50` reporting
+factor and operational bitterness-unit meaning are directly supported, and the
+current Beer-23A/EBC 9.8 method identities are confirmed. Direct verification of
+the complete current methods and their procedural conditions remains pending.
 
 ### Beer color and bitterness sources
 
@@ -507,6 +510,23 @@ intentionally outside this conversion helper.**
 - Limitation:
   - conference educational material rather than the full Beer-23A method text.
 
+#### [BR-EBC-BISHOP-1967] The E.B.C. Scale of Bitterness
+
+- Author: L. R. Bishop
+- Issuing body: Analysis Committee of the European Brewery Convention
+- Publication: *Journal of the Institute of Brewing*, 73(6), 525–527, 1967
+- DOI: https://doi.org/10.1002/j.2050-0416.1967.tb03078.x
+- Accessed: 2026-08-30
+- Tier: 4
+- Supports:
+  - the coordinated EBC bitterness-unit reporting relationship
+    `EBC bitterness units = A275 * 50`;
+  - adoption of a common reporting scale across the then-current EBC bitterness
+    procedures.
+- Limitation:
+  - historical EBC Analysis Committee publication; it does not replace the
+    complete current Beer-23A or EBC 9.8 analytical procedure.
+
 #### [BR-EBC-BITTERNESS-01] Analytica EBC 9.8 — Bitterness of Beer (IM)
 
 - Organization: European Brewery Convention / Brewers of Europe
@@ -573,10 +593,10 @@ negative WK values. FermUnits rejects forward conversions that would produce a
 negative reported value rather than silently extending the relationship into
 that physically meaningless region.
 
-Status: **Implemented provisionally; current ASBC/EBC method identities and the
+Status: **Provisional.** Implemented. Current ASBC/EBC method identities and the
 conventional numerical relationship are sourced, while primary formula
 provenance, method-equivalence scope, range, and reporting conventions remain
-verification pending.**
+verification pending.
 
 ### Diastatic-power sources
 
@@ -647,10 +667,11 @@ physical concentration units remain explicit at downstream engineering
 boundaries. The semantic "volumes CO2" value remains a scalar rather than an
 ordinary multiplicative Pint unit.
 
-The current implementation uses one reciprocal factor in both directions:
+The current implementation uses one reciprocal factor in both directions,
+expressed directly from the sourced `506.07 mL/g` constant:
 
 ```text
-grams per liter per volume = 10 / 5.0607
+grams per liter per volume = 1000 / 506.07
 ```
 
 This is approximately `1.976 g/L` per volume of CO2. The legacy `1.96` and
@@ -717,9 +738,9 @@ support.
 - document any legitimate industry-specific alternative standard states rather
   than silently treating one convention as universal.
 
-Status: **Implemented provisionally; accessible-source review complete. Direct
-ASBC method-text verification of reference state and reporting precision remains
-pending.**
+Status: **Provisional.** Implemented. The accessible-source review is complete;
+direct ASBC method-text verification of reference state and reporting precision
+remains pending.
 
 ### Carbonation-specific sources
 

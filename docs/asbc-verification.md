@@ -14,7 +14,7 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Specific gravity
 
-* Status: ASBC verification pending
+* Status: **Pending** — direct ASBC definition and reference-condition verification
 * Current treatment:
 
   * specific gravity is represented as a dimensionless density ratio;
@@ -30,7 +30,8 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Gravity points
 
-* Status: brewing shorthand sourced; ASBC terminology verification pending
+* Status: **Provisional** — brewing shorthand sourced; ASBC terminology and
+  reference-condition verification pending
 * Implemented formulas:
 
   * `GU = (SG - 1) * 1000`
@@ -53,8 +54,8 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Specific gravity to degrees Plato
 
-* Status: exact polynomial independently reproduced with ASBC attribution;
-  primary ASBC source and reference-condition verification pending
+* Status: **Provisional** — exact polynomial independently reproduced with ASBC
+  attribution; primary ASBC source and reference-condition verification pending
 
 * Implemented polynomial:
 
@@ -97,7 +98,8 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Degrees Plato to specific gravity
 
-* Status: ASBC verification pending
+* Status: **Provisional** — FermUnits inverse of the provisional forward
+  relationship; ASBC inverse/table verification pending
 * Current treatment:
 
   * FermUnits numerically inverts the implemented SG-to-Plato polynomial;
@@ -119,8 +121,9 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Degrees Brix, Plato, and Balling
 
-* Status: modern Plato/Brix semantic boundary supported; historical Balling and
-  cross-scale tolerance verification pending
+* Status: **Pending** for any generic cross-scale conversion; modern Plato/Brix
+  semantic boundary supported; historical Balling and cross-scale tolerance
+  verification pending
 * Accessible-source result:
 
   * Thesseling et al. (2019), *Current Protocols in Microbiology* 54:e91,
@@ -146,7 +149,8 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Wort refractometer correction
 
-* Status: ASBC verification pending
+* Status: **Provisional** — wort-specific correction relationship retained with an
+  explicit caller-supplied factor; authoritative ASBC procedure and factor guidance pending
 * Implemented provisional relationships:
 
   * `corrected Plato = apparent Brix / wort correction factor`
@@ -178,7 +182,7 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### General hydrometer correction
 
-* Status: implementation blocked pending authoritative method
+* Status: **Rejected** legacy formula; replacement **Pending** an authoritative method
 
 * Rejected provisional formula from
   [the legacy brewing inventory](reference/legacy/brewing-inventory.txt):
@@ -209,8 +213,8 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### SRM and EBC
 
-* Status: numerical scale relationship strongly supported; full primary method
-  text still pending
+* Status: **Provisional** — numerical scale relationship strongly supported; full
+  primary Beer-10A/EBC 9.6 method qualification still pending
 * Implemented relationship:
 
   * `EBC = SRM * (25 / 12.7)`
@@ -241,7 +245,8 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Lovibond and SRM
 
-* Status: empirical approximation retained as Provisional
+* Status: **Provisional** — empirical approximation retained pending primary
+  coefficient provenance, material scope, and validity/error range
 * Implemented provisional approximation:
 
   * `SRM = 1.3546 * Lovibond - 0.76`
@@ -270,9 +275,10 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Analytical bitterness units
 
-* Status: **Verified** for the Beer-23A numerical reporting factor and
-  operational meaning represented by the FermUnits helper; current EBC 9.8
-  identity confirmed
+* Status: **Provisional** — the historical `A275 * 50` reporting factor and
+  operational bitterness-unit meaning are directly supported, and current
+  Beer-23A/EBC 9.8 method identities are confirmed; full current method text and
+  procedural conditions remain pending
 * Implemented relationship:
 
   * `bitterness units = method-extract absorbance at 275 nm * 50`
@@ -280,6 +286,9 @@ When an authoritative method is known to exist but is not fully accessible:
 * Confirmed from accessible sources:
 
   * ASBC Beer-23A is *Beer Bitterness—Bitterness Units (International Method)*;
+  * the EBC Analysis Committee’s 1967 paper on the EBC bitterness scale directly
+    defines the coordinated reporting factor as absorbance/extinction at 275 nm
+    multiplied by 50;
   * ASBC educational material shows acid/nonpolar liquid-liquid extraction,
     measurement at 275 nm, and the `* 50` reporting factor;
   * that ASBC material explicitly states that one bitterness unit is not one ppm
@@ -310,8 +319,9 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Degrees Lintner and Windisch-Kolbach
 
-* Status: current ASBC/EBC method identities confirmed; conventional numerical
-  relationship independently supported; primary conversion provenance pending
+* Status: **Provisional** — current ASBC/EBC method identities confirmed and the
+  conventional numerical relationship independently supported; primary
+  cross-scale conversion provenance and method-equivalence scope remain pending
 * Implemented provisional relationships:
 
   * `°WK = 3.5 * °Lintner - 16`
@@ -355,11 +365,11 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Volumes of CO2 and physical mass concentration
 
-* Status: **Milestone 2 accessible-source review complete; remains Provisional
-  pending direct ASBC method-text verification**
+* Status: **Provisional** — Milestone 2 accessible-source review complete; direct
+  ASBC method-text verification remains pending
 * Implemented relationship:
 
-  * `grams per liter per volume = 10 / 5.0607`
+  * `grams per liter per volume = 1000 / 506.07`
   * approximately `1.976 g/L` per volume of CO2;
   * inverse calculated from the same factor.
 * Confirmed from accessible sources:

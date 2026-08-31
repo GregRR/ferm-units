@@ -97,7 +97,7 @@ The unresolved direct ASBC checks remain tracked in `docs/asbc-verification.md`.
 
 ## Milestone 3 — Brewing verification backlog
 
-**Status: planned verification batches complete; full M3 review pending**
+**Status: internal review complete; external scientific/code review pending**
 
 Continue converting implemented-but-provisional brewing relationships into
 well-sourced, explicitly scoped behavior.
@@ -127,9 +127,9 @@ Completed verification batches in current development:
 - Lintner/Windisch-Kolbach and British brewery-vessel source/status review,
   including the qualified historical `brewing_tun` definition.
 
-All planned implementation/source-verification batches are now complete. The
-milestone remains open only for the scheduled whole-M3 internal review and
-external scientific/code review before Milestone 4 begins.
+All planned implementation/source-verification batches and the whole-M3 internal
+review are now complete. The milestone remains open only for the scheduled
+external scientific/code review and any resulting fixes before Milestone 4 begins.
 
 **Completion criterion:** every implemented brewing relationship has a current
 maintained source record and an intentional Verified, Provisional, Ambiguous, or
@@ -213,7 +213,9 @@ Before a 1.0 release, review the project as a whole for:
 - downstream contract coverage;
 - supported Python/Pint compatibility policy;
 - documentation completeness and internal consistency;
-- deprecation policy for any alpha-era APIs that need adjustment.
+- deprecation policy for any alpha-era APIs that need adjustment;
+- extreme finite-input handling, so arithmetic overflow cannot silently produce
+  nonfinite outputs where a public conversion promises validated numeric behavior.
 
 A 1.0 release should indicate that the supported public API and documented
 semantics are intentionally stable, not that every conceivable fermentation

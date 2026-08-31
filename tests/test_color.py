@@ -89,6 +89,22 @@ def test_lovibond_srm_approximation_round_trip(
 
 
 @pytest.mark.parametrize(
+    ("srm", "expected_lovibond"),
+    [
+        (0.0, 0.76 / 1.3546),
+        (4.6584, 4.0),
+        (12.786, 10.0),
+        (53.424, 40.0),
+    ],
+)
+def test_srm_to_lovibond_approx(
+    srm: float,
+    expected_lovibond: float,
+) -> None:
+    assert srm_to_lovibond_approx(srm) == pytest.approx(expected_lovibond)
+
+
+@pytest.mark.parametrize(
     "function",
     [
         srm_to_ebc,
