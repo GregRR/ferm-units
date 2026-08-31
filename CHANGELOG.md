@@ -17,6 +17,18 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Incorporate the two-pass external Milestone 3 review by restricting the simple
+  wort correction-factor documentation to unfermented wort, clarifying the
+  provisional standalone interpretation of Torrent's `506.07 mL/g` carbonation
+  constant, downgrading British cask terminology to Provisional where source
+  strength does not meet the project-wide Verified bar, and making
+  `imperial_beer_barrel` an explicit alias of Pint's `imperial_barrel`.
+- Rename the analytical-bitterness input parameter to
+  `extract_absorbance_275nm` so keyword use carries the method-extract semantic
+  boundary already required by the function documentation.
+- Make `docs/sources.md` the master project source ledger and add the maintained
+  brewing and solution-chemistry source records, including the external-review
+  wort-correction corroboration and upstream Pint compatibility planning source.
 - Complete the whole-Milestone-3 internal review by aligning source-status
   vocabulary, expressing the carbonation factor directly from the sourced
   `506.07 mL/g` constant, strengthening bitterness-factor provenance, and
@@ -59,6 +71,9 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Fixed
 
+- Extend Pint collision regression coverage to the built-in `imperial_barrel`
+  alias relationship and Pint's bare `pin`/picoinch behavior, and expand the
+  collision-audit candidate set so those names are checked explicitly.
 - Derive `fermunits.__version__` from installed distribution metadata so it
   cannot drift from the packaged project version.
 - Correct the gravity/extract source record so an inaccessible 1984 JASBC item
@@ -71,6 +86,18 @@ Python compatibility and release-automation maintenance release.
 
 ### Changed
 
+- Incorporate the two-pass external Milestone 3 review by restricting the simple
+  wort correction-factor documentation to unfermented wort, clarifying the
+  provisional standalone interpretation of Torrent's `506.07 mL/g` carbonation
+  constant, downgrading British cask terminology to Provisional where source
+  strength does not meet the project-wide Verified bar, and making
+  `imperial_beer_barrel` an explicit alias of Pint's `imperial_barrel`.
+- Rename the analytical-bitterness input parameter to
+  `extract_absorbance_275nm` so keyword use carries the method-extract semantic
+  boundary already required by the function documentation.
+- Make `docs/sources.md` the master project source ledger and add the maintained
+  brewing and solution-chemistry source records, including the external-review
+  wort-correction corroboration and upstream Pint compatibility planning source.
 - Lower the supported Python floor from 3.14 to 3.11 and test Python 3.11,
   3.12, 3.13, and 3.14 in CI.
 - Require Pint `>=0.25.3,<0.26`, retaining the fixes required by FermUnits.
@@ -87,6 +114,9 @@ Typing-only maintenance release.
 
 ### Fixed
 
+- Extend Pint collision regression coverage to the built-in `imperial_barrel`
+  alias relationship and Pint's bare `pin`/picoinch behavior, and expand the
+  collision-audit candidate set so those names are checked explicitly.
 - Preserve Pint's inferred quantity magnitude type through the public `Q_`
   constructor instead of exposing constructed quantities as `Quantity[Any]`.
 - Add static regression coverage for `float`, `int`, `Decimal`, and `Fraction`

@@ -6,8 +6,9 @@ behavior. It supersedes the original planning inventory retained under
 
 Implementation status and source-verification status are intentionally separate.
 Detailed ASBC/EBC questions are tracked in
-[`../asbc-verification.md`](../asbc-verification.md), and shared source records
-are defined in [`../sources.md`](../sources.md).
+[`../asbc-verification.md`](../asbc-verification.md). The project-wide master
+source ledger is [`../sources.md`](../sources.md); source records may be repeated
+here beside the claims they support for local readability.
 
 ## Physical vessel units
 
@@ -16,9 +17,9 @@ FermUnits adds qualified names where brewing terminology would otherwise collide
 with Pint or another fermentation domain.
 
 The modern/traditional British brewery cask family is based on the Imperial
-gallon. Current CAMRA material directly supports the pin, firkin, kilderkin, and
-hogshead capacities, while University of Nottingham historical guidance records
-the wider beer/ale hierarchy through puncheon, butt, and tun. [BR-CAMRA-CASK-01]
+gallon. Current CAMRA material supports the smaller cask capacities, while
+University of Nottingham historical guidance records the beer/ale hierarchy
+used after 1803 through puncheon, butt, and tun. [BR-CAMRA-CASK-01]
 [BR-NOTTINGHAM-CASK-01] The Weights and Measures Act 1824 established the
 Imperial gallon as the standard capacity basis for beer and ale; it does not by
 itself establish every named cask multiple used below. [BR-UK-WM-1824]
@@ -26,11 +27,11 @@ itself establish every named cask multiple used below. [BR-UK-WM-1824]
 | FermUnits name | Definition | Implementation status | Source status |
 |---|---|---|---|
 | `us_beer_barrel` | alias of Pint `beer_barrel` = 31 US liquid gallons | Implemented | **Verified** Pint behavior via [SH-PINT-01] |
-| `imperial_beer_barrel` | 36 Imperial gallons | Implemented | **Verified** for the British brewery barrel hierarchy via [BR-CAMRA-CASK-01] |
-| `pin_cask` | 4.5 Imperial gallons | Implemented | **Verified** for British brewing use via [BR-CAMRA-CASK-01] |
-| `firkin` | 9 Imperial gallons | Implemented | **Verified** for British brewing use via [BR-CAMRA-CASK-01] |
-| `kilderkin` | 18 Imperial gallons | Implemented | **Verified** for British brewing use via [BR-CAMRA-CASK-01] |
-| `brewing_hogshead` | 54 Imperial gallons | Implemented | **Verified** for British brewing use via [BR-CAMRA-CASK-01] |
+| `imperial_beer_barrel` | alias of Pint `imperial_barrel` = 36 Imperial gallons | Implemented | **Verified** Pint behavior via [SH-PINT-01]; **Provisional** British brewing terminology via [BR-CAMRA-CASK-01] and [BR-NOTTINGHAM-CASK-01] |
+| `pin_cask` | 4.5 Imperial gallons | Implemented | **Provisional** British brewing meaning via [BR-CAMRA-CASK-01] and [BR-NOTTINGHAM-CASK-01] |
+| `firkin` | 9 Imperial gallons | Implemented | **Provisional** British brewing meaning via [BR-CAMRA-CASK-01] and [BR-NOTTINGHAM-CASK-01] |
+| `kilderkin` | 18 Imperial gallons | Implemented | **Provisional** British brewing meaning via [BR-CAMRA-CASK-01] and [BR-NOTTINGHAM-CASK-01] |
+| `brewing_hogshead` | 54 Imperial gallons | Implemented | **Provisional** British brewing meaning via [BR-CAMRA-CASK-01] and [BR-NOTTINGHAM-CASK-01] |
 | `brewing_puncheon` | 72 Imperial gallons | Implemented | **Provisional** historical British brewing meaning via [BR-NOTTINGHAM-CASK-01] |
 | `brewing_butt` | 108 Imperial gallons | Implemented | **Provisional** historical British brewing meaning via [BR-NOTTINGHAM-CASK-01] |
 | `brewing_tun` | 216 Imperial gallons | Implemented | **Provisional** historical British brewing meaning via [BR-NOTTINGHAM-CASK-01] |
@@ -38,9 +39,10 @@ itself establish every named cask multiple used below. [BR-UK-WM-1824]
 
 The qualified `brewing_puncheon`, `brewing_butt`, and `brewing_tun` names are
 intentional. The same plain-language cask terms have had different capacities in
-wine, spirits, and other regional or historical contexts. The large brewing
-measures are therefore retained as explicitly British/historical brewing
-meanings rather than promoted to universal bare aliases.
+wine, spirits, and other regional or historical contexts. The values implemented
+here follow the University of Nottingham's **after-1803** beer/ale hierarchy and
+are retained as explicitly British/historical brewing meanings rather than
+promoted to universal bare aliases.
 
 Bare `barrel`, `hogshead`, `puncheon`, `butt`, and `tun` are not given new
 universal brewing meanings when a legitimate Pint or cross-domain meaning would
@@ -71,7 +73,7 @@ be changed or obscured.
 - Accessed: 2026-08-30
 - Tier: 7
 - Supports:
-  - the beer/ale hierarchy `4.5 gallons = pin`, `2 pins = firkin`,
+  - the after-1803 beer/ale hierarchy `4.5 gallons = pin`, `2 pins = firkin`,
     `2 firkins = kilderkin`, `2 kilderkins = barrel`;
   - `1.5 barrels = 54 gallons = hogshead`;
   - `2 barrels = 72 gallons = puncheon`;
@@ -211,11 +213,21 @@ correction factor. OIML's Brix treatment is tied to sucrose/refractometer
 measurement conditions rather than to a universal wort composition, so the
 caller-supplied-factor boundary remains intentionally conservative.
 
-Status: **Provisional.** Implemented with an explicit caller-supplied factor.
-ASBC procedure, calibration practice, and any defensible factor range remain
-verification pending.
+Brewer's Friend independently documents the same practical convention used by
+FermUnits: determine the factor from paired unfermented-wort readings as raw
+refractometer Brix WRI divided by a hydrometer-derived reference Brix/Plato value,
+then divide the raw refractometer reading by that factor. It also explicitly
+warns that this simple calibration is for **unfermented wort only** because
+alcohol changes the refractometer response. [BR-BREWERSFRIEND-WCF-01]
 
-Sources: [SH-OIML-01] for refractometer/Brix measurement context.
+Status: **Provisional.** Implemented with an explicit caller-supplied factor for
+unfermented wort. ASBC procedure, calibration practice, and any defensible
+factor range remain verification pending. FermUnits does not implement a
+fermented-sample/alcohol refractometer correction model.
+
+Sources: [SH-OIML-01] for refractometer/Brix measurement context and
+[BR-BREWERSFRIEND-WCF-01] for corroborating brewing-practice convention and the
+unfermented-wort restriction.
 
 ## Hydrometer temperature correction
 
@@ -314,6 +326,23 @@ Sources: [SH-NIST-01] for hydrometer calibration and temperature-effect context.
   - does not establish a universal Brix/Plato/Balling conversion rule;
   - gives the rounded SRM/EBC presentation factor rather than primary ASBC/EBC
     method text.
+
+#### [BR-BREWERSFRIEND-WCF-01] How to Determine your Refractometer’s Wort Correction Factor
+
+- Organization: Brewer's Friend
+- URL: https://www.brewersfriend.com/how-to-determine-your-refractometers-wort-correction-factor/
+- Accessed: 2026-08-30
+- Tier: 7
+- Supports:
+  - the practical convention `WCF = raw refractometer Brix WRI / reference
+    hydrometer-derived Brix/Plato`;
+  - applying WCF by dividing the raw refractometer reading by the factor;
+  - use of unfermented wort only for this simple calibration because alcohol
+    changes the refractometer reading.
+- Limitations:
+  - homebrewing technical guidance rather than an ASBC/EBC analytical standard;
+  - does not establish a universal factor, formal validity range, or a
+    fermented-sample alcohol-correction model.
 
 ## Beer color
 
@@ -690,36 +719,41 @@ The Milestone 2 source review narrowed the remaining uncertainty substantially:
 - Torrent (2006), submitted on behalf of the EBC Analysis Committee, reproduces
   an ASBC-adopted Fills-1 density-correction equation and explicitly identifies
   `k = 506.07 mL/g` as the conversion constant for CO2 in volumes to CO2 by
-  weight. [BR-EBC-TORRENT-2006]
+  weight. The paper does **not** state the reference temperature or pressure for
+  that constant. [BR-EBC-TORRENT-2006]
 - Independent physical data report CO2 gas density of approximately `1.976 g/L`
-  at `0 °C` and `760 mmHg`. [SH-PUBCHEM-CO2-01]
+  at `0 °C` and `760 mmHg`. [SH-PUBCHEM-CO2-01] This numerical agreement
+  corroborates the magnitude of `k`; it does not prove that Torrent or ASBC
+  normatively define the constant at that reference state.
 - University of Florida beverage guidance defines carbonation in volumes as
   volumes of CO2 at STP per volume of liquid and uses
   `1 vol/vol = 1.96 g/L` as its calculation convention. [SH-UF-CO2-01]
 
 These sources make the current approximately `1.976 g/L` factor physically and
-industrially well supported. They do **not**, however, expose enough of the
-current applicable ASBC method text to establish that ASBC normatively defines
-one reported volume using exactly `0 °C` and `760 mmHg`, or to establish the
-official reporting precision. Under FermUnits' verification policy, the
-relationship therefore remains **Provisional**, not Verified.
+industrially plausible and give it a real brewing-method provenance trail. They
+do **not**, however, establish the reference state attached to Torrent's `k`,
+show that the standalone use of `k` is normatively identical to the current
+Beer-13 reporting convention, or establish official ASBC reporting precision.
+Under FermUnits' verification policy, the relationship therefore remains
+**Provisional**, not Verified.
 
 ### Density and specific-gravity boundary
 
 The accessible sources also clarify two different uses of density that should
 not be conflated:
 
-- converting a standardized gas-volume ratio to physical CO2 mass concentration
-  uses the gas reference-state conversion factor;
-- converting carbonation to mass percent, or correcting packaged-beer density
-  and net contents for dissolved CO2, can additionally involve beverage density
-  or specific gravity and CO2 partial molal volume.
+- Torrent's Fills-1-family equation uses `k = 506.07 mL/g` alongside separate
+  beverage-density/specific-gravity, residual-CO2, and CO2 partial-molal-volume
+  terms for package-density/net-content correction;
+- FermUnits reuses `k` alone as the reciprocal factor for a direct volumes-to-
+  mass-concentration conversion and does not implement those separate package
+  correction terms.
 
-FermUnits' direct volumes-to-`g/L` API implements the first relationship. It does
-not implement the separate Fills-1/EBC package-density correction model. This is
-an implementation interpretation supported by the dimensional and method-scope
-separation in the accessible sources; direct ASBC method-text review is still
-required before treating the convention as normative.
+Torrent explicitly calls `k` a volumes-to-weight conversion constant, so this
+standalone use has a defensible physical interpretation. It remains an
+**implementation interpretation**, however, because the accessible source does
+not state `k`'s reference temperature/pressure or establish that this stripped-
+down use is the normative current Beer-13 reporting conversion.
 
 No beverage-specific validity range is currently imposed on the direct
 volumes-to-mass-concentration conversion. Experimental ranges reported for
@@ -783,7 +817,7 @@ remains pending.
 - Submitted on behalf of: Analysis Committee of the European Brewery Convention
 - Publication: *BrewingScience*, 60(11/12), 3–4, 2006
 - URL: `https://brewingscience.de/index.php/brewingscience/article/view/503`
-- Accessed: 2026-08-12
+- Accessed: 2026-08-30
 - Tier: 4
 - Supports:
   - `k = 506.07 mL/g` as the conversion constant for CO2 in volumes to CO2 by
@@ -792,9 +826,13 @@ remains pending.
     eighth revised edition (1992);
   - the distinct role of beverage density, specific gravity, residual CO2, and
     CO2 partial molal volume in package-density/net-content corrections.
-- Limitation:
+- Limitations:
   - this is an EBC Analysis Committee technical publication discussing
     packaging correction, not the current ASBC Beer-13 or Fills-1 method text;
+  - `k` appears inside a multi-variable package-density equation with separate
+    CO2 partial-molal-volume, residual-CO2, and beer-density terms;
+  - the paper does not state the reference temperature or pressure for
+    `k = 506.07 mL/g`;
   - ranges in the paper concern the density-correction model and must not be
     treated as a validity range for FermUnits' direct volumes-to-`g/L`
     conversion.

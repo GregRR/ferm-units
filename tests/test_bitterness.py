@@ -28,6 +28,14 @@ def test_absorbance_275nm_to_bitterness_units(
     assert result == pytest.approx(expected_bitterness_units)
 
 
+def test_absorbance_275nm_keyword_names_method_extract() -> None:
+    result = absorbance_275nm_to_bitterness_units(
+        extract_absorbance_275nm=0.5,
+    )
+
+    assert result == pytest.approx(25.0)
+
+
 @pytest.mark.parametrize(
     ("bitterness_units", "expected_absorbance"),
     [

@@ -63,11 +63,21 @@ than an ASBC-approved scientific range.
 
 ## Wort refractometer correction
 
-These functions represent a wort-specific refractometer correction. They are
-not general conversions between the Brix and Plato scales.
+These functions represent a wort-specific refractometer correction for
+**unfermented wort only**. They are not general conversions between the Brix and
+Plato scales, and the simple wort correction factor is not valid once alcohol is
+present in a fermenting or fermented sample.
 
 The correction factor must be supplied explicitly. FermUnits does not assume a
-default wort correction factor.
+default wort correction factor. The convention used here is:
+
+```text
+wort correction factor = apparent refractometer Brix / reference true Plato
+corrected Plato = apparent refractometer Brix / wort correction factor
+```
+
+For example, paired readings of 12.48 apparent Brix and 12.0 reference Plato give
+a wort correction factor of 1.04.
 
 ```python
 from fermunits import (
@@ -340,8 +350,9 @@ The architectural boundary between Pint, FermUnits, and downstream engineering
 applications is documented in [`DESIGN.md`](DESIGN.md). Development priorities
 and milestone sequencing are tracked in [`ROADMAP.md`](ROADMAP.md).
 
-Project-wide source status and citation conventions are documented in
-[`docs/sources.md`](docs/sources.md). Maintained domain inventories live under
+The master source ledger, project-wide source status, and citation conventions
+are documented in [`docs/sources.md`](docs/sources.md). Maintained domain
+inventories live under
 [`docs/reference/`](docs/reference/), and unresolved ASBC/EBC verification work
 is tracked in [`docs/asbc-verification.md`](docs/asbc-verification.md).
 

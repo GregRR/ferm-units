@@ -5,7 +5,8 @@
 # imperial_gallon = 4.54609 liters
 # hogshead = 63 US liquid gallons, traditionally a wine hogshead
 
-imperial_beer_barrel = 36 * imperial_gallon
+# Explicit brewing-qualified alias for Pint's 36-Imperial-gallon barrel
+imperial_beer_barrel = imperial_barrel
 kilderkin = 18 * imperial_gallon
 firkin = 9 * imperial_gallon
 pin_cask = 4.5 * imperial_gallon

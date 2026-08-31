@@ -17,6 +17,11 @@ def test_imperial_beer_barrel_is_four_firkins() -> None:
     assert result.magnitude == pytest.approx(4)
 
 
+def test_imperial_beer_barrel_matches_pint_imperial_barrel() -> None:
+    result = Q_(1, "imperial_beer_barrel").to("imperial_barrel")
+    assert result.magnitude == pytest.approx(1)
+
+
 def test_pin_cask_is_half_firkin() -> None:
     assert Q_(1, "pin_cask").to("firkin").magnitude == pytest.approx(0.5)
 
@@ -66,6 +71,10 @@ def test_pint_bare_vessel_meanings_are_preserved() -> None:
     assert Q_(1, "barrel").to("US_liquid_gallon").magnitude == pytest.approx(31.5)
     assert Q_(1, "hogshead").to("US_liquid_gallon").magnitude == pytest.approx(63)
     assert Q_(1, "imperial_barrel").to("imperial_gallon").magnitude == pytest.approx(36)
+
+
+def test_bare_pin_keeps_pint_picoinch_meaning() -> None:
+    assert Q_(1, "pin").to("inch").magnitude == pytest.approx(1e-12)
 
 
 @pytest.mark.parametrize("unit_name", ["puncheon", "butt", "tun"])

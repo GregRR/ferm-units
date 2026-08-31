@@ -162,21 +162,29 @@ When an authoritative method is known to exist but is not fully accessible:
     conditions;
   * no authoritative source reviewed in this pass justified a universal default
     wort correction factor;
+  * Brewer's Friend independently documents the same direction used by
+    FermUnits: `WCF = raw refractometer Brix WRI / reference Brix/Plato`, then
+    `corrected Brix/Plato = raw Brix WRI / WCF`;
+  * that source also explicitly restricts the simple WCF calibration to
+    unfermented wort because alcohol changes the refractometer reading;
   * the explicit caller-supplied factor therefore remains the conservative API
-    boundary.
+    boundary. [BR-BREWERSFRIEND-WCF-01]
 * Current treatment:
 
   * the correction factor is required explicitly;
   * FermUnits provides no default factor;
-  * the functions are documented as wort-specific corrections rather than
-    general scale conversions.
+  * the functions are documented as **unfermented-wort-only** corrections
+    rather than general scale conversions;
+  * FermUnits does not apply this simple factor to fermenting or fermented
+    samples and does not implement an alcohol-containing refractometer model.
 * Confirm:
 
   * ASBC-recommended correction procedure;
   * whether a standard default factor is ever appropriate;
   * recommended factor range;
-  * calibration procedure for determining a wort-specific factor;
-  * restrictions for fermented samples containing alcohol.
+  * authoritative calibration procedure for determining a wort-specific factor;
+  * authoritative fermented-sample correction guidance if FermUnits ever adds
+    that separate capability.
 
 ## Hydrometer Temperature Correction
 
@@ -381,19 +389,25 @@ When an authoritative method is known to exist but is not fully accessible:
     method;
   * Torrent (2006), submitted on behalf of the EBC Analysis Committee, reports
     an ASBC-adopted Fills-1 equation using `k = 506.07 mL/g` as the conversion
-    constant for CO2 in volumes to CO2 by weight;
+    constant for CO2 in volumes to CO2 by weight; the paper places `k` inside a
+    larger package-density equation and does not state its reference temperature
+    or pressure;
   * independent physical data give CO2 gas density near `1.976 g/L` at `0 °C`
-    and `760 mmHg`;
+    and `760 mmHg`, which corroborates the magnitude but does not establish
+    Torrent's or ASBC's normative reference state;
   * University of Florida beverage guidance defines volumes of CO2 as
     standard-state gas volume per liquid volume and uses `1.96 g/L` as its
     calculation convention.
 * Density/specific-gravity interpretation:
 
-  * the direct standardized-gas-volume-to-mass-concentration relationship does
-    not require a beverage-density input in the FermUnits API;
-  * beverage density/specific gravity and CO2 partial molal volume enter the
-    separate package-density, mass-percent, and net-content correction context;
-  * FermUnits does not implement that Fills-1/EBC package-correction model.
+  * Torrent's package-density equation uses `k` together with separate beverage
+    density/specific gravity, residual-CO2, and CO2 partial-molal-volume terms;
+  * FermUnits reuses `k` alone for the direct volumes-to-mass-concentration
+    conversion and does not implement the separate Fills-1/EBC package-correction
+    model;
+  * this standalone reuse is an implementation interpretation supported by
+    Torrent's description of `k` as a volumes-to-weight conversion constant, not
+    yet a normatively verified Beer-13 reference-state definition.
 * Current treatment:
 
   * one factor is used in both directions to preserve round-trip consistency;
@@ -415,8 +429,8 @@ When an authoritative method is known to exist but is not fully accessible:
   * document any legitimate alternative standard states used by other beverage
     industries.
 
-The maintained source records and their limitations are in
-[`reference/brewing-units.md`](reference/brewing-units.md), including
-`BR-ASBC-BEER13-01`, `BR-ASBC-FILLS1-01`, and `BR-EBC-TORRENT-2006`. Shared
-physical and beverage-guidance sources are recorded in [`sources.md`](sources.md)
-as `SH-PUBCHEM-CO2-01` and `SH-UF-CO2-01`.
+The canonical source records and their limitations are in the master ledger,
+[`sources.md`](sources.md), including `BR-ASBC-BEER13-01`,
+`BR-ASBC-FILLS1-01`, `BR-EBC-TORRENT-2006`, `SH-PUBCHEM-CO2-01`, and
+`SH-UF-CO2-01`. Claim-specific copies remain in
+[`reference/brewing-units.md`](reference/brewing-units.md) for readability.

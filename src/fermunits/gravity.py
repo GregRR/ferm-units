@@ -60,7 +60,9 @@ def sg_to_plato(specific_gravity: float) -> float:
     validity range still require direct verification.
 
     No scientific validity range is asserted yet. The input must be finite and
-    greater than zero.
+    greater than zero. For SG below 1.000, the polynomial is used algebraically
+    and may return negative Plato; FermUnits does not claim that extrapolation is
+    a separately standardized brewing convention.
     """
     _require_positive_specific_gravity(specific_gravity)
 
@@ -119,8 +121,10 @@ def wort_refractometer_brix_to_plato(
 ) -> float:
     """Correct an apparent wort Brix reading to estimated degrees Plato.
 
-    This is a wort-specific refractometer correction, not a general conversion
-    between the Brix and Plato scales. No default correction factor is provided
+    This is a wort-specific refractometer correction for unfermented wort, not
+    a general conversion between the Brix and Plato scales. Alcohol changes the
+    refractometer response, so this simple correction must not be used for
+    fermenting or fermented samples. No default correction factor is provided
     while the appropriate value remains pending ASBC verification.
     """
     _require_finite(apparent_brix, "Apparent Brix")
@@ -136,7 +140,8 @@ def plato_to_wort_refractometer_brix(
     """Estimate the apparent wort Brix reading for a Plato value.
 
     This is the inverse of ``wort_refractometer_brix_to_plato`` and remains
-    a wort-specific correction rather than a general scale conversion.
+    an unfermented-wort correction rather than a general scale conversion. It
+    must not be used to model refractometer readings once alcohol is present.
     """
     _require_finite(plato, "Plato")
     _require_positive_correction_factor(wort_correction_factor)

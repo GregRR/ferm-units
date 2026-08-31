@@ -10,9 +10,11 @@ from fermunits import create_registry
 
 CANDIDATE_UNITS: dict[str, list[str]] = {
     "brewing": [
+        "barrel",
         "beer_barrel",
         "us_beer_barrel",
         "imperial_beer_barrel",
+        "imperial_barrel",
         "imperial_gallon",
         "UK_gallon",
         "hectoliter",
@@ -27,6 +29,8 @@ CANDIDATE_UNITS: dict[str, list[str]] = {
         "brewing_puncheon",
         "butt",
         "brewing_butt",
+        "tun",
+        "brewing_tun",
         "gravity_point",
         "degree_plato",
         "degree_brix",

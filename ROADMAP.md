@@ -97,7 +97,7 @@ The unresolved direct ASBC checks remain tracked in `docs/asbc-verification.md`.
 
 ## Milestone 3 — Brewing verification backlog
 
-**Status: internal review complete; external scientific/code review pending**
+**Status: complete in current development**
 
 Continue converting implemented-but-provisional brewing relationships into
 well-sourced, explicitly scoped behavior.
@@ -127,9 +127,11 @@ Completed verification batches in current development:
 - Lintner/Windisch-Kolbach and British brewery-vessel source/status review,
   including the qualified historical `brewing_tun` definition.
 
-All planned implementation/source-verification batches and the whole-M3 internal
-review are now complete. The milestone remains open only for the scheduled
-external scientific/code review and any resulting fixes before Milestone 4 begins.
+All planned implementation/source-verification batches, the whole-M3 internal
+review, and the two-pass external scientific/code review are complete. The
+resulting corrections clarify unfermented-wort refractometer scope, carbonation
+source limitations, Pint vessel aliases/collisions, cask source status, and
+method-extract bitterness naming before Milestone 4 begins.
 
 **Completion criterion:** every implemented brewing relationship has a current
 maintained source record and an intentional Verified, Provisional, Ambiguous, or
@@ -138,7 +140,7 @@ implementable work.
 
 ## Milestone 4 — Solution-chemistry semantic boundaries
 
-**Status: planned after active downstream requirements are clearer**
+**Status: planned; direct Pint-context validation fix required before coding**
 
 Revisit semantic quantities that go beyond ordinary Pint dimensionality, using
 Water Treatment and FermentationJSON requirements to decide what belongs in
@@ -156,6 +158,13 @@ Topics to evaluate include:
 
 Do not duplicate FermentationJSON's reporting/provenance model or embed
 water-treatment calculation policy in FermUnits merely for convenience.
+
+External review identified one preflight defect in the existing solution-chemistry
+foundation: direct use of FermUnits' registered Pint equivalence contexts can
+bypass wrapper-level validation for nonpositive or nonfinite conversion factors.
+Move those checks into the context transformation layer, retain wrapper validation
+as defense in depth, and add direct-context regression tests before adding any new
+Milestone 4 contexts.
 
 **Completion criterion:** ownership of each semantic concern is documented, and
 only the reusable unit/conversion behavior that clearly belongs in FermUnits is
@@ -175,6 +184,12 @@ Completed work:
 - align Ruff and mypy compatibility targets with Python 3.11;
 - require Pint `>=0.25.3,<0.26`, whose supported Python floor is also 3.11;
 - verify the published 0.1.2 artifact installs and imports under Python 3.11.
+
+Upstream Pint's current **unreleased** 0.26 change log says Python 3.11 support is
+planned to be dropped in favor of Python 3.14. [SH-PINT-CHANGES-01] FermUnits
+therefore keeps the existing `<0.26` ceiling and will re-evaluate the actual
+released Pint 0.26 metadata rather than changing policy based on an unreleased
+plan.
 
 **Completion criterion:** met. The minimum supported Python version is
 deliberate, CI-enforced, and no higher than necessary for the current

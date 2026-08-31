@@ -14,7 +14,9 @@ def _require_nonnegative_finite(value: float, name: str) -> None:
         raise ValueError(f"{name} must not be negative")
 
 
-def absorbance_275nm_to_bitterness_units(absorbance: float) -> float:
+def absorbance_275nm_to_bitterness_units(
+    extract_absorbance_275nm: float,
+) -> float:
     """Calculate beer bitterness units from method-derived 275 nm absorbance.
 
     ASBC Beer-23A and EBC Method 9.8 determine beer bitterness after acidic
@@ -30,9 +32,12 @@ def absorbance_275nm_to_bitterness_units(absorbance: float) -> float:
     iso-alpha-acid concentration or direct measurement of perceived
     bitterness.
     """
-    _require_nonnegative_finite(absorbance, "Absorbance at 275 nm")
+    _require_nonnegative_finite(
+        extract_absorbance_275nm,
+        "Method-extract absorbance at 275 nm",
+    )
 
-    return absorbance * _BITTERNESS_UNITS_PER_ABSORBANCE
+    return extract_absorbance_275nm * _BITTERNESS_UNITS_PER_ABSORBANCE
 
 
 def bitterness_units_to_absorbance_275nm(
