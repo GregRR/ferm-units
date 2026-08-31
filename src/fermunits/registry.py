@@ -1,5 +1,6 @@
 """Pint registry construction for FermUnits."""
 
+import math
 from importlib.resources import as_file, files
 from typing import Any, cast
 
@@ -14,6 +15,19 @@ _CHEMICAL_EQUIVALENCE_CONTEXT = "chemical_equivalence"
 _CHEMICAL_EQUIVALENT_MASS_CONTEXT = "chemical_equivalent_mass"
 
 
+def _require_positive_finite_context_parameter(
+    value: float,
+    *,
+    name: str,
+) -> None:
+    """Require a finite context parameter greater than zero."""
+    if not math.isfinite(value):
+        raise ValueError(f"{name} must be finite")
+
+    if value <= 0.0:
+        raise ValueError(f"{name} must be greater than zero")
+
+
 def _substance_to_chemical_equivalent(
     ureg: UnitRegistry[Any],
     value: PlainQuantity[Any],
@@ -21,6 +35,10 @@ def _substance_to_chemical_equivalent(
 ) -> PlainQuantity[Any]:
     """Convert amount of substance to chemical-equivalent amount."""
     equivalence_factor = float(kwargs["equivalence_factor"])
+    _require_positive_finite_context_parameter(
+        equivalence_factor,
+        name="Equivalence factor",
+    )
 
     return cast(
         PlainQuantity[Any],
@@ -35,6 +53,10 @@ def _chemical_equivalent_to_substance(
 ) -> PlainQuantity[Any]:
     """Convert chemical-equivalent amount to amount of substance."""
     equivalence_factor = float(kwargs["equivalence_factor"])
+    _require_positive_finite_context_parameter(
+        equivalence_factor,
+        name="Equivalence factor",
+    )
 
     return cast(
         PlainQuantity[Any],
@@ -49,6 +71,10 @@ def _mass_concentration_to_chemical_equivalent_concentration(
 ) -> PlainQuantity[Any]:
     """Convert mass concentration to chemical-equivalent concentration."""
     equivalent_mass = float(kwargs["equivalent_mass_grams_per_equivalent"])
+    _require_positive_finite_context_parameter(
+        equivalent_mass,
+        name="Equivalent mass",
+    )
 
     return cast(
         PlainQuantity[Any],
@@ -63,6 +89,10 @@ def _chemical_equivalent_concentration_to_mass_concentration(
 ) -> PlainQuantity[Any]:
     """Convert chemical-equivalent concentration to mass concentration."""
     equivalent_mass = float(kwargs["equivalent_mass_grams_per_equivalent"])
+    _require_positive_finite_context_parameter(
+        equivalent_mass,
+        name="Equivalent mass",
+    )
 
     return cast(
         PlainQuantity[Any],

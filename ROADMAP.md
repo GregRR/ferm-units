@@ -140,7 +140,7 @@ implementable work.
 
 ## Milestone 4 — Solution-chemistry semantic boundaries
 
-**Status: planned; direct Pint-context validation fix required before coding**
+**Status: planned; preflight context validation hardened**
 
 Revisit semantic quantities that go beyond ordinary Pint dimensionality, using
 Water Treatment and FermentationJSON requirements to decide what belongs in
@@ -160,11 +160,11 @@ Do not duplicate FermentationJSON's reporting/provenance model or embed
 water-treatment calculation policy in FermUnits merely for convenience.
 
 External review identified one preflight defect in the existing solution-chemistry
-foundation: direct use of FermUnits' registered Pint equivalence contexts can
+foundation: direct use of FermUnits' registered Pint equivalence contexts could
 bypass wrapper-level validation for nonpositive or nonfinite conversion factors.
-Move those checks into the context transformation layer, retain wrapper validation
-as defense in depth, and add direct-context regression tests before adding any new
-Milestone 4 contexts.
+The preflight fix now enforces those invariants inside the context transformation
+layer as well, retains wrapper validation as defense in depth, and adds direct-context
+regression coverage in both directions before any new Milestone 4 contexts are added.
 
 **Completion criterion:** ownership of each semantic concern is documented, and
 only the reusable unit/conversion behavior that clearly belongs in FermUnits is

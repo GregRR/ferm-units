@@ -133,7 +133,10 @@ composes correctly.
 - FermUnits rule:
   - must be supplied explicitly;
   - must be finite and greater than zero;
-  - is never guessed from a unit string.
+  - is never guessed from a unit string;
+  - the registered `chemical_equivalence` Pint context enforces the same
+    validation when used directly, so callers cannot bypass the invariant
+    by skipping the convenience functions.
 - Status: **Implemented as a required calculation parameter.**
 - Sources: [SC-IUPAC-01]
 
@@ -147,7 +150,9 @@ composes correctly.
 - FermUnits rule:
   - equivalent mass must be supplied explicitly;
   - the value must be finite and greater than zero;
-  - chemical identity and reporting basis remain application semantics.
+  - chemical identity and reporting basis remain application semantics;
+  - the registered `chemical_equivalent_mass` Pint context enforces the
+    same validation when used directly.
 - Status: **Implemented.**
 - Sources: [SC-IUPAC-01]
 

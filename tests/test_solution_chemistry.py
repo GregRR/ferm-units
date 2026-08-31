@@ -209,6 +209,61 @@ def test_equivalent_conversions_reject_invalid_factor(
         amount_to_equivalents(amount, equivalence_factor)
 
 
+@pytest.mark.parametrize(
+    "equivalence_factor",
+    [
+        0.0,
+        -1.0,
+        math.nan,
+        math.inf,
+        -math.inf,
+    ],
+)
+@pytest.mark.parametrize(
+    ("source_unit", "target_unit"),
+    [
+        ("mole", "equivalent"),
+        ("equivalent", "mole"),
+        ("mole / liter", "equivalent / liter"),
+        ("equivalent / liter", "mole / liter"),
+    ],
+)
+def test_direct_chemical_equivalence_context_rejects_invalid_factor(
+    registry: UnitRegistry[Any],
+    equivalence_factor: float,
+    source_unit: str,
+    target_unit: str,
+) -> None:
+    quantity = registry.Quantity(1.0, source_unit)
+
+    with pytest.raises(ValueError):
+        quantity.to(
+            target_unit,
+            "chemical_equivalence",
+            equivalence_factor=equivalence_factor,
+        )
+
+
+def test_direct_chemical_equivalence_context_accepts_valid_factor(
+    registry: UnitRegistry[Any],
+) -> None:
+    amount = registry.Quantity(1.0, "millimole / liter")
+
+    equivalents = amount.to(
+        "milliequivalent / liter",
+        "chemical_equivalence",
+        equivalence_factor=2.0,
+    )
+    restored = equivalents.to(
+        "millimole / liter",
+        "chemical_equivalence",
+        equivalence_factor=2.0,
+    )
+
+    assert equivalents.magnitude == pytest.approx(2.0)
+    assert restored.magnitude == pytest.approx(1.0)
+
+
 def test_amount_to_equivalents_rejects_wrong_dimension(
     registry: UnitRegistry[Any],
 ) -> None:
@@ -400,6 +455,59 @@ def test_mass_equivalent_conversions_reject_invalid_equivalent_mass(
             mass_concentration,
             equivalent_mass,
         )
+
+
+@pytest.mark.parametrize(
+    "equivalent_mass",
+    [
+        0.0,
+        -1.0,
+        math.nan,
+        math.inf,
+        -math.inf,
+    ],
+)
+@pytest.mark.parametrize(
+    ("source_unit", "target_unit"),
+    [
+        ("milligram / liter", "milliequivalent / liter"),
+        ("milliequivalent / liter", "milligram / liter"),
+    ],
+)
+def test_direct_equivalent_mass_context_rejects_invalid_mass(
+    registry: UnitRegistry[Any],
+    equivalent_mass: float,
+    source_unit: str,
+    target_unit: str,
+) -> None:
+    quantity = registry.Quantity(1.0, source_unit)
+
+    with pytest.raises(ValueError):
+        quantity.to(
+            target_unit,
+            "chemical_equivalent_mass",
+            equivalent_mass_grams_per_equivalent=equivalent_mass,
+        )
+
+
+def test_direct_equivalent_mass_context_accepts_valid_mass(
+    registry: UnitRegistry[Any],
+) -> None:
+    concentration = registry.Quantity(50.0, "milligram / liter")
+
+    equivalents = concentration.to(
+        "milliequivalent / liter",
+        "chemical_equivalent_mass",
+        equivalent_mass_grams_per_equivalent=50.0,
+    )
+    restored = equivalents.to(
+        "milligram / liter",
+        "chemical_equivalent_mass",
+        equivalent_mass_grams_per_equivalent=50.0,
+    )
+
+    assert equivalents.magnitude == pytest.approx(1.0)
+    assert restored.magnitude == pytest.approx(50.0)
 
 
 def test_mass_equivalent_conversion_rejects_wrong_dimension(

@@ -102,6 +102,11 @@ Examples include:
 This rule prevents convenient-looking APIs from silently embedding assumptions
 that are wrong for some downstream applications.
 
+When an explicit parameter is consumed by a registered Pint context, the context
+transformation itself must enforce the same physical validity rules as any
+public convenience wrapper. Wrapper validation remains useful defense in
+depth, but direct registry/context use must not bypass those invariants.
+
 ## Source and scientific status
 
 Implementation status and source-verification status are separate.

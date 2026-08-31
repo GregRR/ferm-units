@@ -71,6 +71,10 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Fixed
 
+- Enforce finite, positive equivalence factors and equivalent masses inside
+  the registered Pint context transformations so direct context use cannot
+  bypass the validation already performed by the public solution-chemistry
+  wrappers.
 - Extend Pint collision regression coverage to the built-in `imperial_barrel`
   alias relationship and Pint's bare `pin`/picoinch behavior, and expand the
   collision-audit candidate set so those names are checked explicitly.
