@@ -381,6 +381,20 @@ does not currently need a separate `delta_pH` type.
 
 Status: **Boundary decision complete; no separate API required.**
 
+### Electrical conductivity
+
+Electrical conductivity is an ordinary physical quantity with conductance per
+length dimensionality. Pint already composes the required SI units and prefixes,
+so FermUnits uses expressions such as `siemens / meter`,
+`millisiemens / centimeter`, and `microsiemens / centimeter` directly rather
+than defining a conductivity-specific alias. [SH-SI-01] [SH-PINT-01]
+
+Reference temperature, temperature compensation, calibration state, and
+source-reported measurement semantics are not encoded in the unit expression.
+Those remain properties of the measurement or downstream application model.
+
+Status: **Boundary decision complete; no FermUnits definition required.**
+
 ## 8. Measurement results, bounds, detection limits, and uncertainty
 
 Bounds, intervals, source-reported qualifiers, detection/quantitation limits,
@@ -482,6 +496,9 @@ No FermUnits definition needed:
 - `millimole / kilogram`
 - `gram / mole`
 - `kilogram / mole`
+- `siemens / meter`
+- `millisiemens / centimeter`
+- `microsiemens / centimeter`
 
 ## 11. Solution-chemistry bibliography
 

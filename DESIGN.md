@@ -136,8 +136,12 @@ FermUnits may include contract tests for downstream applications when those
 tests protect the unit boundary without importing the application's model.
 
 For example, the Water Chemistry Engine contract tests confirm that required physical
-units parse, convert, and retain the expected dimensionality. The draft-system
-contract similarly verifies temperature, temperature differences, pressure,
+units parse, convert, and retain the expected dimensionality; electrical
+conductivity remains an ordinary Pint conductance-per-length quantity, while pH
+uses FermUnits' explicit `PHValue` and hydrogen-ion-activity boundary. Reference
+temperature, compensation, calibration, analyte identity, and water-treatment
+policy remain downstream concerns. The draft-system contract similarly verifies
+temperature, temperature differences, pressure,
 length, flow, density, viscosity, pressure-gradient, and CO2 mass-concentration
 quantities without moving draft-system balance or gas-equilibrium calculations
 into FermUnits.

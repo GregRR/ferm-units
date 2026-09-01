@@ -140,7 +140,7 @@ implementable work.
 
 ## Milestone 4 — Solution-chemistry semantic boundaries
 
-**Status: in progress; ownership audit and pH slice underway**
+**Status: complete in current development**
 
 Revisit semantic quantities that go beyond ordinary Pint dimensionality, using
 Water Chemistry Engine and FermentationJSON requirements to decide what belongs in
@@ -154,6 +154,9 @@ Audit conclusions for the first M4 pass:
 - pH belongs in FermUnits as a small non-Pint `PHValue` semantic type plus
   explicit activity-based transformations, never as a multiplicative Pint unit
   or universal concentration conversion;
+- electrical conductivity remains an ordinary Pint conductance-per-length
+  quantity (for example `microsiemens / centimeter`); reference-temperature,
+  compensation, calibration, and reporting semantics remain downstream;
 - a pH difference is logarithmic and does not require a new Pint unit or
   FermUnits type at present;
 - reported bounds, ranges, nondetects, detection/quantitation limits, and
@@ -172,9 +175,14 @@ The preflight fix now enforces those invariants inside the context transformatio
 layer as well, retains wrapper validation as defense in depth, and adds direct-context
 regression coverage in both directions before any new Milestone 4 contexts are added.
 
-**Completion criterion:** ownership of each semantic concern is documented, and
-only the reusable unit/conversion behavior that clearly belongs in FermUnits is
-implemented.
+The closeout pass adds downstream contract coverage for the `PHValue`/hydrogen-ion
+activity boundary and for electrical conductivity as an ordinary Pint quantity.
+No additional semantic wrapper, conductivity unit alias, or water-treatment policy
+is required in FermUnits.
+
+**Completion criterion:** met. Ownership of each audited semantic concern is
+documented, and only the reusable unit/conversion behavior that clearly belongs
+in FermUnits is implemented.
 
 ## Milestone 5 — Python compatibility and adoption
 

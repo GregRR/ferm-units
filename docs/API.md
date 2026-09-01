@@ -143,6 +143,13 @@ The installed Pint documentation remains authoritative for the behavior of Pint
 object APIs; this document defines how those objects enter the FermUnits public
 interface.
 
+Ordinary physical quantities that need no FermUnits-specific definition remain
+available through Pint normally. For example, electrical conductivity can be
+expressed directly as `Q_(500, "microsiemens / centimeter")` and converted to
+other compatible conductance-per-length units. Reference-temperature,
+compensation, calibration, and reporting semantics are not encoded in that unit
+expression and remain downstream concerns.
+
 FermUnits-specific relationships that carry domain semantics should use the
 explicit functions below instead of hiding the relationship inside generic unit
 conversion. Examples include pH, Plato/specific-gravity relationships, chemical

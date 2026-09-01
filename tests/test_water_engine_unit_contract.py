@@ -7,14 +7,17 @@ from pint import DimensionalityError, UnitRegistry
 
 from fermunits import (
     Q_,
+    PHValue,
     amount_concentration_to_equivalent_concentration,
     amount_concentration_to_mass_concentration,
     caco3_basis_mass_concentration_to_equivalent_concentration,
     create_registry,
     equivalent_concentration_to_caco3_basis_mass_concentration,
+    hydrogen_ion_activity_to_ph,
     mass_concentration_to_amount_concentration,
     mass_concentration_to_mass_fraction,
     mass_fraction_to_mass_concentration,
+    ph_to_hydrogen_ion_activity,
 )
 
 
@@ -49,6 +52,8 @@ def registry() -> UnitRegistry[Any]:
         "microgram / kilogram",
         "gram / milliliter",
         "kilogram / liter",
+        "microsiemens / centimeter",
+        "millisiemens / centimeter",
         "degree_Celsius",
         "degree_Fahrenheit",
         "kelvin",
@@ -86,6 +91,12 @@ def test_required_water_engine_units_parse(
         ),
         (1.0, "mole / liter", "millimole / liter", 1000.0),
         (1.0, "gram / milliliter", "kilogram / liter", 1.0),
+        (
+            1000.0,
+            "microsiemens / centimeter",
+            "millisiemens / centimeter",
+            1.0,
+        ),
         (0.0, "degree_Celsius", "degree_Fahrenheit", 32.0),
         (273.15, "kelvin", "degree_Celsius", 0.0),
     ],
@@ -127,6 +138,10 @@ def test_compound_units_preserve_expected_dimensionality(
     assert (
         registry.Unit("gram / milliliter").dimensionality
         == registry.Unit("kilogram / liter").dimensionality
+    )
+    assert (
+        registry.Unit("microsiemens / centimeter").dimensionality
+        == registry.Unit("siemens / meter").dimensionality
     )
 
 
@@ -206,3 +221,14 @@ def test_water_engine_molar_mass_conversion(
 
     assert amount_concentration.to("millimole / liter").magnitude == pytest.approx(1.0)
     assert restored.to("milligram / liter").magnitude == pytest.approx(58.44)
+
+
+def test_water_engine_ph_activity_boundary() -> None:
+    """pH remains an explicit semantic value with an activity transform."""
+    ph = PHValue(7.0)
+
+    activity = ph_to_hydrogen_ion_activity(ph)
+    restored = hydrogen_ion_activity_to_ph(activity)
+
+    assert activity == pytest.approx(1e-7)
+    assert restored == ph

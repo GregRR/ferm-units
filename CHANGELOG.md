@@ -2,6 +2,18 @@
 
 All notable changes to FermUnits will be documented in this file.
 
+## Unreleased
+
+### Changed
+
+- Complete the Milestone 4 solution-chemistry semantic-boundary audit by
+  documenting electrical conductivity as an ordinary Pint physical quantity,
+  keeping reference-temperature and compensation semantics downstream, and
+  recording the pH/measurement ownership decisions as complete.
+- Extend the Water Chemistry Engine compatibility contract with pH/activity and
+  electrical-conductivity coverage without moving application chemistry policy
+  into FermUnits.
+
 ## 0.1.3 - 2026-08-31
 
 Brewing verification, chemistry hardening, and downstream API release.
