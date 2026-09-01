@@ -605,9 +605,9 @@ co2_grams_per_liter_to_volumes(grams_per_liter: float) -> float
 
 Compatibility scalar API converting grams per liter to volumes of CO2.
 
-## Complete exported-name inventory
+## Complete `__all__` inventory
 
-FermUnits 0.1.3 exports the following 37 names from `fermunits`:
+`fermunits.__all__` contains the following 37 public names in FermUnits 0.1.3:
 
 ```text
 PHValue
