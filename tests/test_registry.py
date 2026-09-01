@@ -4,6 +4,8 @@ import pytest
 
 import fermunits
 from fermunits import (
+    Q_,
+    Quantity,
     create_registry,
     gravity_points_to_sg,
     plato_to_sg,
@@ -12,6 +14,12 @@ from fermunits import (
     sg_to_plato,
     wort_refractometer_brix_to_plato,
 )
+
+
+def test_quantity_type_is_available_from_public_api() -> None:
+    quantity = Q_(1.0, "gram")
+
+    assert isinstance(quantity, Quantity)
 
 
 def test_registry_factory_returns_independent_registries() -> None:

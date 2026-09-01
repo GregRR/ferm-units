@@ -4,7 +4,7 @@ FermUnits is a Pint-based Python library for units, measurement scales, and
 conversions used in brewing, winemaking, cider making, mead making, distilling,
 and related fermentation industries.
 
-> **Project status:** alpha. **Latest release:** 0.1.2. FermUnits has a released,
+> **Project status:** alpha. **Latest release:** 0.1.3. FermUnits has a released,
 > tested core covering brewing units and calculations plus shared
 > solution-chemistry conversions for downstream fermentation-engineering work.
 > Public APIs and domain coverage may still evolve before 1.0. Relationships
@@ -28,14 +28,35 @@ For a development checkout:
 uv sync --dev
 ```
 
+## API reference
+
+The complete FermUnits public API, including the Pint functionality available
+through `Q_`, `Quantity`, and `ureg`, FermUnits-specific unit definitions, and
+all conversion functions, is documented in [`docs/API.md`](docs/API.md).
+
 ## Physical-unit example
 
 ```python
-from fermunits import Q_
+from fermunits import Q_, Quantity
 
-cask = Q_(1, "firkin")
+cask: Quantity[int] = Q_(1, "firkin")
 print(cask.to("liter"))
 ```
+
+FermUnits re-exports Pint's `Quantity` type as part of its public API. Downstream
+applications should normally import quantity construction, typing, and registry
+access from FermUnits itself:
+
+```python
+from fermunits import Q_, Quantity, ureg
+```
+
+Pint remains an implementation dependency of FermUnits and is installed
+transitively with FermUnits. A downstream package does not need to import or
+declare Pint solely to construct, annotate, convert, or perform ordinary unit
+operations on FermUnits quantities. A direct Pint dependency is only appropriate
+when that downstream package intentionally uses Pint-specific APIs that FermUnits
+does not expose.
 
 ## Gravity examples
 

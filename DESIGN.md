@@ -163,6 +163,14 @@ The package-level API in `fermunits.__init__` is the primary supported import
 surface. New public functions should be typed, tested, documented, and exported
 there intentionally.
 
+FermUnits exposes `Q_`, `Quantity`, and `ureg` at that package boundary so
+downstream applications can construct, annotate, and operate on quantities
+without importing Pint directly. Pint remains FermUnits' implementation
+dependency and physical-unit engine. Downstream packages should not declare Pint
+solely because they consume FermUnits; a direct Pint dependency is appropriate
+only when they intentionally rely on Pint-specific APIs outside FermUnits' public
+surface.
+
 Registry aliases require particular care because adding or changing a unit name
 can alter parsing globally for every downstream user of the registry.
 

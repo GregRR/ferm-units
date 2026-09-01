@@ -3,7 +3,7 @@
 FermUnits is an alpha-stage library for fermentation-industry units,
 measurement scales, and reusable conversions built on Pint.
 
-The latest published release is **0.1.2**. This roadmap describes development
+The latest published release is **0.1.3**. This roadmap describes development
 priorities after that release. It is intentionally milestone-oriented rather
 than tied to speculative release numbers or dates.
 
@@ -14,7 +14,7 @@ tracks work within those boundaries.
 
 The current core includes:
 
-- a shared Pint `UnitRegistry` and typed `Q_` constructor;
+- a shared Pint `UnitRegistry`, typed `Q_` constructor, and public `Quantity` type;
 - brewing vessel units with qualified names where plain names are ambiguous;
 - gravity-point and SG/Plato calculations;
 - wort refractometer correction with an explicit caller-supplied correction

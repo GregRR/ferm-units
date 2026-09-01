@@ -2,9 +2,15 @@
 
 All notable changes to FermUnits will be documented in this file.
 
-## Unreleased
+## 0.1.3 - 2026-08-31
+
+Brewing verification, chemistry hardening, and downstream API release.
 
 ### Added
+
+- Export `Quantity` from the package-level FermUnits API so downstream
+  applications can use `from fermunits import Q_, Quantity` without importing
+  Pint directly.
 
 - Add a small non-Pint `PHValue` semantic type and explicit
   pH-to-hydrogen-ion-activity conversion helpers while preserving the
@@ -58,7 +64,7 @@ All notable changes to FermUnits will be documented in this file.
   refractometer/hydrometer behavior.
 - Reclassify the project from pre-alpha to alpha in package metadata and the
   README.
-- Clarify that the latest release is 0.1.2 and that provisional scientific
+- Clarify that the latest release is 0.1.3 and that provisional scientific
   relationships remain explicitly source-tracked despite the project maturity
   change.
 - Reconcile the README, project metadata, design documentation, source policy,

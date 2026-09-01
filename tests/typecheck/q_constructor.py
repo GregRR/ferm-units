@@ -4,9 +4,7 @@ from decimal import Decimal
 from fractions import Fraction
 from typing import assert_type
 
-from pint import Quantity
-
-from fermunits import Q_
+from fermunits import Q_, Quantity
 
 q_float = Q_(1.0, "gram")
 q_int = Q_(1, "gram")
