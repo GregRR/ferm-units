@@ -6,6 +6,12 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Complete the sixth Milestone 6 domain migration by triaging the legacy
+  acid-tier and other-fermentation inventory into method-defined microbial
+  counts and titratable-acidity results, ordinary concentration/fraction
+  quantities, downstream food/regulatory semantics, and explicit rejected
+  cross-method or dimensionally inconsistent shortcuts without adding
+  speculative public API.
 - Complete the fifth Milestone 6 domain migration by triaging the legacy biofuel
   inventory into ordinary process-rate quantities, dry-basis and commodity
   metadata, source-supported stoichiometric yield context, and explicit

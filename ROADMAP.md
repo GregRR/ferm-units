@@ -211,7 +211,7 @@ implementation and supported Pint line.
 
 ## Milestone 6 — Additional fermentation domains
 
-**Status: in progress; wine, cider/perry, distilling, sake, and biofuel reference migrations complete**
+**Status: in progress; all six legacy domain reference migrations complete**
 
 Migrate legacy research into maintained domain references and add functionality
 when there is a concrete downstream need and adequate sourcing.
@@ -263,6 +263,14 @@ downstream; preserves the conventional glucose-to-ethanol stoichiometric yield
 as sourced calculation context rather than a unit; and rejects unsupported
 fixed corn-yield, starch-factor, and plant-efficiency shortcuts as universal
 conversions. No biofuel-specific public API was added.
+
+The sixth M6 migration slice is complete for acid-tier and other fermentation
+processes. It records CFU-based microbial counts as method-defined assay results
+over ordinary inverse-volume dimensionality; keeps dairy titratable acidity,
+solids-not-fat, vinegar acid strength, and kombucha alcohol compliance semantics
+explicit; and rejects unsupported cross-acid shortcuts, volatile-acidity legal
+claims, and the dimensionally inconsistent legacy Brix-to-acid ratio as universal
+conversions. No acid-tier-specific public API was added.
 
 Candidate domains include:
 

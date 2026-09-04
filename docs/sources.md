@@ -120,7 +120,7 @@ FermUnits definitions.
 | Sake | [`reference/sake-units.md`](reference/sake-units.md) | Legacy migration triaged; analytical and historical-unit ownership boundaries documented |
 | Cider and perry | [`reference/cider-perry-units.md`](reference/cider-perry-units.md) | Legacy migration triaged; ownership boundaries documented |
 | Biofuels | [`reference/biofuel-units.md`](reference/biofuel-units.md) | Legacy migration triaged; process-rate and feedstock ownership boundaries documented |
-| Acid-tier and other fermentation | — | Migration pending |
+| Acid-tier and other fermentation | [`reference/acid-tier-units.md`](reference/acid-tier-units.md) | Legacy migration triaged; microbiological, acidity, and food-process ownership boundaries documented |
 
 Historical planning inventories are retained under
 [`reference/legacy/`](reference/legacy/) as research context only. They are not
@@ -1102,6 +1102,94 @@ The records below are the master bibliography for maintained biofuel claims.
   - process-specific measured yields and productivities are not universal
     conversion constants.
 
+
+## Acid-tier and other-fermentation sources
+
+The records below are the master bibliography for maintained acid-tier and
+other-fermentation claims.
+
+### [AT-FDA-BAM-APC-01] FDA BAM Chapter 3 — Aerobic Plate Count
+
+- Organization: U.S. Food and Drug Administration (FDA)
+- Publication: *Bacteriological Analytical Manual*, Chapter 3, Aerobic Plate Count
+- URL: https://www.fda.gov/food/laboratory-methods-food/bam-chapter-3-aerobic-plate-count
+- Accessed: 2026-09-04
+- Source tier: 2
+- Supports:
+  - reporting culture-based microbial concentrations in `CFU/mL`;
+  - CFU concentration as an assay result derived from colony counts, dilution,
+    and inoculated sample volume.
+- Limitation:
+  - CFU is an operational colony-count result and must not be documented as an
+    exact count of individual viable cells.
+
+### [AT-US-CFR-YOGURT-01] 21 CFR 131.200 — Yogurt
+
+- Organization: U.S. Food and Drug Administration (FDA)
+- Publication: Title 21 CFR § 131.200, Yogurt
+- URL: https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-131/subpart-B/section-131.200
+- Accessed: 2026-09-04
+- Source tier: 1
+- Supports:
+  - the current U.S. yogurt standard requirement of pH 4.6 or lower;
+  - at least 8.25% milk solids not fat for standardized yogurt;
+  - milk-solids-not-fat calculation by difference between total solids and fat
+    using incorporated AOAC methods;
+  - optional live-and-active-cultures labeling based on specified CFU/g levels
+    and ISO 7889 colony-count methodology.
+- Limitation:
+  - the current U.S. standard uses pH rather than a minimum titratable-acidity
+    requirement; other jurisdictions or analytical programs may define
+    titratable acidity separately.
+
+### [AT-ADPI-TA-01] ADPI Analytical Method 007 — Titratable Acidity
+
+- Organization: American Dairy Products Institute (ADPI)
+- Publication: Analytical Method #007, Determination of Titratable Acidity, v2.0
+- URL: https://adpi.org/methodsofanalysis/analytical-method-007/
+- Accessed: 2026-09-04
+- Source tier: 4
+- Supports:
+  - dairy titratable acidity as the lactic-acid stoichiometric equivalent to
+    standardized sodium hydroxide required to reach a defined endpoint;
+  - an endpoint realized by phenolphthalein color change or equivalent pH 8.3
+    instrument measurement.
+- Limitation:
+  - titratable acidity is a method-defined result, not a direct measurement of
+    molecular lactic-acid concentration.
+
+### [AT-FDA-VINEGAR-01] FDA vinegar definitions and acid-strength policy
+
+- Organization: U.S. Food and Drug Administration (FDA)
+- Publication: Compliance Policy Guide Sec. 525.825, Vinegar, Definitions —
+  Adulteration with Vinegar Eels
+- URL: https://www.fda.gov/regulatory-information/search-fda-guidance-documents/cpg-sec-525825-vinegar-definitions-adulteration-vinegar-eels
+- Accessed: 2026-09-04
+- Source tier: 3
+- Supports:
+  - FDA labeling-policy guidance that named vinegars normally contain at least
+    `4 g acetic acid / 100 mL` at 20 °C;
+  - vinegar acid strength as an acetic-acid concentration/reporting basis.
+- Limitation:
+  - the guide explicitly states that a federal standard of identity for vinegar
+    has not been established; this is labeling/compliance policy, not a universal
+    fermentation-unit definition.
+
+### [AT-TTB-KOMBUCHA-01] TTB kombucha alcohol-regulation guidance
+
+- Organization: Alcohol and Tobacco Tax and Trade Bureau (TTB)
+- Title: Kombucha Information and Resources
+- URL: https://www.ttb.gov/regulated-commodities/beverage-alcohol/kombucha
+- Accessed: 2026-09-04
+- Source tier: 3
+- Supports:
+  - U.S. federal alcohol regulation applying when kombucha reaches 0.5% ABV or
+    more during production, at bottling, or after bottling;
+  - alcohol-content testing as the relevant compliance measurement discussed by
+    TTB for kombucha.
+- Limitation:
+  - does not establish volatile acidity as a legal proxy for alcohol content or
+    as a required SCOBY-health measurement.
 
 ## Solution-chemistry sources
 
