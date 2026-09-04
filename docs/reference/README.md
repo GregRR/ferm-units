@@ -23,8 +23,10 @@ that belong outside FermUnits.
 | Acid-tier and other fermentation | [acid-tier-units.md](acid-tier-units.md) | Legacy migration triaged; microbiological, acidity, and food-process ownership boundaries documented |
 
 The maintained domain files are the source documents for current FermUnits
-behavior and planned definitions. A project-wide inventory may be generated from
-them, but should not be maintained independently.
+behavior and planned definitions. All six legacy Milestone 6 domain inventories
+have now been migrated and triaged into these maintained references. A
+project-wide inventory may be generated from them, but should not be maintained
+independently.
 
 ## Legacy research inventories
 

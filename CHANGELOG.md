@@ -6,6 +6,11 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Close Milestone 6 after migrating and triaging all six legacy domain
+  inventories into maintained, source-traceable references. The review found no
+  current downstream requirement that justifies adding speculative wine,
+  cider/perry, distilling, sake, biofuel, or acid-tier APIs; source-ready
+  candidates remain documented for demand-driven future work.
 - Complete the sixth Milestone 6 domain migration by triaging the legacy
   acid-tier and other-fermentation inventory into method-defined microbial
   counts and titratable-acidity results, ordinary concentration/fraction

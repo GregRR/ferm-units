@@ -211,7 +211,7 @@ implementation and supported Pint line.
 
 ## Milestone 6 — Additional fermentation domains
 
-**Status: in progress; all six legacy domain reference migrations complete**
+**Status: complete**
 
 Migrate legacy research into maintained domain references and add functionality
 when there is a concrete downstream need and adequate sourcing.
@@ -272,6 +272,14 @@ explicit; and rejects unsupported cross-acid shortcuts, volatile-acidity legal
 claims, and the dimensionally inconsistent legacy Brix-to-acid ratio as universal
 conversions. No acid-tier-specific public API was added.
 
+The M6 closeout review found no concrete downstream requirement that justifies
+implementing any of the remaining source-ready domain candidates today. Those
+candidates stay documented in the maintained references and can be implemented
+later when a consumer needs them, without reopening the migration work itself.
+This is the intended outcome of the milestone: domain research is maintained and
+source-traceable, while the public API remains demand-driven rather than growing
+speculatively.
+
 Candidate domains include:
 
 - wine;
@@ -285,8 +293,11 @@ Legacy inventories under `docs/reference/legacy/` are research inputs, not a
 feature checklist. A term appearing there does not imply that FermUnits should
 implement it.
 
-**Completion criterion:** additions are demand-driven, source-traceable, and
-consistent with the naming and ownership rules in `DESIGN.md`.
+**Completion criterion:** met. All six legacy domain inventories have maintained,
+source-traceable references; ownership and naming decisions are recorded; and no
+new public API was added without a concrete downstream requirement. Future domain
+additions remain demand-driven and must follow the naming and ownership rules in
+`DESIGN.md`.
 
 ## Pre-1.0 stabilization
 
