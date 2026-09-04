@@ -211,10 +211,28 @@ implementation and supported Pint line.
 
 ## Milestone 6 — Additional fermentation domains
 
-**Status: later**
+**Status: in progress; wine reference migration complete**
 
 Migrate legacy research into maintained domain references and add functionality
 when there is a concrete downstream need and adequate sourcing.
+
+The first M6 migration slice is complete for wine. The legacy wine inventory has
+been triaged into maintained ownership classes that distinguish ordinary Pint
+quantities, existing FermUnits semantic behavior, source-ready regional physical
+units, downstream analytical/reporting semantics, and candidates that remain
+pending, ambiguous, or rejected. The migration also:
+
+- records authoritative OIV analytical-method/reporting bases without promoting
+  method-specific relationships into universal unit conversions;
+- identifies source-ready regional vessel and Champagne-package capacities while
+  leaving them unimplemented until a real consumer needs the named unit;
+- rejects legacy shortcut formulas as universal conversions where method scope,
+  reference conditions, or process assumptions are not adequately defined;
+- flags the existing `wine_hogshead` compatibility alias for pre-1.0 naming
+  review because legitimate wine meanings vary by region.
+
+No new public API was added solely because a term appeared in the legacy
+inventory.
 
 Candidate domains include:
 

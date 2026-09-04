@@ -15,7 +15,7 @@ that belong outside FermUnits.
 |---|---|---|
 | Solution chemistry | [solution-chemistry.md](solution-chemistry.md) | Active and partly implemented |
 | Brewing | [brewing-units.md](brewing-units.md) | Active; current implementation reconciled |
-| Wine | [wine-units.md](wine-units.md) | Current implementation documented; broader migration pending |
+| Wine | [wine-units.md](wine-units.md) | Legacy migration triaged; source-ready candidates and ownership boundaries documented |
 | Distilling | — | Migration pending |
 | Sake | — | Migration pending |
 | Cider and perry | — | Migration pending |
@@ -48,8 +48,9 @@ Every stable or proposed entry should identify, as applicable:
 - implementation status;
 - one or more source identifiers.
 
-Source identifiers point to the bibliography at the bottom of the same domain
-file or to a shared source recorded in [`../sources.md`](../sources.md).
+Source identifiers always have a canonical record in the master ledger at
+[`../sources.md`](../sources.md). Domain files may repeat claim-specific source
+context or limitations beside the entries they support.
 
 ## Source identifiers
 
@@ -72,9 +73,10 @@ Sources: [SC-IUPAC-01], [SH-SI-01]
 Status: Verified physical definition; analytical application provisional.
 ```
 
-A source identifier must be defined exactly once. Domain-specific sources belong
-in the bibliography of that domain file. Sources used across multiple domains
-belong in `docs/sources.md`.
+Every source used by maintained documentation must be defined in
+[`../sources.md`](../sources.md). A domain reference may repeat the same source
+record or a claim-specific subset for readability, but the identifier and
+bibliographic facts must remain consistent with the master ledger.
 
 ## Status vocabulary
 

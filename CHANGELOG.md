@@ -6,6 +6,13 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Complete the first Milestone 6 domain migration by triaging the legacy wine
+  inventory into maintained ownership classes, authoritative source records,
+  source-ready regional candidates, and explicit pending/rejected items without
+  adding speculative public API.
+- Flag the existing `wine_hogshead` alias for pre-1.0 naming review after
+  documenting conflicting legitimate wine-industry capacities, while preserving
+  its current Pint-compatible value during alpha development.
 - Complete the Milestone 4 solution-chemistry semantic-boundary audit by
   documenting electrical conductivity as an ordinary Pint physical quantity,
   keeping reference-temperature and compensation semantics downstream, and

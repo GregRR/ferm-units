@@ -115,7 +115,7 @@ FermUnits definitions.
 |---|---|---|
 | Solution chemistry | [`reference/solution-chemistry.md`](reference/solution-chemistry.md) | Active and partly implemented |
 | Brewing | [`reference/brewing-units.md`](reference/brewing-units.md) | Active; implementation and verification status reconciled |
-| Wine | [`reference/wine-units.md`](reference/wine-units.md) | Current implementation status documented; broader migration pending |
+| Wine | [`reference/wine-units.md`](reference/wine-units.md) | Legacy migration triaged; source-ready candidates and ownership boundaries documented |
 | Distilling | — | Migration pending |
 | Sake | — | Migration pending |
 | Cider and perry | — | Migration pending |
@@ -665,6 +665,130 @@ support, but this ledger is the canonical project-wide source inventory.
   - ranges in the paper concern the density-correction model and must not be
     treated as a validity range for FermUnits' direct volumes-to-`g/L`
     conversion.
+
+## Wine sources
+
+The records below are the master bibliography for maintained wine claims.
+`docs/reference/wine-units.md` may repeat these records beside the claims they
+support, but this ledger is the canonical project-wide source inventory.
+
+### [WI-OIV-ANALYTICS-01] OIV wine and must analytical methods
+
+- Organization: International Organisation of Vine and Wine (OIV)
+- Publication: *Compendium of International Methods of Wine and Must Analysis*
+- Methods used in this migration:
+  - `OIV-MA-AS2-01` — Density and specific gravity at 20 °C;
+  - `OIV-MA-AS2-02` — Evaluation by refractometry of sugar concentration in
+    grape musts;
+  - `OIV-MA-AS312-01` — Alcoholic strength by volume;
+  - `OIV-MA-AS313-01` — Total acidity;
+  - `OIV-MA-AS313-02` — Volatile acidity;
+  - `OIV-MA-AS313-15` — pH;
+  - `OIV-MA-AS323-04A1`, `04A2`, and `04B` — sulfur dioxide;
+  - `OIV-MA-AS314-01` / `OIV-MA-AS314-02` — carbon dioxide and sparkling-wine
+    overpressure.
+- URL: https://www.oiv.int/standards/compendium-of-international-methods-of-wine-and-must-analysis
+- Accessed: 2026-09-03
+- Source tier: 2
+- Supports:
+  - wine/must density and specific-gravity reference conditions;
+  - refractometric sucrose-mass-fraction reporting and method context;
+  - alcoholic-strength, glucose/fructose, acidity, pH, sulfur-dioxide, CO2, and
+    sparkling-wine pressure measurement/reporting bases.
+- Limitations:
+  - method existence and reporting basis do not make legacy cross-scale rules
+    universal unit identities;
+  - restricted or lengthy method text is not reproduced in this repository.
+
+### [WI-AWRI-PACKAGING-01] Packaging options
+
+- Organization: Australian Wine Research Institute (AWRI)
+- URL: https://www.awri.com.au/industry_support/winemaking_resources/storage-and-packaging/packaging-operations/packaging-options/
+- Accessed: 2026-09-03
+- Source tier: 4
+- Supports:
+  - Bordeaux barrique at 225 L;
+  - Burgundy barrique at 228 L;
+  - Australian wine-industry hogshead at 300 L;
+  - 500 L and 600 L puncheons;
+  - twelve-bottle case logistics based on standard 750 mL bottles.
+- Limitation:
+  - logistics guidance does not establish one universal historical meaning for
+    `hogshead`, `puncheon`, `barrique`, or `case` outside the stated context.
+
+### [WI-BORDEAUX-BARRIQUE-01] L'art de faire du vin : l'élevage
+
+- Organization: Conseil Interprofessionnel du Vin de Bordeaux (CIVB)
+- URL: https://www.bordeaux.com/fr/savoir-faire/elevage/
+- Accessed: 2026-09-03
+- Source tier: 4
+- Supports:
+  - 225 L as the Bordeaux barrique capacity in current regional wine practice.
+
+### [WI-BOURGOGNE-CASKS-01] The secrets of a well-aged wine
+
+- Organization: Bourgogne Wine Board (BIVB)
+- URL: https://www.bourgogne-wines.com/wine-and-terroir/our-natural-assets/vinification-and-ageing/ageing-the-wine/the-secrets-of-a-well-aged-wine,2488,9273.html
+- Accessed: 2026-09-03
+- Source tier: 4
+- Supports:
+  - 228 L Bourgogne pièce;
+  - 212 L Pouilly-Fuissé pièce;
+  - 114 L Bourgogne feuillette and 132 L Chablis feuillette;
+  - 456 L queue;
+  - 600 L demi-muid;
+  - 1,200 L muid.
+- Limitation:
+  - these are explicitly regional meanings and must not be generalized to bare
+    `piece`, `feuillette`, or `muid` aliases across wine regions.
+
+### [WI-RHEINHESSEN-STUECK-01] “Stück” — Rheinhessen Wine Dictionary
+
+- Organization: Rheinhessen regional wine portal
+- URL: https://www.rheinhessen.de/en/en-stueck
+- Accessed: 2026-09-03
+- Source tier: 4
+- Supports:
+  - Stückfass as a widespread Rheinhessen wine measure of 1,200 L;
+  - regional use of half-Stück and quarter-Stück forms.
+- Limitation:
+  - the source states the base capacity and names the fractional forms; 600 L
+    and 300 L are arithmetic derivations from the named half/quarter forms.
+
+### [WI-JEREZ-CASKS-01] Sherry cask cooperage and glossary
+
+- Organization: Consejo Regulador de las Denominaciones de Origen Jerez-Xérès-
+  Sherry, Manzanilla-Sanlúcar de Barrameda y Vinagre de Jerez
+- URLs:
+  - https://www.sherry.wine/sherry-cask/sherrycask-the-cooperage
+  - https://www.sherry.wine/sherry-cask/sherrycask-the-cooperage/glosario
+- Accessed: 2026-09-03
+- Source tier: 4
+- Supports:
+  - 600 L bota gorda / standard Jerez ageing bota;
+  - 500 L export bota;
+  - 516 L receipt bota;
+  - 566 L bodega-butt description;
+  - 250 L media bota, 125 L quarter bota, and 62.5 L octavo;
+  - bocoy as variable in shape and around 700 L;
+  - operational practice of partially filling ageing botas.
+- Limitation:
+  - cooperage dimensions can vary;
+  - `bota` and `bocoy` are not universal fixed-capacity terms without the
+    specific Jerez subtype/context.
+
+### [WI-CHAMPAGNE-BOTTLES-01] Champagne bottle sizes
+
+- Organization: Comité Champagne
+- URL: https://www.champagne.fr/en/champagne-frequently-asked-questions
+- Accessed: 2026-09-03
+- Source tier: 4
+- Supports:
+  - the Champagne-specific sequence from 200 mL quarter through 30 L
+    Melchizedek/Midas, including the capacities recorded above.
+- Limitation:
+  - bottle names used in other wine regions can carry different capacities;
+    this source supports Champagne-qualified meanings only.
 
 ## Solution-chemistry sources
 

@@ -187,9 +187,16 @@ converting between moles and equivalents.
 | `us_beer_barrel` | Pint `beer_barrel` |
 
 Pint's existing `beer_barrel`, `imperial_gallon`, `hogshead`, and other standard
-units remain available through the same registry. See
-[`reference/brewing-units.md`](reference/brewing-units.md) for sourcing,
-historical ambiguity, and naming decisions.
+units remain available through the same registry. `wine_hogshead` preserves the
+existing alias to Pint's 63-US-gallon `hogshead`; it is not a universal
+wine-industry hogshead definition. The maintained wine reference documents a
+legitimate 300 L Australian usage and flags the current alias name for pre-1.0
+review. New wine-vessel names should be region-qualified when regional meanings
+differ.
+
+See [`reference/brewing-units.md`](reference/brewing-units.md) and
+[`reference/wine-units.md`](reference/wine-units.md) for sourcing, historical
+ambiguity, and naming decisions.
 
 ## pH
 
