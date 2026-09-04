@@ -6,6 +6,10 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Complete the second Milestone 6 domain migration by triaging the legacy cider
+  and perry inventory into ordinary Pint quantities, existing FermUnits semantic
+  behavior, method-defined reporting bases, downstream classification logic, and
+  explicit pending/rejected formulas without adding speculative public API.
 - Complete the first Milestone 6 domain migration by triaging the legacy wine
   inventory into maintained ownership classes, authoritative source records,
   source-ready regional candidates, and explicit pending/rejected items without

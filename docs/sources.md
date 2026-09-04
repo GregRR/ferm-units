@@ -118,7 +118,7 @@ FermUnits definitions.
 | Wine | [`reference/wine-units.md`](reference/wine-units.md) | Legacy migration triaged; source-ready candidates and ownership boundaries documented |
 | Distilling | — | Migration pending |
 | Sake | — | Migration pending |
-| Cider and perry | — | Migration pending |
+| Cider and perry | [`reference/cider-perry-units.md`](reference/cider-perry-units.md) | Legacy migration triaged; ownership boundaries documented |
 | Biofuels | — | Migration pending |
 | Acid-tier and other fermentation | — | Migration pending |
 
@@ -789,6 +789,89 @@ support, but this ledger is the canonical project-wide source inventory.
 - Limitation:
   - bottle names used in other wine regions can carry different capacities;
     this source supports Champagne-qualified meanings only.
+
+## Cider and perry sources
+
+The records below support the maintained cider/perry ownership and reporting
+boundaries.
+
+### [CP-CORNELL-ANALYSIS-01] Wine and Hard Cider Lab Analysis
+
+- Organization: Cornell AgriTech, Cornell University
+- URL: https://cals.cornell.edu/cornell-agritech/our-expertise/craft-beverage-production/craft-beverage-analytical-lab/wine-hard-cider-analyses
+- Accessed: 2026-09-03
+- Source tier: 4
+- Supports:
+  - cider pH, fermentable sugar, alcohol, and titratable acidity as routine
+    analytical measurements;
+  - cider titratable acidity reported as malic-acid equivalents;
+  - an autotitration endpoint of pH 8.2 for the cited laboratory method.
+- Limitation:
+  - this is a laboratory service/method description, not a universal definition
+    of every cider titratable-acidity method.
+
+### [CP-PSU-CHEMISTRY-01] Using Mid-Atlantic Processing Fruit in Hard Cider Production
+
+- Organization: Penn State Extension
+- URL: https://extension.psu.edu/using-mid-atlantic-processing-fruit-in-hard-cider-production
+- Accessed: 2026-09-03
+- Source tier: 4
+- Supports:
+  - malic acid, pH, sugar, and tannin/polyphenol measurements as important cider
+    fruit chemistry;
+  - reporting titratable malic acid in g/L and tannin/polyphenols in a
+    method-specific equivalent basis;
+  - the fact that tannin/polyphenol results depend on the analytical method and
+    reporting basis.
+
+### [CP-CORNELL-LARS-01] Characterization of Malus genotypes within the USDA-PGRU
+
+- Organization: Cornell University
+- Publication: graduate thesis discussing the Long Ashton Research Station cider
+  apple classification and its historical source
+- URL: https://ecommons.cornell.edu/bitstreams/aac7e7a0-7bdf-4541-939d-70208a5f3046/download
+- Accessed: 2026-09-03
+- Source tier: 6
+- Supports:
+  - the commonly cited Long Ashton classification thresholds of 4.5 g/L acid
+    and 2.0 g/L tannins;
+  - the sweet, sharp, bittersweet, and bittersharp category structure.
+- Limitation:
+  - this is secondary support for the historical classification; the original
+    Barker/Ettle source has not yet been added to the maintained ledger;
+  - the tannin analytical method/reporting basis must be preserved with any
+    classification implementation.
+
+### [CP-HMRC-CIDER-01] Alcoholic products technical guide — cider and perry
+
+- Organization: HM Revenue & Customs
+- URL: https://www.gov.uk/guidance/alcoholic-products-technical-guide/section-2-alcoholic-products
+- Accessed: 2026-09-03
+- Source tier: 1
+- Supports:
+  - cider/perry as legally defined fermented apple/pear products in the UK duty
+    framework;
+  - explicit juice-content and ingredient rules that are jurisdictional product
+    semantics rather than unit definitions.
+- Limitation:
+  - UK alcohol-duty rules do not define universal cider chemistry or analytical
+    conversion formulas.
+
+### [CP-SORBITOL-01] Effect of yeast fermentation on cider chemical composition
+
+- Authors: study of Torulaspora delbrueckii and Saccharomyces cerevisiae
+- Publication: Food Bioscience (2026), article 108699
+- DOI: https://doi.org/10.1016/j.fbio.2026.108699
+- URL: https://www.sciencedirect.com/science/article/pii/S2212429226004712
+- Accessed: 2026-09-03
+- Source tier: 5
+- Supports:
+  - sorbitol as a measurable cider constituent reported in g/L;
+  - residual sorbitol after fermentation in the studied ciders;
+  - cultivar- and yeast-dependent sorbitol behavior.
+- Limitation:
+  - does not support a universal fixed gravity contribution per g/L sorbitol or
+    a universal cider attenuation correction.
 
 ## Solution-chemistry sources
 

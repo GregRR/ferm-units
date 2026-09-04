@@ -18,7 +18,7 @@ that belong outside FermUnits.
 | Wine | [wine-units.md](wine-units.md) | Legacy migration triaged; source-ready candidates and ownership boundaries documented |
 | Distilling | — | Migration pending |
 | Sake | — | Migration pending |
-| Cider and perry | — | Migration pending |
+| Cider and perry | [cider-perry-units.md](cider-perry-units.md) | Legacy migration triaged; ownership boundaries documented |
 | Biofuels | — | Migration pending |
 | Acid-tier and other fermentation | — | Migration pending |
 

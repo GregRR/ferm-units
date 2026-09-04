@@ -211,7 +211,7 @@ implementation and supported Pint line.
 
 ## Milestone 6 — Additional fermentation domains
 
-**Status: in progress; wine reference migration complete**
+**Status: in progress; wine and cider/perry reference migrations complete**
 
 Migrate legacy research into maintained domain references and add functionality
 when there is a concrete downstream need and adequate sourcing.
@@ -233,6 +233,13 @@ pending, ambiguous, or rejected. The migration also:
 
 No new public API was added solely because a term appeared in the legacy
 inventory.
+
+The second M6 migration slice is complete for cider and perry. It records that
+sorbitol concentration, phenolic concentration, pH, and press yield are ordinary
+physical quantities or existing FermUnits semantics; keeps titratable-acidity
+reporting bases and fruit-classification thresholds as method/application context;
+and rejects unsupported legacy attenuation and cross-method acidity shortcuts as
+universal conversions. No cider/perry-specific public API was added.
 
 Candidate domains include:
 
