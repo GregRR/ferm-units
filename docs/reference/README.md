@@ -19,7 +19,7 @@ that belong outside FermUnits.
 | Distilling | [distilling-units.md](distilling-units.md) | Legacy migration triaged; legal/metrological ownership boundaries documented |
 | Sake | [sake-units.md](sake-units.md) | Legacy migration triaged; analytical and historical-unit ownership boundaries documented |
 | Cider and perry | [cider-perry-units.md](cider-perry-units.md) | Legacy migration triaged; ownership boundaries documented |
-| Biofuels | — | Migration pending |
+| Biofuels | [biofuel-units.md](biofuel-units.md) | Legacy migration triaged; process-rate and feedstock ownership boundaries documented |
 | Acid-tier and other fermentation | — | Migration pending |
 
 The maintained domain files are the source documents for current FermUnits

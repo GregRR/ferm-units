@@ -2,9 +2,9 @@ import re
 from pathlib import Path
 
 _REPO_ROOT = Path(__file__).resolve().parents[1]
-_SOURCE_ID_PATTERN = re.compile(r"\[((?:BR|SC|WI|SH)-[A-Z0-9-]+)\]")
+_SOURCE_ID_PATTERN = re.compile(r"\[((?:BR|SC|WI|DI|SA|CP|BF|AT|SH)-[A-Z0-9-]+)\]")
 _SOURCE_RECORD_PATTERN = re.compile(
-    r"^### \[((?:BR|SC|WI|SH)-[A-Z0-9-]+)\]",
+    r"^### \[((?:BR|SC|WI|DI|SA|CP|BF|AT|SH)-[A-Z0-9-]+)\]",
     re.MULTILINE,
 )
 

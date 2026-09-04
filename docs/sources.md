@@ -119,7 +119,7 @@ FermUnits definitions.
 | Distilling | [`reference/distilling-units.md`](reference/distilling-units.md) | Legacy migration triaged; legal/metrological ownership boundaries documented |
 | Sake | [`reference/sake-units.md`](reference/sake-units.md) | Legacy migration triaged; analytical and historical-unit ownership boundaries documented |
 | Cider and perry | [`reference/cider-perry-units.md`](reference/cider-perry-units.md) | Legacy migration triaged; ownership boundaries documented |
-| Biofuels | — | Migration pending |
+| Biofuels | [`reference/biofuel-units.md`](reference/biofuel-units.md) | Legacy migration triaged; process-rate and feedstock ownership boundaries documented |
 | Acid-tier and other fermentation | — | Migration pending |
 
 Historical planning inventories are retained under
@@ -1034,6 +1034,74 @@ The records below are the master bibliography for maintained distilling claims.
   - new-charred-oak storage requirements for bourbon and related whisky classes.
 - Limitation:
   - does not define a universal 53 U.S.-gallon legal bourbon-barrel capacity.
+
+## Biofuel sources
+
+The records below are the master bibliography for maintained biofuel claims.
+
+### [BF-USDA-ERS-GRAIN-01] Feed Grains Database — conversion factors
+
+- Organization: U.S. Department of Agriculture, Economic Research Service (ERS)
+- Title: Feed Grains Database — Documentation
+- URL: https://www.ers.usda.gov/data-products/feed-grains-database/documentation
+- Accessed: 2026-09-03
+- Source tier: 3
+- Supports:
+  - the USDA statistical conversion factor `1 bushel corn = 56 pounds`;
+  - the distinction between commodity/statistical grain equivalents and physical
+    SI quantities.
+- Limitation:
+  - the 56-pound factor is a commodity/statistical convention and must not be
+    used to redefine Pint's physical volume unit `bushel` as a mass unit.
+
+### [BF-USDA-NASS-MOISTURE-01] Standard grain weight and moisture guidance
+
+- Organization: U.S. Department of Agriculture, National Agricultural Statistics
+  Service (NASS)
+- Publication: Prices Received — Standard weight/moisture guidance
+- URL: https://www.nass.usda.gov/Surveys/Guide_to_NASS_Surveys/Prices/Chapter%20Two%20Prices%20Received%20v11%2003092015.pdf
+- Accessed: 2026-09-03
+- Source tier: 3
+- Supports:
+  - a corn guideline of `56 lb/bushel` at `15.5%` moisture;
+  - moisture content and weight-per-volume as separate parts of a dry grain
+    quantity convention.
+- Limitation:
+  - the document explicitly describes these as guidelines that may vary by firm;
+    it does not establish a universal 15% moisture basis.
+
+### [BF-USDA-ERS-BIOFUELS-01] USDA biofuel conversion-factor data sources
+
+- Organization: U.S. Department of Agriculture, Economic Research Service (ERS)
+- Title: Biofuels Data Sources
+- URL: https://www.ers.usda.gov/about-ers/partnerships/strengthening-statistics-through-the-icars/biofuels-data-sources
+- Accessed: 2026-09-03
+- Source tier: 3
+- Supports:
+  - the USDA statistical planning factor `1 bushel corn = 2.7 gallons ethanol`;
+  - `1 bushel corn = 56 pounds` in the same biofuel-data context.
+- Limitation:
+  - the ethanol-per-bushel factor is a data-system conversion assumption, not a
+    universal theoretical yield or physical unit identity.
+
+### [BF-TANG-2015-01] Designer synthetic media for microbial-catalyzed biofuel production
+
+- Authors: Xiaoyu Tang, Leonardo da Costa Sousa, Mingjie Jin, Shishir P. S. Chundawat,
+  Charles Kevin Chambliss, Ming W. Lau, Zeyi Xiao, Bruce E. Dale, and Venkatesh Balan
+- Publication: *Biotechnology for Biofuels* 8, article 1 (2015)
+- DOI: https://doi.org/10.1186/s13068-014-0179-6
+- URL: https://www.osti.gov/servlets/purl/1204436
+- Accessed: 2026-09-03
+- Source tier: 5
+- Supports:
+  - ethanol productivity reported in `g/L/h`;
+  - ethanol yield reported in `g/g`;
+  - a conventional theoretical metabolic ethanol yield of approximately
+    `0.51 g ethanol / g consumed sugar` for the studied sugars.
+- Limitation:
+  - process-specific measured yields and productivities are not universal
+    conversion constants.
+
 
 ## Solution-chemistry sources
 

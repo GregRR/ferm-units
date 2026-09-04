@@ -6,6 +6,11 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Complete the fifth Milestone 6 domain migration by triaging the legacy biofuel
+  inventory into ordinary process-rate quantities, dry-basis and commodity
+  metadata, source-supported stoichiometric yield context, and explicit
+  rejected/downstream feedstock and plant-efficiency shortcuts without adding
+  speculative public API.
 - Complete the fourth Milestone 6 domain migration by triaging the legacy sake
   inventory into the source-ready Nihonshudo scale, prescribed acidity method,
   ordinary rice-polishing ratio, pending historical capacity measures, and
