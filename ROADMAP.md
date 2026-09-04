@@ -228,8 +228,10 @@ pending, ambiguous, or rejected. The migration also:
   leaving them unimplemented until a real consumer needs the named unit;
 - rejects legacy shortcut formulas as universal conversions where method scope,
   reference conditions, or process assumptions are not adequately defined;
-- flags the existing `wine_hogshead` compatibility alias for pre-1.0 naming
-  review because legitimate wine meanings vary by region.
+- identified the alpha-only `wine_hogshead` compatibility alias as a pre-1.0
+  naming risk because legitimate wine meanings vary by region; the later
+  stabilization audit removed that alias rather than assigning it a universal
+  wine meaning.
 
 No new public API was added solely because a term appeared in the legacy
 inventory.
@@ -312,6 +314,13 @@ Before a 1.0 release, review the project as a whole for:
 - deprecation policy for any alpha-era APIs that need adjustment;
 - extreme finite-input handling, so arithmetic overflow cannot silently produce
   nonfinite outputs where a public conversion promises validated numeric behavior.
+
+The first stabilization slice completed the current registry naming and collision
+audit. The alpha-only `wine_hogshead` alias was removed because legitimate wine
+meanings are region-dependent; Pint's bare `hogshead` remains unchanged, and any
+future wine-specific hogshead must use a region-qualified name. The remaining
+current FermUnits registry names are either qualified where collision risk exists
+or intentionally preserve a documented domain meaning.
 
 A 1.0 release should indicate that the supported public API and documented
 semantics are intentionally stable, not that every conceivable fermentation

@@ -52,11 +52,6 @@ def test_brewing_tun_cask_hierarchy() -> None:
     assert Q_(1, "brewing_tun").to("imperial_beer_barrel").magnitude == pytest.approx(6)
 
 
-def test_wine_hogshead_matches_pint_hogshead() -> None:
-    result = Q_(1, "wine_hogshead").to("hogshead")
-    assert result.magnitude == pytest.approx(1)
-
-
 def test_brewing_hogshead_equals_54_imperial_gallons() -> None:
     result = Q_(1, "brewing_hogshead").to("imperial_gallon")
     assert result.magnitude == pytest.approx(54)
@@ -77,7 +72,10 @@ def test_bare_pin_keeps_pint_picoinch_meaning() -> None:
     assert Q_(1, "pin").to("inch").magnitude == pytest.approx(1e-12)
 
 
-@pytest.mark.parametrize("unit_name", ["puncheon", "butt", "tun"])
-def test_ambiguous_large_cask_names_remain_undefined(unit_name: str) -> None:
+@pytest.mark.parametrize(
+    "unit_name",
+    ["wine_hogshead", "puncheon", "butt", "tun"],
+)
+def test_ambiguous_vessel_names_remain_undefined(unit_name: str) -> None:
     with pytest.raises(UndefinedUnitError):
         Q_(1, unit_name)

@@ -35,7 +35,6 @@ itself establish every named cask multiple used below. [BR-UK-WM-1824]
 | `brewing_puncheon` | 72 Imperial gallons | Implemented | **Provisional** historical British brewing meaning via [BR-NOTTINGHAM-CASK-01] |
 | `brewing_butt` | 108 Imperial gallons | Implemented | **Provisional** historical British brewing meaning via [BR-NOTTINGHAM-CASK-01] |
 | `brewing_tun` | 216 Imperial gallons | Implemented | **Provisional** historical British brewing meaning via [BR-NOTTINGHAM-CASK-01] |
-| `wine_hogshead` | alias of Pint `hogshead` | Implemented for explicit disambiguation | See [wine-units.md](wine-units.md) |
 
 The qualified `brewing_puncheon`, `brewing_butt`, and `brewing_tun` names are
 intentional. The same plain-language cask terms have had different capacities in
@@ -47,6 +46,10 @@ promoted to universal bare aliases.
 Bare `barrel`, `hogshead`, `puncheon`, `butt`, and `tun` are not given new
 universal brewing meanings when a legitimate Pint or cross-domain meaning would
 be changed or obscured.
+
+The former alpha-only `wine_hogshead` alias has been removed because wine usage
+is regionally ambiguous. Pint's bare `hogshead` remains available unchanged; see
+[the wine reference](wine-units.md) for the pre-1.0 naming decision.
 
 ### Vessel sources
 

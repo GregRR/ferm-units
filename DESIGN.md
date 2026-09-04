@@ -66,11 +66,9 @@ fermentation meaning when region, industry, or history changes the capacity.
 
 Qualified names should communicate the actual distinction directly. For
 example, `brewing_hogshead` identifies the British brewery measure. Where wine
-usage itself varies by region, new names should carry the regional distinction,
-such as `australian_wine_hogshead`. The existing `wine_hogshead` remains an
-alpha compatibility alias for Pint's `hogshead`; the maintained wine reference
-flags that name for pre-1.0 review rather than treating it as one universal wine
-meaning.
+usage itself varies by region, names must carry the regional distinction, such
+as `australian_wine_hogshead`. FermUnits intentionally does not define a generic
+`wine_hogshead`; Pint's bare `hogshead` remains available with Pint's own meaning.
 
 ## Physical units versus semantic scales
 
@@ -185,7 +183,14 @@ can alter parsing globally for every downstream user of the registry.
 
 FermUnits is currently alpha software. Public APIs and domain coverage may still
 evolve before 1.0, but changes should preserve clear semantics and avoid silent
-reinterpretation of existing names or values.
+reinterpretation of existing names or values. During alpha stabilization, a
+misleading or ambiguous public name may be removed when retaining it would make
+the 1.0 contract less precise. Such removals must be called out in the changelog,
+documented with the preserved or preferred alternative, and covered by tests so
+the removed name cannot silently acquire a different meaning.
+
+After 1.0, breaking changes to supported public names or semantics should
+normally use a documented deprecation period and an appropriate major release.
 
 ## Non-goals
 

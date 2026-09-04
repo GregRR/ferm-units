@@ -30,23 +30,24 @@ The legacy wine inventory has now been triaged into five ownership classes:
 
 No new public API is added by this migration slice.
 
-## Current implemented wine-specific definition
+## Wine-vessel naming stabilization
 
-### `wine_hogshead`
+### Former alpha alias: `wine_hogshead`
 
-- Definition: alias of Pint's existing `hogshead`.
-- Pint value: 63 US liquid gallons.
-- Implementation status: **Implemented.**
-- Physical-definition source status: **Verified** Pint behavior via
-  [SH-PINT-01].
-- Wine-domain naming status: **Ambiguous.** AWRI documents a current Australian
-  wine-industry hogshead of 300 L, so the qualifier `wine_` is not sufficient to
-  identify one universal wine meaning. [WI-AWRI-PACKAGING-01]
+FermUnits previously defined `wine_hogshead` as an alias of Pint's existing
+`hogshead`, whose Pint value is 63 US liquid gallons. That physical Pint meaning
+remains available as bare `hogshead` and is verified as Pint behavior via
+[SH-PINT-01].
 
-The current alias is retained during alpha development for compatibility. New
-wine-vessel definitions must use region-qualified names. The public
-`wine_hogshead` name should be reviewed before 1.0 rather than silently changing
-its value.
+The FermUnits alias has been **removed during pre-1.0 stabilization** because the
+name implies a universal wine-industry meaning that the sources do not support.
+AWRI documents a legitimate Australian wine-industry hogshead of 300 L, so the
+qualifier `wine_` is not sufficient to disambiguate the term.
+[WI-AWRI-PACKAGING-01]
+
+Future wine-vessel definitions must use region-qualified names such as
+`australian_wine_hogshead` when a concrete downstream need justifies the API.
+FermUnits will not silently reinterpret the removed `wine_hogshead` name.
 
 ## Must density, extract, sugar, and alcohol
 

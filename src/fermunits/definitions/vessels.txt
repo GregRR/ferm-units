@@ -11,8 +11,9 @@ kilderkin = 18 * imperial_gallon
 firkin = 9 * imperial_gallon
 pin_cask = 4.5 * imperial_gallon
 
-# Explicit hogshead names
-wine_hogshead = hogshead
+# Pint's bare hogshead remains available as 63 US liquid gallons. FermUnits
+# does not add a generic wine-qualified alias because legitimate wine meanings
+# vary by region.
 brewing_hogshead = 54 * imperial_gallon
 
 brewing_puncheon = 72 * imperial_gallon

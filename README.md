@@ -359,8 +359,12 @@ Implemented physical units include:
 * pin cask;
 * firkin;
 * kilderkin;
-* domain-qualified wine and brewing hogsheads;
+* domain-qualified brewing hogshead;
 * domain-qualified brewing puncheon, butt, and tun.
+
+Pint's bare `hogshead` remains available with Pint's 63-US-liquid-gallon meaning.
+FermUnits intentionally does not define a generic `wine_hogshead` because
+legitimate wine-industry meanings vary by region.
 
 Implemented brewing calculations include:
 
@@ -383,8 +387,9 @@ Not yet implemented:
   details.
 
 Additional wine, distilling, sake, cider, biofuel, and fermentation-process
-definitions will be added after their regional, historical, legal, or technical
-meanings are documented.
+definitions remain demand-driven. Their maintained references document regional,
+historical, legal, and technical meanings so new APIs can be added without
+speculative or ambiguous aliases when a downstream consumer actually needs them.
 
 ## Design and source verification
 
