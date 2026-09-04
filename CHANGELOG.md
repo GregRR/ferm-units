@@ -6,6 +6,11 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Complete the third Milestone 6 domain migration by triaging the legacy
+  distilling inventory into ordinary physical quantities, jurisdiction-defined
+  proof/accounting semantics, authoritative alcoholometry/gauging methods, and
+  explicit pending/rejected historical or vessel shortcuts without adding
+  speculative public API.
 - Complete the second Milestone 6 domain migration by triaging the legacy cider
   and perry inventory into ordinary Pint quantities, existing FermUnits semantic
   behavior, method-defined reporting bases, downstream classification logic, and

@@ -211,7 +211,7 @@ implementation and supported Pint line.
 
 ## Milestone 6 — Additional fermentation domains
 
-**Status: in progress; wine and cider/perry reference migrations complete**
+**Status: in progress; wine, cider/perry, and distilling reference migrations complete**
 
 Migrate legacy research into maintained domain references and add functionality
 when there is a concrete downstream need and adequate sourcing.
@@ -240,6 +240,13 @@ physical quantities or existing FermUnits semantics; keeps titratable-acidity
 reporting bases and fruit-classification thresholds as method/application context;
 and rejects unsupported legacy attenuation and cross-method acidity shortcuts as
 universal conversions. No cider/perry-specific public API was added.
+
+The third M6 migration slice is complete for distilling. It separates ordinary
+physical quantities from jurisdiction-defined proof scales, proof-gallon and
+pure-alcohol accounting semantics, table-driven alcoholometry/gauging, and
+application-level dilution or tax policy. Unsupported linear temperature
+corrections and universal cask-size claims remain rejected, pending, or
+ambiguous. No distilling-specific public API was added.
 
 Candidate domains include:
 

@@ -116,7 +116,7 @@ FermUnits definitions.
 | Solution chemistry | [`reference/solution-chemistry.md`](reference/solution-chemistry.md) | Active and partly implemented |
 | Brewing | [`reference/brewing-units.md`](reference/brewing-units.md) | Active; implementation and verification status reconciled |
 | Wine | [`reference/wine-units.md`](reference/wine-units.md) | Legacy migration triaged; source-ready candidates and ownership boundaries documented |
-| Distilling | — | Migration pending |
+| Distilling | [`reference/distilling-units.md`](reference/distilling-units.md) | Legacy migration triaged; legal/metrological ownership boundaries documented |
 | Sake | — | Migration pending |
 | Cider and perry | [`reference/cider-perry-units.md`](reference/cider-perry-units.md) | Legacy migration triaged; ownership boundaries documented |
 | Biofuels | — | Migration pending |
@@ -872,6 +872,92 @@ boundaries.
 - Limitation:
   - does not support a universal fixed gravity contribution per g/L sorbitol or
     a universal cider attenuation correction.
+
+## Distilling sources
+
+The records below are the master bibliography for maintained distilling claims.
+
+### [DI-US-TTB-PROOF-01] Distilled Spirits FAQs — proof and proof gallons
+
+- Organization: Alcohol and Tobacco Tax and Trade Bureau (TTB)
+- URL: https://www.ttb.gov/distilled-spirits/distilled-spirits-faqs/print
+- Accessed: 2026-09-03
+- Source tier: 2
+- Supports:
+  - U.S. proof as twice alcohol by volume;
+  - proof-gallon calculation from bulk gallons and proof.
+
+### [DI-US-27CFR-GAUGING-01] 27 CFR Parts 19 and 30 — distilled spirits and gauging
+
+- Organization: United States Department of the Treasury / TTB
+- Citations: 27 CFR § 19.1; 27 CFR Part 30
+- URL: https://www.ecfr.gov/current/title-27/chapter-I/subchapter-A/part-30
+- Accessed: 2026-09-03
+- Source tier: 1
+- Supports:
+  - the legal 60 °F basis for proof;
+  - proof-gallon and wine-gallon terminology;
+  - the federal distilled-spirits gauging framework.
+
+### [DI-US-TTB-GAUGING-01] TTB Gauging Manual and proof interpolation guidance
+
+- Organization: Alcohol and Tobacco Tax and Trade Bureau (TTB)
+- URL: https://www.ttb.gov/regulated-commodities/beverage-alcohol/distilled-spirits/laws-regulations-and-public-guidance
+- Related guidance: https://www.ttb.gov/regulated-commodities/beverage-alcohol/distilled-spirits/proofing-page-interpolation-table
+- Accessed: 2026-09-03
+- Source tier: 2
+- Supports:
+  - use of the Gauging Manual tables for distilled-spirit proof and quantity;
+  - temperature correction to the 60 °F U.S. proof basis;
+  - interpolation between tabulated hydrometer and temperature readings;
+  - table-driven reduction/gauging calculations.
+
+### [DI-OIML-R22-01] OIML R 22 — International Alcoholometric Tables
+
+- Organization: International Organization of Legal Metrology (OIML)
+- Publication: OIML R 22, International Alcoholometric Tables
+- URL: https://www.oiml.org/en/files/pdf_r/r022-e75.pdf
+- Accessed: 2026-09-03
+- Source tier: 1
+- Supports:
+  - international density/alcohol-strength relationships for ethanol-water mixtures;
+  - alcoholometry as a temperature-dependent metrological calculation.
+
+### [DI-OIML-R44-01] OIML R 44 — Alcoholometers and alcohol hydrometers
+
+- Organization: International Organization of Legal Metrology (OIML)
+- Publication: OIML R 44, Edition 1985 (E)
+- URL: https://www.oiml.org/en/files/pdf_r/r044-e85.pdf
+- Accessed: 2026-09-03
+- Source tier: 1
+- Supports:
+  - percentage alcoholic strength by mass and by volume;
+  - a 20 °C reference temperature for OIML alcoholometers;
+  - use of OIML R 22 as the associated alcoholometric-table basis.
+
+### [DI-UK-HMRC-LPA-01] Work out how much Alcohol Duty you need to pay
+
+- Organization: HM Revenue & Customs
+- URL: https://www.gov.uk/guidance/work-out-how-much-alcohol-duty-you-need-to-pay
+- Accessed: 2026-09-03
+- Source tier: 1
+- Supports:
+  - UK Alcohol Duty calculations in litres of pure alcohol;
+  - calculation examples using bulk litres and ABV to determine pure-alcohol litres.
+- Limitation:
+  - duty rates and legal categories are jurisdictional policy and belong downstream.
+
+### [DI-US-TTB-WHISKY-01] TTB whisky guidance — barreling requirements
+
+- Organization: Alcohol and Tobacco Tax and Trade Bureau (TTB)
+- Publication: Whisky webinar / distilled-spirits guidance
+- URL: https://www.ttb.gov/images/pdfs/whisky-webinar.pdf
+- Accessed: 2026-09-03
+- Source tier: 2
+- Supports:
+  - new-charred-oak storage requirements for bourbon and related whisky classes.
+- Limitation:
+  - does not define a universal 53 U.S.-gallon legal bourbon-barrel capacity.
 
 ## Solution-chemistry sources
 
