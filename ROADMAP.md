@@ -211,7 +211,7 @@ implementation and supported Pint line.
 
 ## Milestone 6 — Additional fermentation domains
 
-**Status: in progress; wine, cider/perry, and distilling reference migrations complete**
+**Status: in progress; wine, cider/perry, distilling, and sake reference migrations complete**
 
 Migrate legacy research into maintained domain references and add functionality
 when there is a concrete downstream need and adequate sourcing.
@@ -247,6 +247,13 @@ pure-alcohol accounting semantics, table-driven alcoholometry/gauging, and
 application-level dilution or tax policy. Unsupported linear temperature
 corrections and universal cask-size claims remain rejected, pending, or
 ambiguous. No distilling-specific public API was added.
+
+The fourth M6 migration slice is complete for sake. It records Nihonshudo as a
+15 °C, density-derived semantic scale; sake acidity as a prescribed titration
+result rather than a multiplicative unit; rice polishing ratio as an ordinary
+dimensionless mass fraction; historical Japanese capacity measures as pending
+primary metrology verification; and unsupported sweetness/balance shortcuts as
+rejected or downstream semantics. No sake-specific public API was added.
 
 Candidate domains include:
 

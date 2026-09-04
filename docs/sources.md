@@ -117,7 +117,7 @@ FermUnits definitions.
 | Brewing | [`reference/brewing-units.md`](reference/brewing-units.md) | Active; implementation and verification status reconciled |
 | Wine | [`reference/wine-units.md`](reference/wine-units.md) | Legacy migration triaged; source-ready candidates and ownership boundaries documented |
 | Distilling | [`reference/distilling-units.md`](reference/distilling-units.md) | Legacy migration triaged; legal/metrological ownership boundaries documented |
-| Sake | — | Migration pending |
+| Sake | [`reference/sake-units.md`](reference/sake-units.md) | Legacy migration triaged; analytical and historical-unit ownership boundaries documented |
 | Cider and perry | [`reference/cider-perry-units.md`](reference/cider-perry-units.md) | Legacy migration triaged; ownership boundaries documented |
 | Biofuels | — | Migration pending |
 | Acid-tier and other fermentation | — | Migration pending |
@@ -789,6 +789,82 @@ support, but this ledger is the canonical project-wide source inventory.
 - Limitation:
   - bottle names used in other wine regions can carry different capacities;
     this source supports Champagne-qualified meanings only.
+
+
+## Sake sources
+
+The records below are the master bibliography for maintained sake claims.
+
+### [SA-NRIB-METHODS-01] Prescribed analysis methods — sake
+
+- Organization: National Research Institute of Brewing (NRIB)
+- Publication: National Tax Agency Prescribed Analysis Methods, Chapter 3,
+  `清酒` (sake)
+- URL: https://www.nrib.go.jp/bun/pdf/bun/nb03.pdf
+- Accessed: 2026-09-03
+- Source tier: 2
+- Supports:
+  - sake specific gravity / Nihonshudo measurement at 15 °C;
+  - the `15/4 °C` specific-gravity basis;
+  - `nihonshudo = 1443 / S - 1443`;
+  - prescribed sake-acidity titration, endpoint, and reporting calculation.
+
+### [SA-NTA-LABEL-01] Manufacturing and quality labeling standard for sake
+
+- Organization: National Tax Agency (Japan)
+- Title: `清酒の製法品質表示基準を定める件`
+- URL: https://www.nta.go.jp/taxes/sake/hyoji/seishu/kokuji891122/03.htm
+- Accessed: 2026-09-03
+- Source tier: 1
+- Supports:
+  - the legal definition of rice polishing ratio;
+  - polishing-ratio thresholds used by specially designated sake categories.
+- Limitation:
+  - category eligibility and labeling compliance are jurisdictional application
+    semantics rather than physical-unit definitions.
+
+### [SA-NTA-SWEETNESS-01] Sake Meter Value and sweetness/dryness guidance
+
+- Organization: National Tax Agency (Japan)
+- Publication: sake education material on Nihonshudo and sweetness/dryness
+- URL: https://www.nta.go.jp/taxes/sake/hambai/moderutekisuto/pdf/r06_07_01.pdf
+- Accessed: 2026-09-03
+- Source tier: 3
+- Supports:
+  - Nihonshudo as a sake-specific density scale measured at 15 °C;
+  - the `((1 / specific gravity) - 1) × 1443` relationship on the `15/4 °C`
+    basis;
+  - the limitation that Nihonshudo alone does not determine perceived
+    sweetness/dryness.
+
+### [SA-NDL-MEASURES-01] Historical Japanese capacity measures
+
+- Organization: National Diet Library, Collaborative Reference Database
+- Title: reference record on `石`, `斗`, `升`, and `合`
+- URL: https://crd.ndl.go.jp/reference/entry/reference/show?id=1000076982
+- Accessed: 2026-09-03
+- Source tier: 7
+- Supports:
+  - the historical decimal hierarchy of traditional Japanese capacity measures;
+  - secondary corroboration of approximately `180.39 L` per koku and the
+    historical metric relationship.
+- Limitation:
+  - secondary reference-service synthesis rather than the primary historical
+    weights-and-measures law; exact FermUnits definitions remain pending primary
+    verification.
+
+### [SA-NTA-PACKAGING-01] Sake consumption statistics — 1.8 L bottle equivalents
+
+- Organization: National Tax Agency (Japan), Takamatsu Regional Taxation Bureau
+- Title: adult per-capita alcohol consumption table
+- URL: https://www.nta.go.jp/about/organization/takamatsu/sake/h29/sake_shohi/beppyo_2.htm
+- Accessed: 2026-09-03
+- Source tier: 3
+- Supports:
+  - use of 1.8 L bottles as a sake packaging/reporting convention.
+- Limitation:
+  - does not establish `isshobin` as a physical unit or guarantee one universal
+    package specification.
 
 ## Cider and perry sources
 

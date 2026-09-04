@@ -6,6 +6,11 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Complete the fourth Milestone 6 domain migration by triaging the legacy sake
+  inventory into the source-ready Nihonshudo scale, prescribed acidity method,
+  ordinary rice-polishing ratio, pending historical capacity measures, and
+  explicit rejected/downstream sensory shortcuts without adding speculative
+  public API.
 - Complete the third Milestone 6 domain migration by triaging the legacy
   distilling inventory into ordinary physical quantities, jurisdiction-defined
   proof/accounting semantics, authoritative alcoholometry/gauging methods, and
