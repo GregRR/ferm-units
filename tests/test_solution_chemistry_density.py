@@ -1,4 +1,5 @@
 import math
+import sys
 from typing import Any
 
 import pytest
@@ -193,4 +194,20 @@ def test_density_assisted_conversion_rejects_wrong_density_dimension(
         mass_concentration_to_mass_fraction(
             registry.Quantity(100, "milligram / liter"),
             registry.Quantity(1, "liter"),
+        )
+
+
+def test_density_assisted_conversions_reject_nonfinite_results(
+    registry: UnitRegistry[Any],
+) -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        mass_concentration_to_mass_fraction(
+            registry.Quantity(sys.float_info.max, "gram / liter"),
+            registry.Quantity(sys.float_info.min, "kilogram / liter"),
+        )
+
+    with pytest.raises(ValueError, match="representable finite range"):
+        mass_fraction_to_mass_concentration(
+            registry.Quantity(sys.float_info.max, "dimensionless"),
+            registry.Quantity(sys.float_info.max, "kilogram / liter"),
         )

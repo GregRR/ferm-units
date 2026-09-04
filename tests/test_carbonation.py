@@ -1,4 +1,5 @@
 import math
+import sys
 
 import pytest
 from pint import DimensionalityError
@@ -172,3 +173,8 @@ def test_co2_mass_concentration_to_volumes_rejects_invalid_value(
 def test_co2_mass_concentration_to_volumes_rejects_wrong_dimension() -> None:
     with pytest.raises(DimensionalityError):
         co2_mass_concentration_to_volumes(Q_(2.5, "psi"))
+
+
+def test_carbonation_conversion_rejects_nonfinite_result_from_finite_input() -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        co2_volumes_to_mass_concentration(sys.float_info.max)

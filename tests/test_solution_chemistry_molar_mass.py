@@ -1,4 +1,5 @@
 import math
+import sys
 from typing import Any
 
 import pytest
@@ -245,4 +246,20 @@ def test_molar_mass_conversion_rejects_wrong_molar_mass_dimension(
         mass_concentration_to_amount_concentration(
             registry.Quantity(58.44, "milligram / liter"),
             registry.Quantity(58.44, "gram / liter"),
+        )
+
+
+def test_molar_mass_conversions_reject_nonfinite_results(
+    registry: UnitRegistry[Any],
+) -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        mass_concentration_to_amount_concentration(
+            registry.Quantity(sys.float_info.max, "gram / liter"),
+            registry.Quantity(sys.float_info.min, "gram / mole"),
+        )
+
+    with pytest.raises(ValueError, match="representable finite range"):
+        amount_concentration_to_mass_concentration(
+            registry.Quantity(sys.float_info.max, "mole / liter"),
+            registry.Quantity(sys.float_info.max, "gram / mole"),
         )

@@ -21,6 +21,14 @@ def _require_nonnegative_finite(value: float, name: str) -> None:
         raise ValueError(f"{name} must not be negative")
 
 
+def _require_finite_result(value: float, name: str) -> float:
+    """Return a finite conversion result or raise a controlled error."""
+    if not math.isfinite(value):
+        raise ValueError(f"{name} result is outside the representable finite range")
+
+    return value
+
+
 def _validated_co2_mass_concentration(
     mass_concentration: Quantity[Any],
 ) -> Quantity[Any]:
@@ -52,10 +60,12 @@ def co2_volumes_to_mass_concentration(co2_volumes: float) -> Quantity[Any]:
     """
     _require_nonnegative_finite(co2_volumes, "CO2 volumes")
 
-    return Q_(
+    magnitude = _require_finite_result(
         co2_volumes * _GRAMS_PER_LITER_PER_VOLUME,
-        "gram / liter",
+        "CO2 mass concentration",
     )
+
+    return Q_(magnitude, "gram / liter")
 
 
 def co2_mass_concentration_to_volumes(
@@ -69,7 +79,10 @@ def co2_mass_concentration_to_volumes(
     """
     normalized = _validated_co2_mass_concentration(mass_concentration)
 
-    return float(normalized.magnitude) / _GRAMS_PER_LITER_PER_VOLUME
+    return _require_finite_result(
+        float(normalized.magnitude) / _GRAMS_PER_LITER_PER_VOLUME,
+        "CO2 volumes",
+    )
 
 
 def co2_volumes_to_grams_per_liter(co2_volumes: float) -> float:

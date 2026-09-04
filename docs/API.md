@@ -670,6 +670,12 @@ conditions include finite pH values, positive hydrogen-ion activity, positive
 solution density, positive molar mass, positive equivalence factors, and positive
 equivalent mass.
 
+Validated public numeric conversions also reject nonfinite results caused by
+arithmetic overflow. Extreme finite inputs therefore raise `ValueError` when the
+computed scalar or scalar-quantity magnitude would be `inf`/`nan` or otherwise
+outside the representable finite range. FermUnits does not change Pint's general
+arithmetic behavior for quantities manipulated directly by callers.
+
 Callers should not rely on private constants, private context names, internal
 modules, or implementation-only helpers beginning with an underscore.
 
@@ -680,8 +686,9 @@ modules, or implementation-only helpers beginning with an underscore.
 - [`reference/solution-chemistry.md`](reference/solution-chemistry.md) — solution
   chemistry, chemical-equivalent semantics, composition, density, molar mass,
   reporting bases, pH, and measurement boundaries.
-- [`reference/wine-units.md`](reference/wine-units.md) — current wine-specific
-  definitions and pending migration work.
+- [`reference/wine-units.md`](reference/wine-units.md) — maintained wine
+  definitions, ownership decisions, source-ready candidates, and rejected or
+  pending legacy relationships.
 - [`sources.md`](sources.md) — project-wide source hierarchy, citation rules, and
   source ledger.
 - [`../DESIGN.md`](../DESIGN.md) — architectural decisions and the FermUnits/Pint

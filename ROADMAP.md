@@ -322,6 +322,14 @@ future wine-specific hogshead must use a region-qualified name. The remaining
 current FermUnits registry names are either qualified where collision risk exists
 or intentionally preserve a documented domain meaning.
 
+The second stabilization slice establishes a finite-result contract for validated
+public conversions. Arithmetic on extreme but finite inputs must either produce a
+finite scalar/quantity result or raise `ValueError`; it must not silently return
+`inf`/`nan` or expose an implementation-level arithmetic overflow. Coverage now
+includes brewing scalar conversions, carbonation, gravity/refractometer helpers,
+chemical-equivalence contexts, density-assisted composition, and molar-mass
+conversions.
+
 A 1.0 release should indicate that the supported public API and documented
 semantics are intentionally stable, not that every conceivable fermentation
 domain has been implemented.

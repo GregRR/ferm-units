@@ -1,4 +1,5 @@
 import math
+import sys
 
 import pytest
 
@@ -308,3 +309,26 @@ def test_wort_refractometer_correction_round_trip() -> None:
     )
 
     assert result == pytest.approx(original_apparent_brix)
+
+
+@pytest.mark.parametrize(
+    ("function", "args"),
+    [
+        (sg_to_gravity_points, (sys.float_info.max,)),
+        (sg_to_plato, (sys.float_info.max,)),
+        (
+            wort_refractometer_brix_to_plato,
+            (sys.float_info.max, sys.float_info.min),
+        ),
+        (
+            plato_to_wort_refractometer_brix,
+            (sys.float_info.max, sys.float_info.max),
+        ),
+    ],
+)
+def test_gravity_conversion_rejects_nonfinite_result_from_finite_inputs(
+    function: object,
+    args: tuple[float, ...],
+) -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        function(*args)  # type: ignore[operator]

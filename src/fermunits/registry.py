@@ -28,6 +28,19 @@ def _require_positive_finite_context_parameter(
         raise ValueError(f"{name} must be greater than zero")
 
 
+def _require_finite_quantity_result(
+    value: PlainQuantity[Any],
+    *,
+    name: str,
+) -> PlainQuantity[Any]:
+    """Return a finite scalar quantity result or raise a controlled error."""
+    magnitude = float(value.magnitude)
+    if not math.isfinite(magnitude):
+        raise ValueError(f"{name} result is outside the representable finite range")
+
+    return value
+
+
 def _substance_to_chemical_equivalent(
     ureg: UnitRegistry[Any],
     value: PlainQuantity[Any],
@@ -40,9 +53,13 @@ def _substance_to_chemical_equivalent(
         name="Equivalence factor",
     )
 
-    return cast(
+    result = cast(
         PlainQuantity[Any],
         value * equivalence_factor * ureg.Unit("equivalent") / ureg.Unit("mole"),
+    )
+    return _require_finite_quantity_result(
+        result,
+        name="Chemical-equivalence conversion",
     )
 
 
@@ -58,9 +75,13 @@ def _chemical_equivalent_to_substance(
         name="Equivalence factor",
     )
 
-    return cast(
+    result = cast(
         PlainQuantity[Any],
         value / equivalence_factor * ureg.Unit("mole") / ureg.Unit("equivalent"),
+    )
+    return _require_finite_quantity_result(
+        result,
+        name="Chemical-equivalence conversion",
     )
 
 
@@ -76,9 +97,13 @@ def _mass_concentration_to_chemical_equivalent_concentration(
         name="Equivalent mass",
     )
 
-    return cast(
+    result = cast(
         PlainQuantity[Any],
         value / equivalent_mass * ureg.Unit("equivalent / gram"),
+    )
+    return _require_finite_quantity_result(
+        result,
+        name="Equivalent-mass conversion",
     )
 
 
@@ -94,9 +119,13 @@ def _chemical_equivalent_concentration_to_mass_concentration(
         name="Equivalent mass",
     )
 
-    return cast(
+    result = cast(
         PlainQuantity[Any],
         value * equivalent_mass * ureg.Unit("gram / equivalent"),
+    )
+    return _require_finite_quantity_result(
+        result,
+        name="Equivalent-mass conversion",
     )
 
 

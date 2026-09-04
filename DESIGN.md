@@ -192,6 +192,15 @@ the removed name cannot silently acquire a different meaning.
 After 1.0, breaking changes to supported public names or semantics should
 normally use a documented deprecation period and an appropriate major release.
 
+Validated public numeric conversions also have a finite-result contract. When
+FermUnits accepts finite scalar inputs or finite scalar Pint quantities and the
+conversion arithmetic exceeds the representable numeric range, the API raises
+`ValueError` rather than returning a nonfinite result. Dimension mismatches still
+use Pint's normal exception behavior. This contract applies to FermUnits conversion
+helpers and registered private conversion contexts used by those helpers; it does
+not redefine Pint's general arithmetic semantics for arbitrary user-created
+quantities.
+
 ## Non-goals
 
 FermUnits does not aim to provide complete implementations of:

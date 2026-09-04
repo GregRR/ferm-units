@@ -1,4 +1,5 @@
 import math
+import sys
 
 import pytest
 
@@ -106,3 +107,8 @@ def test_bitterness_units_to_absorbance_275nm_rejects_invalid_value(
 ) -> None:
     with pytest.raises(ValueError):
         bitterness_units_to_absorbance_275nm(value)
+
+
+def test_bitterness_conversion_rejects_nonfinite_result_from_finite_input() -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        absorbance_275nm_to_bitterness_units(sys.float_info.max)

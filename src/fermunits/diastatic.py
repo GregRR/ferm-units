@@ -15,6 +15,14 @@ def _require_nonnegative_finite(value: float, name: str) -> None:
         raise ValueError(f"{name} must not be negative")
 
 
+def _require_finite_result(value: float, name: str) -> float:
+    """Return a finite conversion result or raise a controlled error."""
+    if not math.isfinite(value):
+        raise ValueError(f"{name} result is outside the representable finite range")
+
+    return value
+
+
 def lintner_to_windisch_kolbach(lintner: float) -> float:
     """Convert a reported degrees-Lintner value to Windisch-Kolbach units.
 
@@ -30,7 +38,10 @@ def lintner_to_windisch_kolbach(lintner: float) -> float:
     """
     _require_nonnegative_finite(lintner, "Degrees Lintner")
 
-    windisch_kolbach = _LINTNER_TO_WK_SLOPE * lintner + _LINTNER_TO_WK_INTERCEPT
+    windisch_kolbach = _require_finite_result(
+        _LINTNER_TO_WK_SLOPE * lintner + _LINTNER_TO_WK_INTERCEPT,
+        "Windisch-Kolbach",
+    )
 
     if windisch_kolbach < 0.0:
         raise ValueError(
@@ -51,4 +62,7 @@ def windisch_kolbach_to_lintner(windisch_kolbach: float) -> float:
         "Windisch-Kolbach units",
     )
 
-    return (windisch_kolbach - _LINTNER_TO_WK_INTERCEPT) / _LINTNER_TO_WK_SLOPE
+    return _require_finite_result(
+        (windisch_kolbach - _LINTNER_TO_WK_INTERCEPT) / _LINTNER_TO_WK_SLOPE,
+        "Degrees Lintner",
+    )

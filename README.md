@@ -340,7 +340,8 @@ measurement should be resolved to a scalar.
 * Domain-qualified names distinguish conflicting industry meanings.
 * Empirical scales and calculations are kept separate from physical units.
 * Approximate and provisional formulas are labeled clearly.
-* Input validation rejects nonfinite or physically invalid values.
+* Input validation rejects nonfinite or physically invalid values, and validated
+  conversions reject arithmetic results that overflow to nonfinite values.
 * Every domain definition and calculation should have a documented source and
   tests.
 * Scientific verification status is tracked separately from implementation

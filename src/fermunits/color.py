@@ -16,6 +16,14 @@ def _require_nonnegative_finite(value: float, name: str) -> None:
         raise ValueError(f"{name} must not be negative")
 
 
+def _require_finite_result(value: float, name: str) -> float:
+    """Return a finite conversion result or raise a controlled error."""
+    if not math.isfinite(value):
+        raise ValueError(f"{name} result is outside the representable finite range")
+
+    return value
+
+
 def srm_to_ebc(srm: float) -> float:
     """Convert a modern method-derived ASBC SRM index to EBC.
 
@@ -31,14 +39,14 @@ def srm_to_ebc(srm: float) -> float:
     """
     _require_nonnegative_finite(srm, "SRM")
 
-    return srm * _SRM_TO_EBC_FACTOR
+    return _require_finite_result(srm * _SRM_TO_EBC_FACTOR, "EBC")
 
 
 def ebc_to_srm(ebc: float) -> float:
     """Convert a modern method-derived EBC color index to ASBC SRM."""
     _require_nonnegative_finite(ebc, "EBC")
 
-    return ebc / _SRM_TO_EBC_FACTOR
+    return _require_finite_result(ebc / _SRM_TO_EBC_FACTOR, "SRM")
 
 
 def lovibond_to_srm_approx(lovibond: float) -> float:
@@ -55,7 +63,10 @@ def lovibond_to_srm_approx(lovibond: float) -> float:
     """
     _require_nonnegative_finite(lovibond, "Lovibond")
 
-    srm = _LOVIBOND_TO_SRM_SLOPE * lovibond + _LOVIBOND_TO_SRM_INTERCEPT
+    srm = _require_finite_result(
+        _LOVIBOND_TO_SRM_SLOPE * lovibond + _LOVIBOND_TO_SRM_INTERCEPT,
+        "SRM",
+    )
 
     if srm < 0.0:
         raise ValueError(
@@ -73,4 +84,7 @@ def srm_to_lovibond_approx(srm: float) -> float:
     """
     _require_nonnegative_finite(srm, "SRM")
 
-    return (srm - _LOVIBOND_TO_SRM_INTERCEPT) / _LOVIBOND_TO_SRM_SLOPE
+    return _require_finite_result(
+        (srm - _LOVIBOND_TO_SRM_INTERCEPT) / _LOVIBOND_TO_SRM_SLOPE,
+        "Lovibond",
+    )

@@ -14,6 +14,14 @@ def _require_finite(value: float, name: str) -> None:
         raise ValueError(f"{name} must be finite")
 
 
+def _require_finite_result(value: float, name: str) -> float:
+    """Return a finite conversion result or raise a controlled error."""
+    if not math.isfinite(value):
+        raise ValueError(f"{name} result is outside the representable finite range")
+
+    return value
+
+
 def _require_positive_specific_gravity(specific_gravity: float) -> None:
     """Validate a specific-gravity value."""
     _require_finite(specific_gravity, "Specific gravity")
@@ -34,7 +42,10 @@ def sg_to_gravity_points(specific_gravity: float) -> float:
     """Convert specific gravity to algebraic gravity points relative to SG 1.000."""
     _require_positive_specific_gravity(specific_gravity)
 
-    return (specific_gravity - 1.0) * 1000.0
+    return _require_finite_result(
+        (specific_gravity - 1.0) * 1000.0,
+        "Gravity points",
+    )
 
 
 def gravity_points_to_sg(gravity_points: float) -> float:
@@ -48,7 +59,7 @@ def gravity_points_to_sg(gravity_points: float) -> float:
             "Gravity points must correspond to a specific gravity greater than zero"
         )
 
-    return specific_gravity
+    return _require_finite_result(specific_gravity, "Specific gravity")
 
 
 def sg_to_plato(specific_gravity: float) -> float:
@@ -66,12 +77,19 @@ def sg_to_plato(specific_gravity: float) -> float:
     """
     _require_positive_specific_gravity(specific_gravity)
 
-    return (
-        -616.868
-        + (1111.14 * specific_gravity)
-        - (630.272 * specific_gravity**2)
-        + (135.997 * specific_gravity**3)
-    )
+    try:
+        plato = (
+            -616.868
+            + (1111.14 * specific_gravity)
+            - (630.272 * specific_gravity**2)
+            + (135.997 * specific_gravity**3)
+        )
+    except OverflowError as exc:
+        raise ValueError(
+            "Plato result is outside the representable finite range"
+        ) from exc
+
+    return _require_finite_result(plato, "Plato")
 
 
 def plato_to_sg(plato: float) -> float:
@@ -130,7 +148,10 @@ def wort_refractometer_brix_to_plato(
     _require_finite(apparent_brix, "Apparent Brix")
     _require_positive_correction_factor(wort_correction_factor)
 
-    return apparent_brix / wort_correction_factor
+    return _require_finite_result(
+        apparent_brix / wort_correction_factor,
+        "Plato",
+    )
 
 
 def plato_to_wort_refractometer_brix(
@@ -146,4 +167,7 @@ def plato_to_wort_refractometer_brix(
     _require_finite(plato, "Plato")
     _require_positive_correction_factor(wort_correction_factor)
 
-    return plato * wort_correction_factor
+    return _require_finite_result(
+        plato * wort_correction_factor,
+        "Apparent Brix",
+    )

@@ -1,4 +1,5 @@
 import math
+import sys
 
 import pytest
 
@@ -136,3 +137,17 @@ def test_lovibond_approximation_rejects_value_below_useful_range() -> None:
         match="below the useful range",
     ):
         lovibond_to_srm_approx(0.0)
+
+
+@pytest.mark.parametrize(
+    "function",
+    [
+        srm_to_ebc,
+        lovibond_to_srm_approx,
+    ],
+)
+def test_color_conversion_rejects_nonfinite_result_from_finite_input(
+    function: object,
+) -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        function(sys.float_info.max)  # type: ignore[operator]

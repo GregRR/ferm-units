@@ -1,4 +1,5 @@
 import math
+import sys
 
 import pytest
 
@@ -98,3 +99,8 @@ def test_lintner_conversion_rejects_value_below_useful_range() -> None:
         match="below the useful range",
     ):
         lintner_to_windisch_kolbach(0.0)
+
+
+def test_diastatic_conversion_rejects_nonfinite_result_from_finite_input() -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        lintner_to_windisch_kolbach(sys.float_info.max)

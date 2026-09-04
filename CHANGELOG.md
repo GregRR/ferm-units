@@ -11,6 +11,12 @@ All notable changes to FermUnits will be documented in this file.
   region. Pint's bare `hogshead` remains available unchanged; future wine-specific
   names must be region-qualified.
 
+### Fixed
+
+- Reject nonfinite results produced by arithmetic overflow in validated public
+  scalar and quantity conversions. Extreme finite inputs now raise `ValueError`
+  instead of returning `inf`/`nan` or leaking raw `OverflowError`.
+
 ### Changed
 
 - Close Milestone 6 after migrating and triaging all six legacy domain

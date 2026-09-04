@@ -27,6 +27,19 @@ def _require_positive_finite_value(
         raise ValueError(f"{name} must be greater than zero")
 
 
+def _require_finite_quantity_result(
+    value: Quantity[Any],
+    *,
+    name: str,
+) -> Quantity[Any]:
+    """Return a finite scalar quantity result or raise a controlled error."""
+    magnitude = float(value.magnitude)
+    if not math.isfinite(magnitude):
+        raise ValueError(f"{name} result is outside the representable finite range")
+
+    return value
+
+
 def _validated_solution_density(
     solution_density: Quantity[Any],
 ) -> Quantity[Any]:
@@ -271,7 +284,8 @@ def mass_concentration_to_mass_fraction(
     concentration = mass_concentration.to("gram / liter")
     density = _validated_solution_density(solution_density)
 
-    return cast(Quantity[Any], concentration / density)
+    result = cast(Quantity[Any], concentration / density)
+    return _require_finite_quantity_result(result, name="Mass fraction")
 
 
 def mass_fraction_to_mass_concentration(
@@ -286,7 +300,8 @@ def mass_fraction_to_mass_concentration(
     fraction = mass_fraction.to("dimensionless")
     density = _validated_solution_density(solution_density)
 
-    return cast(Quantity[Any], fraction * density)
+    result = cast(Quantity[Any], fraction * density)
+    return _require_finite_quantity_result(result, name="Mass concentration")
 
 
 def mass_concentration_to_amount_concentration(
@@ -302,7 +317,8 @@ def mass_concentration_to_amount_concentration(
     concentration = mass_concentration.to("gram / liter")
     normalized_molar_mass = _validated_molar_mass(molar_mass)
 
-    return cast(Quantity[Any], concentration / normalized_molar_mass)
+    result = cast(Quantity[Any], concentration / normalized_molar_mass)
+    return _require_finite_quantity_result(result, name="Amount concentration")
 
 
 def amount_concentration_to_mass_concentration(
@@ -317,4 +333,5 @@ def amount_concentration_to_mass_concentration(
     concentration = amount_concentration.to("mole / liter")
     normalized_molar_mass = _validated_molar_mass(molar_mass)
 
-    return cast(Quantity[Any], concentration * normalized_molar_mass)
+    result = cast(Quantity[Any], concentration * normalized_molar_mass)
+    return _require_finite_quantity_result(result, name="Mass concentration")

@@ -1,4 +1,5 @@
 import math
+import sys
 from typing import Any
 
 import pytest
@@ -612,3 +613,53 @@ def test_ph_to_activity_rejects_unrepresentable_activity(ph: float) -> None:
 def test_activity_to_ph_rejects_invalid_activity(activity: float) -> None:
     with pytest.raises(ValueError):
         hydrogen_ion_activity_to_ph(activity)
+
+
+@pytest.mark.parametrize(
+    ("function", "quantity_unit", "parameter"),
+    [
+        (amount_to_equivalents, "mole", 2.0),
+        (equivalents_to_amount, "equivalent", sys.float_info.min),
+        (
+            amount_concentration_to_equivalent_concentration,
+            "mole / liter",
+            2.0,
+        ),
+        (
+            equivalent_concentration_to_amount_concentration,
+            "equivalent / liter",
+            sys.float_info.min,
+        ),
+        (
+            mass_concentration_to_equivalent_concentration,
+            "gram / liter",
+            sys.float_info.min,
+        ),
+        (
+            equivalent_concentration_to_mass_concentration,
+            "equivalent / liter",
+            2.0,
+        ),
+    ],
+)
+def test_solution_chemistry_context_helpers_reject_nonfinite_results(
+    registry: UnitRegistry[Any],
+    function: object,
+    quantity_unit: str,
+    parameter: float,
+) -> None:
+    quantity = registry.Quantity(sys.float_info.max, quantity_unit)
+
+    with pytest.raises(ValueError, match="representable finite range"):
+        function(quantity, parameter)  # type: ignore[operator]
+
+
+def test_direct_chemical_context_rejects_nonfinite_result(
+    registry: UnitRegistry[Any],
+) -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        registry.Quantity(sys.float_info.max, "mole").to(
+            "equivalent",
+            "chemical_equivalence",
+            equivalence_factor=2.0,
+        )

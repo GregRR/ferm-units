@@ -14,6 +14,14 @@ def _require_nonnegative_finite(value: float, name: str) -> None:
         raise ValueError(f"{name} must not be negative")
 
 
+def _require_finite_result(value: float, name: str) -> float:
+    """Return a finite conversion result or raise a controlled error."""
+    if not math.isfinite(value):
+        raise ValueError(f"{name} result is outside the representable finite range")
+
+    return value
+
+
 def absorbance_275nm_to_bitterness_units(
     extract_absorbance_275nm: float,
 ) -> float:
@@ -37,7 +45,10 @@ def absorbance_275nm_to_bitterness_units(
         "Method-extract absorbance at 275 nm",
     )
 
-    return extract_absorbance_275nm * _BITTERNESS_UNITS_PER_ABSORBANCE
+    return _require_finite_result(
+        extract_absorbance_275nm * _BITTERNESS_UNITS_PER_ABSORBANCE,
+        "Bitterness units",
+    )
 
 
 def bitterness_units_to_absorbance_275nm(
@@ -54,4 +65,7 @@ def bitterness_units_to_absorbance_275nm(
         "Bitterness units",
     )
 
-    return bitterness_units / _BITTERNESS_UNITS_PER_ABSORBANCE
+    return _require_finite_result(
+        bitterness_units / _BITTERNESS_UNITS_PER_ABSORBANCE,
+        "Method-extract absorbance at 275 nm",
+    )
