@@ -28,6 +28,11 @@ have now been migrated and triaged into these maintained references. A
 project-wide inventory may be generated from them, but should not be maintained
 independently.
 
+For pre-1.0 review of relationships that are already implemented, see the
+centralized [`../verification-status.md`](../verification-status.md) audit. That
+document summarizes status and review disposition; these domain references and
+the master source ledger remain authoritative for the underlying evidence.
+
 ## Legacy research inventories
 
 The original planning inventories are retained in [`legacy/`](legacy/). They may

@@ -330,6 +330,13 @@ includes brewing scalar conversions, carbonation, gravity/refractometer helpers,
 chemical-equivalence contexts, density-assisted composition, and molar-mass
 conversions.
 
+The third stabilization slice centralizes the source-verification audit for every
+implemented semantic relationship in `docs/verification-status.md`. It separates
+API stability from scientific verification, records which implemented behavior is
+ready as documented, and identifies the remaining Provisional relationships that
+deserve explicit external-review attention before 1.0. Unimplemented M6 research
+candidates remain outside this stabilization requirement.
+
 A 1.0 release should indicate that the supported public API and documented
 semantics are intentionally stable, not that every conceivable fermentation
 domain has been implemented.

@@ -19,6 +19,10 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Add a centralized pre-1.0 verification-status audit for implemented semantic
+  relationships, separating API stability from scientific source status and
+  identifying the remaining Provisional areas that require explicit reviewer
+  attention before 1.0.
 - Close Milestone 6 after migrating and triaging all six legacy domain
   inventories into maintained, source-traceable references. The review found no
   current downstream requirement that justifies adding speculative wine,

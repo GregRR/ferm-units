@@ -691,6 +691,8 @@ modules, or implementation-only helpers beginning with an underscore.
   pending legacy relationships.
 - [`sources.md`](sources.md) — project-wide source hierarchy, citation rules, and
   source ledger.
+- [`verification-status.md`](verification-status.md) — centralized pre-1.0 audit
+  of source status for relationships FermUnits already implements.
 - [`../DESIGN.md`](../DESIGN.md) — architectural decisions and the FermUnits/Pint
   dependency boundary.
 
