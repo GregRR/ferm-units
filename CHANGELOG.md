@@ -21,6 +21,9 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Fixed
 
+- Validate the final Pint target-unit conversion returned by context-backed
+  solution-chemistry helpers so unit scaling cannot silently produce a
+  nonfinite public result after the context transformation itself succeeds.
 - Require the release workflow to rerun the full supported-Python test matrix
   and quality gates against the exact release tag before building artifacts or
   publishing to PyPI, and pin GitHub Actions dependencies to immutable commits.

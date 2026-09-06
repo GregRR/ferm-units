@@ -174,11 +174,12 @@ def amount_to_equivalents(
     )
     _require_finite_quantity_magnitude(amount, name="Amount of substance")
 
-    return amount.to(
+    result = amount.to(
         "equivalent",
         _CHEMICAL_EQUIVALENCE_CONTEXT,
         equivalence_factor=equivalence_factor,
     )
+    return _require_finite_quantity_result(result, name="Equivalent amount")
 
 
 def equivalents_to_amount(
@@ -192,11 +193,12 @@ def equivalents_to_amount(
     )
     _require_finite_quantity_magnitude(equivalent_amount, name="Equivalent amount")
 
-    return equivalent_amount.to(
+    result = equivalent_amount.to(
         "mole",
         _CHEMICAL_EQUIVALENCE_CONTEXT,
         equivalence_factor=equivalence_factor,
     )
+    return _require_finite_quantity_result(result, name="Amount of substance")
 
 
 def amount_concentration_to_equivalent_concentration(
@@ -213,10 +215,14 @@ def amount_concentration_to_equivalent_concentration(
         name="Amount concentration",
     )
 
-    return amount_concentration.to(
+    result = amount_concentration.to(
         "equivalent / liter",
         _CHEMICAL_EQUIVALENCE_CONTEXT,
         equivalence_factor=equivalence_factor,
+    )
+    return _require_finite_quantity_result(
+        result,
+        name="Equivalent concentration",
     )
 
 
@@ -234,10 +240,14 @@ def equivalent_concentration_to_amount_concentration(
         name="Equivalent concentration",
     )
 
-    return equivalent_concentration.to(
+    result = equivalent_concentration.to(
         "mole / liter",
         _CHEMICAL_EQUIVALENCE_CONTEXT,
         equivalence_factor=equivalence_factor,
+    )
+    return _require_finite_quantity_result(
+        result,
+        name="Amount concentration",
     )
 
 
@@ -259,10 +269,14 @@ def mass_concentration_to_equivalent_concentration(
         name="Mass concentration",
     )
 
-    return mass_concentration.to(
+    result = mass_concentration.to(
         "equivalent / liter",
         _CHEMICAL_EQUIVALENT_MASS_CONTEXT,
         equivalent_mass_grams_per_equivalent=(equivalent_mass_grams_per_equivalent),
+    )
+    return _require_finite_quantity_result(
+        result,
+        name="Equivalent concentration",
     )
 
 
@@ -280,10 +294,14 @@ def equivalent_concentration_to_mass_concentration(
         name="Equivalent concentration",
     )
 
-    return equivalent_concentration.to(
+    result = equivalent_concentration.to(
         "gram / liter",
         _CHEMICAL_EQUIVALENT_MASS_CONTEXT,
         equivalent_mass_grams_per_equivalent=(equivalent_mass_grams_per_equivalent),
+    )
+    return _require_finite_quantity_result(
+        result,
+        name="Mass concentration",
     )
 
 

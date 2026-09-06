@@ -696,3 +696,21 @@ def test_solution_chemistry_rejects_unrepresentable_quantity_magnitude(
             "chemical_equivalence",
             equivalence_factor=1.0,
         )
+
+
+def test_context_helper_rejects_overflow_during_final_target_scaling(
+    registry: UnitRegistry[Any],
+) -> None:
+    amount = registry.Quantity(sys.float_info.max, "kilomole")
+
+    with pytest.raises(ValueError, match="representable finite range"):
+        amount_to_equivalents(amount, 1.0)
+
+
+def test_equivalent_mass_helper_rejects_overflow_during_final_target_scaling(
+    registry: UnitRegistry[Any],
+) -> None:
+    concentration = registry.Quantity(sys.float_info.max, "kilogram / liter")
+
+    with pytest.raises(ValueError, match="representable finite range"):
+        mass_concentration_to_equivalent_concentration(concentration, 1.0)

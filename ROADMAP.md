@@ -366,6 +366,11 @@ version rather than resolving whatever happens to be latest at release time.
 The same packaging pass also reconciles stale third-party and API wording with
 the intentional Pint re-export boundary.
 
+The fourth internal-review fix batch closes a remaining finite-result boundary in
+context-backed solution-chemistry helpers. Pint performs ordinary target-unit
+scaling after a context transformation, so the public helpers now validate the
+fully converted return quantity as well as the transformation itself.
+
 The project-specific pre-release checklist is run only after both internal and
 external review findings are closed.
 
