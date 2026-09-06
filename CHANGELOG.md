@@ -33,6 +33,11 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Pin the CI/release uv executable, Hatchling build backend, and Twine
+  distribution validator to explicit versions so release behavior does not
+  silently change when upstream tooling publishes a new release.
+- Update third-party and API documentation to reflect the complete intentional
+  Pint re-export boundary and current development-line compatibility wording.
 - Complete the pre-1.0 downstream compatibility audit by moving maintained
   contract tests fully behind the FermUnits public import boundary and locking
   the intentional `__all__` inventory with regression coverage.

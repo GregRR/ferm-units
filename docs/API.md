@@ -68,7 +68,9 @@ that cannot be reached through the public FermUnits objects, that should be
 considered a FermUnits API gap rather than a reason for ordinary downstream code
 to begin depending directly on Pint.
 
-FermUnits 0.1.3 supports Pint `>=0.25.3,<0.26`.
+The current development line retains the Pint `>=0.25.3,<0.26` constraint
+used by the 0.1.3 release. See [`compatibility.md`](compatibility.md) for the
+version-support and Pint-upgrade policy.
 
 ## Public package surface
 

@@ -359,6 +359,13 @@ against the exact release tag before release artifacts may be built or published
 to PyPI, so publishing cannot rely only on an earlier CI run. GitHub Actions
 dependencies used by CI and publishing are pinned to immutable commits.
 
+The third internal-review fix batch makes the release toolchain itself
+deterministic. CI and publishing use an explicit uv version, the Hatchling
+build backend is pinned, and release metadata validation uses an explicit Twine
+version rather than resolving whatever happens to be latest at release time.
+The same packaging pass also reconciles stale third-party and API wording with
+the intentional Pint re-export boundary.
+
 The project-specific pre-release checklist is run only after both internal and
 external review findings are closed.
 
