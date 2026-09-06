@@ -135,9 +135,10 @@ composes correctly.
   - must be supplied explicitly;
   - must be finite and greater than zero;
   - is never guessed from a unit string;
-  - the registered `chemical_equivalence` Pint context enforces the same
-    validation when used directly, so callers cannot bypass the invariant
-    by skipping the convenience functions.
+  - the registered `chemical_equivalence` Pint context is a documented stable
+    low-level name and enforces the same validation when used directly, so
+    callers cannot bypass the invariant by skipping the convenience functions;
+  - missing, nonnumeric, nonfinite, and nonpositive factors raise `ValueError`.
 - Status: **Implemented as a required calculation parameter.**
 - Sources: [SC-IUPAC-01]
 
@@ -152,8 +153,10 @@ composes correctly.
   - equivalent mass must be supplied explicitly;
   - the value must be finite and greater than zero;
   - chemical identity and reporting basis remain application semantics;
-  - the registered `chemical_equivalent_mass` Pint context enforces the
-    same validation when used directly.
+  - the registered `chemical_equivalent_mass` Pint context is a documented
+    stable low-level name and enforces the same validation when used directly;
+  - missing, nonnumeric, nonfinite, and nonpositive equivalent masses raise
+    `ValueError`.
 - Status: **Implemented.**
 - Sources: [SC-IUPAC-01]
 

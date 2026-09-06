@@ -9,27 +9,10 @@ from pint import Quantity
 from fermunits.registry import (
     _CHEMICAL_EQUIVALENCE_CONTEXT,
     _CHEMICAL_EQUIVALENT_MASS_CONTEXT,
+    _validated_positive_finite_parameter,
 )
 
 _CACO3_EQUIVALENT_MASS_GRAMS_PER_EQUIVALENT = 50.0
-
-
-def _require_positive_finite_value(
-    value: float,
-    *,
-    name: str,
-) -> None:
-    """Require a finite value greater than zero."""
-    try:
-        finite = math.isfinite(value)
-    except OverflowError as exc:
-        raise ValueError(f"{name} is outside the representable finite range") from exc
-
-    if not finite:
-        raise ValueError(f"{name} must be finite")
-
-    if value <= 0.0:
-        raise ValueError(f"{name} must be greater than zero")
 
 
 def _require_finite_quantity_magnitude(
@@ -73,7 +56,7 @@ def _validated_solution_density(
     _require_finite_quantity_magnitude(solution_density, name="Solution density")
     density = solution_density.to("kilogram / liter")
 
-    _require_positive_finite_value(
+    _validated_positive_finite_parameter(
         density.magnitude,
         name="Solution density",
     )
@@ -88,7 +71,7 @@ def _validated_molar_mass(
     _require_finite_quantity_magnitude(molar_mass, name="Molar mass")
     normalized = molar_mass.to("gram / mole")
 
-    _require_positive_finite_value(
+    _validated_positive_finite_parameter(
         normalized.magnitude,
         name="Molar mass",
     )
@@ -151,7 +134,7 @@ def hydrogen_ion_activity_to_ph(hydrogen_ion_activity: float) -> PHValue:
     infer an activity coefficient or model how a pH measurement realizes that
     notional activity.
     """
-    _require_positive_finite_value(
+    _validated_positive_finite_parameter(
         hydrogen_ion_activity,
         name="Hydrogen-ion activity",
     )
@@ -168,7 +151,7 @@ def amount_to_equivalents(
     ``equivalence_factor`` is the number of equivalents per mole for the
     specified chemical entity and reaction or charge convention.
     """
-    _require_positive_finite_value(
+    validated_factor = _validated_positive_finite_parameter(
         equivalence_factor,
         name="Equivalence factor",
     )
@@ -177,7 +160,7 @@ def amount_to_equivalents(
     result = amount.to(
         "equivalent",
         _CHEMICAL_EQUIVALENCE_CONTEXT,
-        equivalence_factor=equivalence_factor,
+        equivalence_factor=validated_factor,
     )
     return _require_finite_quantity_result(result, name="Equivalent amount")
 
@@ -187,7 +170,7 @@ def equivalents_to_amount(
     equivalence_factor: float,
 ) -> Quantity[Any]:
     """Convert chemical-equivalent amount to amount of substance."""
-    _require_positive_finite_value(
+    validated_factor = _validated_positive_finite_parameter(
         equivalence_factor,
         name="Equivalence factor",
     )
@@ -196,7 +179,7 @@ def equivalents_to_amount(
     result = equivalent_amount.to(
         "mole",
         _CHEMICAL_EQUIVALENCE_CONTEXT,
-        equivalence_factor=equivalence_factor,
+        equivalence_factor=validated_factor,
     )
     return _require_finite_quantity_result(result, name="Amount of substance")
 
@@ -206,7 +189,7 @@ def amount_concentration_to_equivalent_concentration(
     equivalence_factor: float,
 ) -> Quantity[Any]:
     """Convert amount concentration to equivalent concentration."""
-    _require_positive_finite_value(
+    validated_factor = _validated_positive_finite_parameter(
         equivalence_factor,
         name="Equivalence factor",
     )
@@ -218,7 +201,7 @@ def amount_concentration_to_equivalent_concentration(
     result = amount_concentration.to(
         "equivalent / liter",
         _CHEMICAL_EQUIVALENCE_CONTEXT,
-        equivalence_factor=equivalence_factor,
+        equivalence_factor=validated_factor,
     )
     return _require_finite_quantity_result(
         result,
@@ -231,7 +214,7 @@ def equivalent_concentration_to_amount_concentration(
     equivalence_factor: float,
 ) -> Quantity[Any]:
     """Convert equivalent concentration to amount concentration."""
-    _require_positive_finite_value(
+    validated_factor = _validated_positive_finite_parameter(
         equivalence_factor,
         name="Equivalence factor",
     )
@@ -243,7 +226,7 @@ def equivalent_concentration_to_amount_concentration(
     result = equivalent_concentration.to(
         "mole / liter",
         _CHEMICAL_EQUIVALENCE_CONTEXT,
-        equivalence_factor=equivalence_factor,
+        equivalence_factor=validated_factor,
     )
     return _require_finite_quantity_result(
         result,
@@ -260,7 +243,7 @@ def mass_concentration_to_equivalent_concentration(
     ``equivalent_mass_grams_per_equivalent`` is specific to the stated
     chemical entity, reaction, or reporting basis.
     """
-    _require_positive_finite_value(
+    validated_equivalent_mass = _validated_positive_finite_parameter(
         equivalent_mass_grams_per_equivalent,
         name="Equivalent mass",
     )
@@ -272,7 +255,7 @@ def mass_concentration_to_equivalent_concentration(
     result = mass_concentration.to(
         "equivalent / liter",
         _CHEMICAL_EQUIVALENT_MASS_CONTEXT,
-        equivalent_mass_grams_per_equivalent=(equivalent_mass_grams_per_equivalent),
+        equivalent_mass_grams_per_equivalent=validated_equivalent_mass,
     )
     return _require_finite_quantity_result(
         result,
@@ -285,7 +268,7 @@ def equivalent_concentration_to_mass_concentration(
     equivalent_mass_grams_per_equivalent: float,
 ) -> Quantity[Any]:
     """Convert equivalent concentration using an explicit equivalent mass."""
-    _require_positive_finite_value(
+    validated_equivalent_mass = _validated_positive_finite_parameter(
         equivalent_mass_grams_per_equivalent,
         name="Equivalent mass",
     )
@@ -297,7 +280,7 @@ def equivalent_concentration_to_mass_concentration(
     result = equivalent_concentration.to(
         "gram / liter",
         _CHEMICAL_EQUIVALENT_MASS_CONTEXT,
-        equivalent_mass_grams_per_equivalent=(equivalent_mass_grams_per_equivalent),
+        equivalent_mass_grams_per_equivalent=validated_equivalent_mass,
     )
     return _require_finite_quantity_result(
         result,

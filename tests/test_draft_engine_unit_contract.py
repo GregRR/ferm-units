@@ -148,3 +148,16 @@ def test_draft_engine_carbonation_boundary_is_quantity_aware() -> None:
         2.5 * 10.0 / 5.0607
     )
     assert restored == pytest.approx(2.5)
+
+
+def test_quantity_carbonation_can_use_consumer_registry(
+    registry: UnitRegistry[Any],
+) -> None:
+    concentration = co2_volumes_to_mass_concentration(2.0, registry=registry)
+    baseline = registry.Quantity(1.0, "gram / liter")
+
+    combined = concentration + baseline
+
+    assert combined.to("gram / liter").magnitude == pytest.approx(
+        2.0 * (1000.0 / 506.07) + 1.0
+    )

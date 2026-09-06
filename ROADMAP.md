@@ -378,6 +378,14 @@ artifacts in isolated environments before they can be attached or published.
 Packaging metadata also explicitly declares the MIT license file using the
 current standardized license-file field.
 
+The deep external review found no release blocker and identified a focused
+pre-1.0 remediation list. The first external-review fix batch addresses the
+high-priority public-boundary findings: carbonation can return quantities in an
+explicit isolated registry, solution-chemistry wrapper and raw-context validation
+share one controlled `ValueError` boundary, the intentional public `Quantity`
+re-export is exercised by a maintained downstream contract, shared `ureg`
+mutability is documented, and local review working material is ignored.
+
 The project-specific pre-release checklist is run only after both internal and
 external review findings are closed.
 

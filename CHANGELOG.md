@@ -21,6 +21,13 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Fixed
 
+- Normalize direct chemical-context parameter failures to `ValueError`, keep the
+  wrapper and raw-context validation paths aligned, and prevent Decimal/float
+  arithmetic incompatibility from leaking raw `TypeError`.
+- Allow quantity-returning carbonation conversion to target an isolated
+  FermUnits registry so downstream arithmetic does not cross registry identities.
+- Ignore local external-review working material under `.fermunits-local/` so it
+  cannot be swept into a public commit accidentally.
 - Inspect and smoke-test the built wheel and source distribution before release
   artifacts are attached or published, including packaged unit definitions,
   typing metadata, license metadata, and isolated imports.
@@ -39,6 +46,9 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Make the shared mutable `ureg` versus isolated `create_registry()` boundary
+  explicit, document the stable low-level solution-chemistry context names, and
+  add downstream contract coverage for the public `Quantity` re-export.
 - Declare the MIT license file explicitly with PEP 639 `license-files` metadata
   and remove the deprecated PyPI license classifier.
 - Pin the direct CI/release uv executable, Hatchling build backend, and Twine

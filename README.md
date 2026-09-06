@@ -69,6 +69,11 @@ dimensionally invalid conversions. A direct Pint dependency is only appropriate
 when that downstream package intentionally uses Pint-specific APIs that FermUnits
 does not expose.
 
+The package-level `ureg` is a shared mutable registry and is the default choice
+for ordinary use. Use `create_registry()` only when deliberate isolation or
+independent registry mutation is required; quantities from different registries
+should not be mixed in arithmetic.
+
 ## Gravity examples
 
 ```python

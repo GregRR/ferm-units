@@ -61,6 +61,7 @@ def test_public_all_inventory_is_explicit() -> None:
         "wort_refractometer_brix_to_plato",
     }
 
+    assert len(fermunits.__all__) == len(set(fermunits.__all__))
     assert set(fermunits.__all__) == expected
 
 

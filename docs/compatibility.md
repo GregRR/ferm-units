@@ -39,7 +39,10 @@ part of its maintained downstream contract:
 
 Quantity construction and registry access remain available through `Q_`,
 `ureg`, and `create_registry()`. These are genuine Pint objects, so normal
-object-level Pint behavior remains available through the FermUnits boundary.
+object-level Pint behavior remains available through the FermUnits boundary
+within the supported Pint range. FermUnits does not independently guarantee
+every Pint method across unsupported future Pint releases; widening the Pint
+range must review object-level compatibility as part of the FermUnits contract.
 
 FermUnits does not re-export Pint wholesale. A Pint symbol should be added to
 the FermUnits package surface only when a concrete downstream requirement makes
@@ -59,7 +62,10 @@ classes:
   volume distinctions, and quantity-aware carbonation.
 
 These contract suites import the public types and errors they need from
-`fermunits`, not from Pint. They are compatibility guarantees for FermUnits;
+`fermunits`, not from Pint. The Water Chemistry Engine contract explicitly
+exercises the package-level `Quantity` type used for downstream annotations,
+while both suites exercise `UnitRegistry` and `DimensionalityError`. They are
+compatibility guarantees for FermUnits;
 they are not application implementations and do not transfer application policy
 into this library.
 

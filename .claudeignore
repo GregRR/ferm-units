@@ -62,6 +62,7 @@ MANIFEST
 *.sqlite
 *.db
 *.local
+.fermunits-local/
 
 # 7. Jupyter Notebook Checkpoints & Caches
 .ipynb_checkpoints/

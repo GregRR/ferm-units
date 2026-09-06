@@ -10,6 +10,7 @@ from fermunits import (
     co2_mass_concentration_to_volumes,
     co2_volumes_to_grams_per_liter,
     co2_volumes_to_mass_concentration,
+    create_registry,
 )
 
 EXPECTED_GRAMS_PER_LITER_PER_VOLUME = 1000.0 / 506.07
@@ -104,6 +105,18 @@ def test_co2_mass_concentration_to_volumes_accepts_compatible_units(
     result = co2_mass_concentration_to_volumes(Q_(magnitude, unit_name))
 
     assert result == pytest.approx(2.5)
+
+
+def test_co2_volume_result_can_use_isolated_registry() -> None:
+    registry = create_registry()
+    concentration = co2_volumes_to_mass_concentration(2.0, registry=registry)
+    baseline = registry.Quantity(1.0, "gram / liter")
+
+    combined = concentration + baseline
+
+    assert combined.to("gram / liter").magnitude == pytest.approx(
+        2.0 * EXPECTED_GRAMS_PER_LITER_PER_VOLUME + 1.0
+    )
 
 
 @pytest.mark.parametrize(

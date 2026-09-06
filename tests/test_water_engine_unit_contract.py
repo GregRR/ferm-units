@@ -8,6 +8,7 @@ from fermunits import (
     Q_,
     DimensionalityError,
     PHValue,
+    Quantity,
     UnitRegistry,
     amount_concentration_to_equivalent_concentration,
     amount_concentration_to_mass_concentration,
@@ -152,6 +153,12 @@ def test_incompatible_water_engine_dimensions_are_rejected(
     """Pint must reject dimensionally invalid conversions."""
     with pytest.raises(DimensionalityError):
         registry.Quantity(1, "gram / liter").to("mole / liter")
+
+
+def test_public_quantity_type_supports_downstream_annotations() -> None:
+    quantity: Quantity[float] = Q_(1.0, "liter")
+
+    assert isinstance(quantity, Quantity)
 
 
 def test_package_level_quantity_alias_uses_fermunits_registry() -> None:

@@ -1,5 +1,6 @@
 import math
 import sys
+from decimal import Decimal
 from typing import Any
 
 import pytest
@@ -714,3 +715,69 @@ def test_equivalent_mass_helper_rejects_overflow_during_final_target_scaling(
 
     with pytest.raises(ValueError, match="representable finite range"):
         mass_concentration_to_equivalent_concentration(concentration, 1.0)
+
+
+@pytest.mark.parametrize("invalid_parameter", [None, "2.0", [1, 2], 2 + 3j])
+def test_context_parameters_reject_non_numeric_values_as_value_error(
+    registry: UnitRegistry[Any],
+    invalid_parameter: object,
+) -> None:
+    amount = registry.Quantity(1.0, "mole")
+
+    with pytest.raises(ValueError):
+        amount_to_equivalents(amount, invalid_parameter)  # type: ignore[arg-type]
+
+    with pytest.raises(ValueError):
+        amount.to(
+            "equivalent",
+            "chemical_equivalence",
+            equivalence_factor=invalid_parameter,
+        )
+
+
+def test_direct_context_missing_required_parameter_raises_value_error(
+    registry: UnitRegistry[Any],
+) -> None:
+    with pytest.raises(ValueError, match="Equivalence factor"):
+        registry.Quantity(1.0, "mole").to(
+            "equivalent",
+            "chemical_equivalence",
+        )
+
+    with pytest.raises(ValueError, match="Equivalent mass"):
+        registry.Quantity(50.0, "milligram / liter").to(
+            "milliequivalent / liter",
+            "chemical_equivalent_mass",
+        )
+
+
+def test_decimal_quantity_float_factor_raises_controlled_value_error(
+    registry: UnitRegistry[Any],
+) -> None:
+    amount = registry.Quantity(Decimal("1.5"), "mole")
+
+    with pytest.raises(ValueError, match="arithmetic-compatible"):
+        amount_to_equivalents(amount, 2.0)
+
+    with pytest.raises(ValueError, match="arithmetic-compatible"):
+        amount.to(
+            "equivalent",
+            "chemical_equivalence",
+            equivalence_factor=2.0,
+        )
+
+
+def test_decimal_quantity_float_equivalent_mass_raises_controlled_value_error(
+    registry: UnitRegistry[Any],
+) -> None:
+    concentration = registry.Quantity(Decimal("50.0"), "milligram / liter")
+
+    with pytest.raises(ValueError, match="arithmetic-compatible"):
+        mass_concentration_to_equivalent_concentration(concentration, 50.0)
+
+    with pytest.raises(ValueError, match="arithmetic-compatible"):
+        concentration.to(
+            "milliequivalent / liter",
+            "chemical_equivalent_mass",
+            equivalent_mass_grams_per_equivalent=50.0,
+        )

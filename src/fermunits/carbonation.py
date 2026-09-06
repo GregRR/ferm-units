@@ -3,9 +3,9 @@
 import math
 from typing import Any
 
-from pint import Quantity
+from pint import Quantity, UnitRegistry
 
-from fermunits.registry import Q_
+import fermunits.registry as _registry
 
 _MILLILITERS_PER_LITER = 1000.0
 _CO2_MILLILITERS_PER_GRAM = 506.07
@@ -56,11 +56,18 @@ def _validated_co2_mass_concentration(
     return normalized
 
 
-def co2_volumes_to_mass_concentration(co2_volumes: float) -> Quantity[Any]:
+def co2_volumes_to_mass_concentration(
+    co2_volumes: float,
+    *,
+    registry: UnitRegistry[Any] | None = None,
+) -> Quantity[Any]:
     """Convert volumes of dissolved CO₂ to a mass-concentration quantity.
 
     The result is returned in grams per liter and can be converted to any
-    dimensionally compatible Pint mass-concentration unit.
+    dimensionally compatible Pint mass-concentration unit. By default the
+    result belongs to the process-wide FermUnits registry. Pass ``registry``
+    when the result must participate in arithmetic with quantities from an
+    isolated FermUnits registry.
 
     The factor reuses the 506.07 mL/g volumes-to-weight conversion constant
     reported by an EBC Analysis Committee publication inside an ASBC-adopted
@@ -80,7 +87,8 @@ def co2_volumes_to_mass_concentration(co2_volumes: float) -> Quantity[Any]:
         "CO2 mass concentration",
     )
 
-    return Q_(magnitude, "gram / liter")
+    target_registry = _registry.ureg if registry is None else registry
+    return target_registry.Quantity(magnitude, "gram / liter")
 
 
 def co2_mass_concentration_to_volumes(
@@ -123,4 +131,6 @@ def co2_grams_per_liter_to_volumes(
         "CO2 grams per liter",
     )
 
-    return co2_mass_concentration_to_volumes(Q_(grams_per_liter, "gram / liter"))
+    return co2_mass_concentration_to_volumes(
+        _registry.ureg.Quantity(grams_per_liter, "gram / liter")
+    )

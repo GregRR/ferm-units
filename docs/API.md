@@ -34,11 +34,11 @@ registry operations, registry typing, or ordinary dimensionality-error handling.
 
 `Q_` creates real Pint `Quantity` objects; `Quantity`, `UnitRegistry`, and
 `DimensionalityError` are Pint public types re-exported by FermUnits; and `ureg`
-is a real Pint `UnitRegistry` containing
-Pint's normal unit definitions plus the FermUnits definitions listed below.
-FermUnits does not wrap away the public APIs of those objects. Public Pint
-methods and properties on `Quantity` and `UnitRegistry` therefore remain
-available through the objects imported from FermUnits.
+is a real Pint `UnitRegistry` containing Pint's normal unit definitions plus the
+FermUnits definitions listed below. Object-level Pint methods remain available
+within the supported Pint range, but FermUnits does not independently freeze or
+re-document every Pint method as part of its own package-level API. Pint-range
+changes are reviewed under the compatibility policy below.
 
 For example:
 
@@ -60,7 +60,10 @@ compatible = ureg.get_compatible_units("liter")
 
 The same applies to normal Pint quantity arithmetic, comparison, conversion,
 unit simplification, magnitude and unit access, dimensionality inspection, and
-other public instance APIs supported by the installed Pint version.
+other public instance APIs supported by the installed Pint version. FermUnits'
+1.x stability promise covers its documented package surface and supported Pint
+range; it does not promise that an unsupported future Pint release will preserve
+all object-level behavior.
 
 FermUnits intentionally does **not** re-export every top-level class or function
 from the `pint` package. If a FermUnits consumer eventually needs a Pint feature
@@ -137,11 +140,15 @@ liter = ureg.Unit("liter")
 ```
 
 The process-wide default FermUnits `UnitRegistry`. It contains Pint's standard
-unit definitions plus all FermUnits definitions and registered internal
-conversion support.
+unit definitions plus all FermUnits definitions and registered conversion
+support.
 
 Applications should normally use this registry so quantities share one registry
-identity.
+identity. `ureg` is mutable and shared by every importer in the process, so
+downstream code should not mutate it with additional definitions or contexts
+unless that process-wide effect is intentional. Use `create_registry()` for
+deliberately isolated or independently mutated registries. Quantities from
+different registries should not be mixed in arithmetic.
 
 ### `create_registry()`
 
@@ -151,6 +158,23 @@ create_registry()
 
 Returns a new isolated Pint `UnitRegistry` containing all FermUnits definitions.
 This is useful when an application or test deliberately needs registry isolation.
+Prefer the shared `ureg` for ordinary application use; choose an isolated registry
+only when isolation is intentional, and pass that registry explicitly to public
+APIs that construct new quantities when such an option is provided.
+
+### Direct Pint context names
+
+FermUnits registers two low-level Pint context names that are part of the stable
+documented interface for direct context users:
+
+- `chemical_equivalence`, requiring `equivalence_factor`;
+- `chemical_equivalent_mass`, requiring
+  `equivalent_mass_grams_per_equivalent`.
+
+The explicit solution-chemistry helper functions are preferred for ordinary use.
+Direct context calls enforce the same positive-finite parameter validation and
+raise `ValueError` for missing, nonnumeric, nonfinite, or nonpositive required
+parameters.
 
 ### `__version__`
 
@@ -629,11 +653,17 @@ larger unit-aware calculation.
 ### `co2_volumes_to_mass_concentration()`
 
 ```python
-co2_volumes_to_mass_concentration(co2_volumes: float) -> Quantity
+co2_volumes_to_mass_concentration(
+    co2_volumes: float,
+    *,
+    registry: UnitRegistry | None = None,
+) -> Quantity
 ```
 
 Converts volumes of dissolved CO2 to a FermUnits/Pint mass-concentration
-quantity.
+quantity. The result uses the shared `ureg` by default. Pass an isolated FermUnits
+registry when the returned quantity must participate in arithmetic with quantities
+from that registry.
 
 ### `co2_mass_concentration_to_volumes()`
 
