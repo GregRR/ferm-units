@@ -3,11 +3,12 @@
 from typing import Any
 
 import pytest
-from pint import DimensionalityError, UnitRegistry
 
 from fermunits import (
     Q_,
+    DimensionalityError,
     PHValue,
+    UnitRegistry,
     amount_concentration_to_equivalent_concentration,
     amount_concentration_to_mass_concentration,
     caco3_basis_mass_concentration_to_equivalent_concentration,

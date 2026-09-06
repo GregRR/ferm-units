@@ -4,6 +4,14 @@ All notable changes to FermUnits will be documented in this file.
 
 ## Unreleased
 
+### Added
+
+- Re-export Pint's `UnitRegistry` and `DimensionalityError` from the package-level
+  FermUnits API so maintained downstream code can type isolated registries and
+  handle dimensionality failures without importing Pint directly.
+- Add a compatibility-policy document covering supported Python/Pint versions,
+  the downstream import boundary, and maintained consumer contract suites.
+
 ### Removed
 
 - Remove the alpha-only `wine_hogshead` registry alias after the pre-1.0 naming
@@ -19,6 +27,9 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Complete the pre-1.0 downstream compatibility audit by moving maintained
+  contract tests fully behind the FermUnits public import boundary and locking
+  the intentional `__all__` inventory with regression coverage.
 - Add a centralized pre-1.0 verification-status audit for implemented semantic
   relationships, separating API stability from scientific source status and
   identifying the remaining Provisional areas that require explicit reviewer

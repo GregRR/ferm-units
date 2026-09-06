@@ -3,9 +3,10 @@
 from typing import Any
 
 import pytest
-from pint import DimensionalityError, UnitRegistry
 
 from fermunits import (
+    DimensionalityError,
+    UnitRegistry,
     co2_mass_concentration_to_volumes,
     co2_volumes_to_mass_concentration,
     create_registry,

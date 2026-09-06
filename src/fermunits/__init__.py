@@ -7,7 +7,7 @@ from importlib.metadata import (
     version as _distribution_version,
 )
 
-from pint import Quantity
+from pint import DimensionalityError, Quantity, UnitRegistry
 
 from fermunits.bitterness import (
     absorbance_275nm_to_bitterness_units,
@@ -58,8 +58,10 @@ from fermunits.solution_chemistry import (
 
 __all__ = [
     "Q_",
+    "DimensionalityError",
     "PHValue",
     "Quantity",
+    "UnitRegistry",
     "absorbance_275nm_to_bitterness_units",
     "amount_concentration_to_equivalent_concentration",
     "amount_concentration_to_mass_concentration",

@@ -1,7 +1,9 @@
 # FermUnits Public API
 
-This document is the canonical user-facing API reference for FermUnits 0.1.3.
-It describes the public names exported by `fermunits`, the FermUnits-specific
+This document is the canonical user-facing API reference for the current
+FermUnits development version. The latest published release is 0.1.3; unreleased
+API changes on `main` are recorded in [`../CHANGELOG.md`](../CHANGELOG.md). It
+describes the public names exported by `fermunits`, the FermUnits-specific
 unit definitions loaded into its registry, and the Pint functionality available
 through the public FermUnits objects.
 
@@ -12,20 +14,27 @@ relationship exists and how strongly it is supported.
 
 ## Import and dependency boundary
 
-Normal downstream use should import unit construction, quantity typing, and
-registry access from FermUnits:
+Normal downstream use should import unit construction, quantity/registry typing,
+dimension-error handling, and registry access from FermUnits:
 
 ```python
-from fermunits import Q_, Quantity, ureg
+from fermunits import (
+    DimensionalityError,
+    Q_,
+    Quantity,
+    UnitRegistry,
+    ureg,
+)
 ```
 
 Pint is an implementation dependency of FermUnits and is installed transitively.
 A downstream application does not need to import or declare Pint merely to use
 FermUnits quantities, units, conversions, arithmetic, dimensionality, parsing,
-or registry operations.
+registry operations, registry typing, or ordinary dimensionality-error handling.
 
-`Q_` creates real Pint `Quantity` objects, `Quantity` is Pint's generic quantity
-type re-exported by FermUnits, and `ureg` is a real Pint `UnitRegistry` containing
+`Q_` creates real Pint `Quantity` objects; `Quantity`, `UnitRegistry`, and
+`DimensionalityError` are Pint public types re-exported by FermUnits; and `ureg`
+is a real Pint `UnitRegistry` containing
 Pint's normal unit definitions plus the FermUnits definitions listed below.
 FermUnits does not wrap away the public APIs of those objects. Public Pint
 methods and properties on `Quantity` and `UnitRegistry` therefore remain
@@ -34,7 +43,13 @@ available through the objects imported from FermUnits.
 For example:
 
 ```python
-from fermunits import Q_, Quantity, ureg
+from fermunits import (
+    DimensionalityError,
+    Q_,
+    Quantity,
+    UnitRegistry,
+    ureg,
+)
 
 volume: Quantity[float] = Q_(5.0, "gallon")
 liters = volume.to("liter")
@@ -83,6 +98,33 @@ mass: Quantity[float]
 Pint's generic `Quantity` type re-exported by FermUnits for downstream type
 annotations and runtime use. Consumers should import it from FermUnits rather
 than importing `pint.Quantity` solely to type FermUnits quantities.
+
+### `UnitRegistry`
+
+```python
+from typing import Any
+
+from fermunits import UnitRegistry, create_registry
+
+registry: UnitRegistry[Any] = create_registry()
+```
+
+Pint's generic `UnitRegistry` type re-exported by FermUnits so applications and
+tests can annotate or runtime-check isolated registries without importing Pint.
+
+### `DimensionalityError`
+
+```python
+from fermunits import DimensionalityError, Q_
+
+try:
+    Q_(1, "gram").to("liter")
+except DimensionalityError:
+    ...
+```
+
+Pint's dimensionality-mismatch exception re-exported by FermUnits so normal
+conversion error handling does not require a downstream Pint dependency.
 
 ### `ureg`
 
@@ -619,12 +661,15 @@ Compatibility scalar API converting grams per liter to volumes of CO2.
 
 ## Complete `__all__` inventory
 
-`fermunits.__all__` contains the following 37 public names in FermUnits 0.1.3:
+`fermunits.__all__` contains the following 39 public names in the current
+development version:
 
 ```text
-PHValue
 Q_
+DimensionalityError
+PHValue
 Quantity
+UnitRegistry
 absorbance_275nm_to_bitterness_units
 amount_concentration_to_equivalent_concentration
 amount_concentration_to_mass_concentration
@@ -665,8 +710,9 @@ wort_refractometer_brix_to_plato
 
 FermUnits generally validates semantic parameters before applying a relationship.
 Depending on the API, invalid inputs may raise `ValueError`; incompatible unit
-conversion uses Pint's normal error behavior. Examples of explicitly validated
-conditions include finite pH values, positive hydrogen-ion activity, positive
+conversion raises the public `DimensionalityError` re-exported by FermUnits.
+Examples of explicitly validated conditions include finite pH values, positive
+hydrogen-ion activity, positive
 solution density, positive molar mass, positive equivalence factors, and positive
 equivalent mass.
 
@@ -693,6 +739,8 @@ modules, or implementation-only helpers beginning with an underscore.
   source ledger.
 - [`verification-status.md`](verification-status.md) — centralized pre-1.0 audit
   of source status for relationships FermUnits already implements.
+- [`compatibility.md`](compatibility.md) — supported Python/Pint policy, public
+  dependency boundary, and maintained downstream contracts.
 - [`../DESIGN.md`](../DESIGN.md) — architectural decisions and the FermUnits/Pint
   dependency boundary.
 

@@ -337,6 +337,20 @@ ready as documented, and identifies the remaining Provisional relationships that
 deserve explicit external-review attention before 1.0. Unimplemented M6 research
 candidates remain outside this stabilization requirement.
 
+The fourth stabilization slice closes the downstream compatibility audit. Python
+3.11 through 3.14 remain the supported runtime matrix, Pint remains constrained to
+`>=0.25.3,<0.26`, and the upgrade policy is documented in
+`docs/compatibility.md`. `UnitRegistry` and `DimensionalityError` join `Quantity`
+as deliberate Pint re-exports required by maintained downstream contracts, so the
+Water Chemistry Engine and draft-system contract suites no longer import Pint
+directly. The package-level `__all__` inventory is regression-tested to prevent
+accidental public-surface drift.
+
+After these focused stabilization slices, the project enters a deep internal
+pre-1.0 review. Findings from that review should be resolved before the repository
+is handed to an external reviewer. The project-specific pre-release checklist is
+run only after both internal and external review findings are closed.
+
 A 1.0 release should indicate that the supported public API and documented
 semantics are intentionally stable, not that every conceivable fermentation
 domain has been implemented.

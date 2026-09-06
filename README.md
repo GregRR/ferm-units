@@ -31,8 +31,11 @@ uv sync --dev
 ## API reference
 
 The complete FermUnits public API, including the Pint functionality available
-through `Q_`, `Quantity`, and `ureg`, FermUnits-specific unit definitions, and
-all conversion functions, is documented in [`docs/API.md`](docs/API.md).
+through `Q_`, `Quantity`, `UnitRegistry`, and `ureg`, FermUnits-specific unit
+definitions, and
+all conversion functions, is documented in [`docs/API.md`](docs/API.md). The
+supported Python/Pint and downstream-contract policy is documented in
+[`docs/compatibility.md`](docs/compatibility.md).
 
 ## Physical-unit example
 
@@ -43,18 +46,26 @@ cask: Quantity[int] = Q_(1, "firkin")
 print(cask.to("liter"))
 ```
 
-FermUnits re-exports Pint's `Quantity` type as part of its public API. Downstream
-applications should normally import quantity construction, typing, and registry
-access from FermUnits itself:
+FermUnits re-exports Pint's `Quantity` and `UnitRegistry` types plus
+`DimensionalityError` as part of its public downstream contract. Applications
+should normally import quantity construction, typing, registry access, and
+dimension-error handling from FermUnits itself:
 
 ```python
-from fermunits import Q_, Quantity, ureg
+from fermunits import (
+    DimensionalityError,
+    Q_,
+    Quantity,
+    UnitRegistry,
+    ureg,
+)
 ```
 
 Pint remains an implementation dependency of FermUnits and is installed
 transitively with FermUnits. A downstream package does not need to import or
 declare Pint solely to construct, annotate, convert, or perform ordinary unit
-operations on FermUnits quantities. A direct Pint dependency is only appropriate
+operations on FermUnits quantities, annotate isolated registries, or catch
+dimensionally invalid conversions. A direct Pint dependency is only appropriate
 when that downstream package intentionally uses Pint-specific APIs that FermUnits
 does not expose.
 
