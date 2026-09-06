@@ -14,9 +14,12 @@ from fermunits import (
     amount_concentration_to_mass_concentration,
     caco3_basis_mass_concentration_to_equivalent_concentration,
     create_registry,
+    equivalent_concentration_to_amount_concentration,
     equivalent_concentration_to_caco3_basis_mass_concentration,
+    equivalent_concentration_to_mass_concentration,
     hydrogen_ion_activity_to_ph,
     mass_concentration_to_amount_concentration,
+    mass_concentration_to_equivalent_concentration,
     mass_concentration_to_mass_fraction,
     mass_fraction_to_mass_concentration,
     ph_to_hydrogen_ion_activity,
@@ -180,6 +183,30 @@ def test_water_engine_equivalence_factor_conversion(
     )
 
     assert result.to("milliequivalent / liter").magnitude == pytest.approx(2.0)
+
+
+def test_water_engine_general_equivalent_concentration_conversions(
+    registry: UnitRegistry[Any],
+) -> None:
+    """General equivalent-concentration helpers remain in the downstream contract."""
+    mass_concentration = registry.Quantity(58.44, "milligram / liter")
+
+    equivalents = mass_concentration_to_equivalent_concentration(
+        mass_concentration,
+        equivalent_mass_grams_per_equivalent=29.22,
+    )
+    restored_mass = equivalent_concentration_to_mass_concentration(
+        equivalents,
+        equivalent_mass_grams_per_equivalent=29.22,
+    )
+    amount = equivalent_concentration_to_amount_concentration(
+        equivalents,
+        equivalence_factor=2.0,
+    )
+
+    assert equivalents.to("milliequivalent / liter").magnitude == pytest.approx(2.0)
+    assert restored_mass.to("milligram / liter").magnitude == pytest.approx(58.44)
+    assert amount.to("millimole / liter").magnitude == pytest.approx(1.0)
 
 
 def test_water_engine_caco3_reporting_basis_conversion(

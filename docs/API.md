@@ -681,7 +681,8 @@ Converts a compatible dissolved-CO2 mass concentration to volumes of CO2.
 co2_volumes_to_grams_per_liter(co2_volumes: float) -> float
 ```
 
-Compatibility scalar API returning dissolved CO2 in grams per liter.
+Supported 1.x scalar compatibility API returning dissolved CO2 in grams
+per liter. It is not currently scheduled for deprecation or removal.
 
 ### `co2_grams_per_liter_to_volumes()`
 
@@ -689,7 +690,8 @@ Compatibility scalar API returning dissolved CO2 in grams per liter.
 co2_grams_per_liter_to_volumes(grams_per_liter: float) -> float
 ```
 
-Compatibility scalar API converting grams per liter to volumes of CO2.
+Supported 1.x scalar compatibility API converting grams per liter to
+volumes of CO2. It is not currently scheduled for deprecation or removal.
 
 ## Complete `__all__` inventory
 

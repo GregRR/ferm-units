@@ -26,8 +26,8 @@ itself establish every named cask multiple used below. [BR-UK-WM-1824]
 
 | FermUnits name | Definition | Implementation status | Source status |
 |---|---|---|---|
-| `us_beer_barrel` | alias of Pint `beer_barrel` = 31 US liquid gallons | Implemented | **Verified** Pint behavior via [SH-PINT-01] |
-| `imperial_beer_barrel` | alias of Pint `imperial_barrel` = 36 Imperial gallons | Implemented | **Verified** Pint behavior via [SH-PINT-01]; **Provisional** British brewing terminology via [BR-CAMRA-CASK-01] and [BR-NOTTINGHAM-CASK-01] |
+| `us_beer_barrel` | qualified FermUnits definition numerically equal to Pint `beer_barrel` = 31 US liquid gallons | Implemented | **Verified** Pint behavior via [SH-PINT-01] |
+| `imperial_beer_barrel` | qualified FermUnits definition numerically equal to Pint `imperial_barrel` = 36 Imperial gallons | Implemented | **Verified** Pint physical value via [SH-PINT-01]; **Provisional** British brewing terminology via [BR-CAMRA-CASK-01] and [BR-NOTTINGHAM-CASK-01] |
 | `pin_cask` | 4.5 Imperial gallons | Implemented | **Provisional** British brewing meaning via [BR-CAMRA-CASK-01] and [BR-NOTTINGHAM-CASK-01] |
 | `firkin` | 9 Imperial gallons | Implemented | **Provisional** British brewing meaning via [BR-CAMRA-CASK-01] and [BR-NOTTINGHAM-CASK-01] |
 | `kilderkin` | 18 Imperial gallons | Implemented | **Provisional** British brewing meaning via [BR-CAMRA-CASK-01] and [BR-NOTTINGHAM-CASK-01] |
@@ -693,6 +693,10 @@ Public functions:
 - `co2_mass_concentration_to_volumes`
 - `co2_volumes_to_grams_per_liter` (scalar compatibility API)
 - `co2_grams_per_liter_to_volumes` (scalar compatibility API)
+
+The scalar compatibility pair is an intentional supported 1.x API, not a
+pending deprecation. New unit-aware code should still prefer the quantity-aware
+pair when physical concentration participates in larger calculations.
 
 The quantity-aware APIs return or accept Pint mass-concentration quantities so
 physical concentration units remain explicit at downstream engineering

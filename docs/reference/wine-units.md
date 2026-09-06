@@ -252,32 +252,33 @@ headspace model.
 
 ## Regional vessel capacities
 
-The following capacities are adequately supported as **regional meanings**.
+The following capacities are adequately supported as regional research
+meanings, but remain **Provisional** under the project-wide Verified threshold.
 They are source-ready physical-unit candidates, not automatic implementation
 commitments.
 
 | Candidate FermUnits name | Regional meaning | Capacity | Source status | Implementation status |
 |---|---|---:|---|---|
-| `bordeaux_barrique` | Bordeaux barrique | 225 L | **Verified** via [WI-BORDEAUX-BARRIQUE-01] and [WI-AWRI-PACKAGING-01] | Candidate; not implemented |
-| `burgundy_piece` | Bourgogne pièce | 228 L | **Verified** via [WI-BOURGOGNE-CASKS-01] | Candidate; not implemented |
-| `pouilly_fuisse_piece` | Pouilly-Fuissé pièce | 212 L | **Verified** via [WI-BOURGOGNE-CASKS-01] | Candidate; not implemented |
-| `burgundy_feuillette` | Côte-d'Or / Saône-et-Loire feuillette | 114 L | **Verified** via [WI-BOURGOGNE-CASKS-01] | Candidate; not implemented |
-| `chablis_feuillette` | Chablis feuillette | 132 L | **Verified** via [WI-BOURGOGNE-CASKS-01] | Candidate; not implemented |
-| `burgundy_queue` | Bourgogne queue | 456 L | **Verified** via [WI-BOURGOGNE-CASKS-01] | Candidate; not implemented |
-| `burgundy_demi_muid` | Bourgogne demi-muid | 600 L | **Verified** via [WI-BOURGOGNE-CASKS-01] | Candidate; not implemented |
-| `burgundy_muid` | Bourgogne muid | 1,200 L | **Verified** via [WI-BOURGOGNE-CASKS-01] | Candidate; not implemented |
-| `australian_wine_hogshead` | Australian wine-industry hogshead | 300 L | **Verified** via [WI-AWRI-PACKAGING-01] | Candidate; not implemented |
-| `australian_wine_puncheon_500` | Australian logistics puncheon | 500 L | **Verified** via [WI-AWRI-PACKAGING-01] | Candidate; not implemented |
-| `australian_wine_puncheon_600` | Australian logistics puncheon | 600 L | **Verified** via [WI-AWRI-PACKAGING-01] | Candidate; not implemented |
-| `rheinhessen_stueckfass` | Rheinhessen Stückfass | 1,200 L | **Verified** via [WI-RHEINHESSEN-STUECK-01] | Candidate; not implemented |
-| `rheinhessen_half_stueckfass` | Rheinhessen Halbstück | 600 L | **Verified** regional base; derived half-size | Candidate; not implemented |
-| `rheinhessen_quarter_stueckfass` | Rheinhessen Viertelstück | 300 L | **Verified** regional base; derived quarter-size | Candidate; not implemented |
-| `sherry_bota_gorda` | Jerez bota gorda / standard ageing bota | 600 L | **Verified** via [WI-JEREZ-CASKS-01] | Candidate; not implemented |
-| `sherry_export_butt` | Jerez export/shipping bota | 500 L | **Verified** via [WI-JEREZ-CASKS-01] | Candidate; not implemented |
-| `sherry_receipt_butt` | Jerez bota de recibo | 516 L | **Verified** via [WI-JEREZ-CASKS-01] | Candidate; not implemented |
-| `sherry_media_bota` | Jerez media bota | 250 L | **Verified** via [WI-JEREZ-CASKS-01] | Candidate; not implemented |
-| `sherry_quarter_bota` | Jerez quarter bota | 125 L | **Verified** via [WI-JEREZ-CASKS-01] | Candidate; not implemented |
-| `sherry_octavo` | Jerez octavo | 62.5 L | **Verified** via [WI-JEREZ-CASKS-01] | Candidate; not implemented |
+| `bordeaux_barrique` | Bordeaux barrique | 225 L | **Provisional** via [WI-BORDEAUX-BARRIQUE-01] and [WI-AWRI-PACKAGING-01] | Candidate; not implemented |
+| `burgundy_piece` | Bourgogne pièce | 228 L | **Provisional** via [WI-BOURGOGNE-CASKS-01] | Candidate; not implemented |
+| `pouilly_fuisse_piece` | Pouilly-Fuissé pièce | 212 L | **Provisional** via [WI-BOURGOGNE-CASKS-01] | Candidate; not implemented |
+| `burgundy_feuillette` | Côte-d'Or / Saône-et-Loire feuillette | 114 L | **Provisional** via [WI-BOURGOGNE-CASKS-01] | Candidate; not implemented |
+| `chablis_feuillette` | Chablis feuillette | 132 L | **Provisional** via [WI-BOURGOGNE-CASKS-01] | Candidate; not implemented |
+| `burgundy_queue` | Bourgogne queue | 456 L | **Provisional** via [WI-BOURGOGNE-CASKS-01] | Candidate; not implemented |
+| `burgundy_demi_muid` | Bourgogne demi-muid | 600 L | **Provisional** via [WI-BOURGOGNE-CASKS-01] | Candidate; not implemented |
+| `burgundy_muid` | Bourgogne muid | 1,200 L | **Provisional** via [WI-BOURGOGNE-CASKS-01] | Candidate; not implemented |
+| `australian_wine_hogshead` | Australian wine-industry hogshead | 300 L | **Provisional** via [WI-AWRI-PACKAGING-01] | Candidate; not implemented |
+| `australian_wine_puncheon_500` | Australian logistics puncheon | 500 L | **Provisional** via [WI-AWRI-PACKAGING-01] | Candidate; not implemented |
+| `australian_wine_puncheon_600` | Australian logistics puncheon | 600 L | **Provisional** via [WI-AWRI-PACKAGING-01] | Candidate; not implemented |
+| `rheinhessen_stueckfass` | Rheinhessen Stückfass | 1,200 L | **Provisional** via [WI-RHEINHESSEN-STUECK-01] | Candidate; not implemented |
+| `rheinhessen_half_stueckfass` | Rheinhessen Halbstück | 600 L | **Provisional**; regional half-size name with 600 L derived from the sourced 1,200 L base | Candidate; not implemented |
+| `rheinhessen_quarter_stueckfass` | Rheinhessen Viertelstück | 300 L | **Provisional**; regional quarter-size name with 300 L derived from the sourced 1,200 L base | Candidate; not implemented |
+| `sherry_bota_gorda` | Jerez bota gorda / standard ageing bota | 600 L | **Provisional** via [WI-JEREZ-CASKS-01] | Candidate; not implemented |
+| `sherry_export_butt` | Jerez export/shipping bota | 500 L | **Provisional** via [WI-JEREZ-CASKS-01] | Candidate; not implemented |
+| `sherry_receipt_butt` | Jerez bota de recibo | 516 L | **Provisional** via [WI-JEREZ-CASKS-01] | Candidate; not implemented |
+| `sherry_media_bota` | Jerez media bota | 250 L | **Provisional** via [WI-JEREZ-CASKS-01] | Candidate; not implemented |
+| `sherry_quarter_bota` | Jerez quarter bota | 125 L | **Provisional** via [WI-JEREZ-CASKS-01] | Candidate; not implemented |
+| `sherry_octavo` | Jerez octavo | 62.5 L | **Provisional** via [WI-JEREZ-CASKS-01] | Candidate; not implemented |
 
 ### Vessel meanings that should not become fixed units yet
 

@@ -49,10 +49,10 @@ source-defined semantic relationship whose limitations are retained in the API.
 | `equivalent`, `milliequivalent`, amount ↔ equivalents | Implemented from explicit IUPAC equivalence semantics | Ready | [`reference/solution-chemistry.md`](reference/solution-chemistry.md) |
 | amount concentration ↔ equivalent concentration | Implemented; explicit equivalence factor required | Ready | [`reference/solution-chemistry.md`](reference/solution-chemistry.md) |
 | mass concentration ↔ equivalent concentration | Implemented; explicit equivalent mass required | Ready | [`reference/solution-chemistry.md`](reference/solution-chemistry.md) |
-| CaCO3-basis mass concentration ↔ equivalent concentration | Implemented from conventional EPA/USGS reporting factor | Ready | [`reference/solution-chemistry.md`](reference/solution-chemistry.md) |
+| CaCO3-basis mass concentration ↔ equivalent concentration | Implemented from the conventional EPA 50 mg/mEq reporting factor; USGS uses a more precise molar-mass-derived value in its own calculations | Ready | [`reference/solution-chemistry.md`](reference/solution-chemistry.md) |
 | mass concentration ↔ mass fraction | Implemented; explicit solution density required | Ready | [`reference/solution-chemistry.md`](reference/solution-chemistry.md) |
 | mass concentration ↔ amount concentration | Implemented; explicit molar mass required | Ready | [`reference/solution-chemistry.md`](reference/solution-chemistry.md) |
-| `PHValue` ↔ hydrogen-ion activity | **Verified** definition; activity semantics explicit | Ready | [`reference/solution-chemistry.md`](reference/solution-chemistry.md) |
+| `PHValue` ↔ hydrogen-ion activity | **Verified** mathematical definition only; no operational measurement claim | Ready | [`reference/solution-chemistry.md`](reference/solution-chemistry.md) |
 
 The explicit-parameter rules are part of the public contract. FermUnits does not
 infer equivalence factor, equivalent mass, solution density, molar mass, chemical
@@ -62,8 +62,8 @@ identity, hydration state, or activity coefficient.
 
 | Implemented behavior | Current source status | 1.0 review disposition | Notes |
 |---|---|---|---|
-| `us_beer_barrel` | **Verified** Pint behavior | Ready | Explicit alias of Pint `beer_barrel`. |
-| `imperial_beer_barrel` | **Verified** Pint physical alias; British brewing terminology **Provisional** | Retain provisional | Physical value is inherited from Pint; terminology qualification remains documented. |
+| `us_beer_barrel` | **Verified** Pint behavior | Ready | Qualified FermUnits definition numerically equal to Pint `beer_barrel`. |
+| `imperial_beer_barrel` | **Verified** Pint physical value; British brewing terminology **Provisional** | Retain provisional | Qualified FermUnits definition is numerically equal to Pint `imperial_barrel`; it is a distinct unit name, not a canonical Pint alias. |
 | `pin_cask`, `firkin`, `kilderkin` | **Provisional** | External review focus | Current British brewing capacities are sourced, but not at the project's Verified threshold. |
 | `brewing_hogshead` | **Provisional** | External review focus | Qualified brewing name avoids cross-domain ambiguity. |
 | `brewing_puncheon`, `brewing_butt`, `brewing_tun` | **Provisional** historical British brewing meaning | External review focus | Names are qualified; historical source strength remains the open issue. |

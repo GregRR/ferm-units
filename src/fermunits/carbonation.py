@@ -111,7 +111,8 @@ def co2_mass_concentration_to_volumes(
 def co2_volumes_to_grams_per_liter(co2_volumes: float) -> float:
     """Convert volumes of dissolved CO₂ to grams per liter.
 
-    This scalar API is retained for compatibility. New unit-aware downstream
+    This scalar compatibility API remains supported through the 1.x public
+    contract; no deprecation or removal is scheduled. New unit-aware downstream
     code should prefer :func:`co2_volumes_to_mass_concentration` so the physical
     mass-concentration unit remains explicit.
     """
@@ -123,7 +124,8 @@ def co2_grams_per_liter_to_volumes(
 ) -> float:
     """Convert dissolved CO₂ in grams per liter to volumes of CO₂.
 
-    This scalar API is retained for compatibility. New unit-aware downstream
+    This scalar compatibility API remains supported through the 1.x public
+    contract; no deprecation or removal is scheduled. New unit-aware downstream
     code should prefer :func:`co2_mass_concentration_to_volumes`.
     """
     _require_nonnegative_finite(

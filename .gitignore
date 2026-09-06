@@ -9,6 +9,12 @@ dist/
 build/
 .DS_Store
 *~
+.env
+*.log
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
 
 # Project Specific
 references/

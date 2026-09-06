@@ -386,6 +386,15 @@ share one controlled `ValueError` boundary, the intentional public `Quantity`
 re-export is exercised by a maintained downstream contract, shared `ureg`
 mutability is documented, and local review working material is ignored.
 
+The second external-review fix batch reconciles documentation/source integrity and
+downstream compatibility coverage. Unimplemented regional wine-vessel
+candidates remain Provisional under the strict verification threshold; pH
+verification is explicitly limited to the mathematical activity definition;
+Pint-derived barrel names are described as distinct qualified definitions rather
+than canonical aliases; the scalar carbonation pair is retained for 1.x; and the
+maintained consumer contracts cover the remaining general equivalence and scalar
+carbonation boundaries. Historical 0.1.2 changelog duplication is corrected.
+
 The project-specific pre-release checklist is run only after both internal and
 external review findings are closed.
 

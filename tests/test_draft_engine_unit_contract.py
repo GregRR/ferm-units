@@ -7,7 +7,9 @@ import pytest
 from fermunits import (
     DimensionalityError,
     UnitRegistry,
+    co2_grams_per_liter_to_volumes,
     co2_mass_concentration_to_volumes,
+    co2_volumes_to_grams_per_liter,
     co2_volumes_to_mass_concentration,
     create_registry,
 )
@@ -145,8 +147,17 @@ def test_draft_engine_carbonation_boundary_is_quantity_aware() -> None:
     )
 
     assert concentration.to("gram / liter").magnitude == pytest.approx(
-        2.5 * 10.0 / 5.0607
+        4.940028059359377
     )
+    assert restored == pytest.approx(2.5)
+
+
+def test_draft_engine_scalar_carbonation_compatibility_api() -> None:
+    """The retained scalar CO₂ API remains numerically stable for consumers."""
+    grams_per_liter = co2_volumes_to_grams_per_liter(2.5)
+    restored = co2_grams_per_liter_to_volumes(grams_per_liter)
+
+    assert grams_per_liter == pytest.approx(4.940028059359377)
     assert restored == pytest.approx(2.5)
 
 

@@ -372,7 +372,11 @@ FermUnits representation:
   [SH-PINT-01]
 
 Status: **Verified definition; implemented as a semantic value type plus
-explicit activity conversion functions.**
+explicit activity conversion functions.** This verification applies to the
+mathematical identity `pH = -log10(a_H+)` and its inverse only. It does not
+verify an operational measurement procedure or a concentration identity;
+reference temperature/pressure and jurisdiction are not applicable to this
+definitional identity.
 
 ### pH difference
 

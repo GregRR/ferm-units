@@ -21,6 +21,10 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Fixed
 
+- Correct pre-1.0 review inconsistencies in wine-vessel source status, pH
+  verification scope, CaCO3 reporting attribution, Pint-derived barrel
+  terminology, downstream contract coverage, ignore rules, and historical
+  0.1.2 changelog attribution.
 - Normalize direct chemical-context parameter failures to `ValueError`, keep the
   wrapper and raw-context validation paths aligned, and prevent Decimal/float
   arithmetic incompatibility from leaking raw `TypeError`.
@@ -46,6 +50,9 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Treat the scalar carbonation compatibility pair as an intentional supported
+  1.x API while continuing to prefer quantity-aware helpers for physical
+  concentration calculations.
 - Make the shared mutable `ureg` versus isolated `create_registry()` boundary
   explicit, document the stable low-level solution-chemistry context names, and
   add downstream contract coverage for the public `Quantity` re-export.
@@ -206,18 +213,6 @@ Python compatibility and release-automation maintenance release.
 
 ### Changed
 
-- Incorporate the two-pass external Milestone 3 review by restricting the simple
-  wort correction-factor documentation to unfermented wort, clarifying the
-  provisional standalone interpretation of Torrent's `506.07 mL/g` carbonation
-  constant, downgrading British cask terminology to Provisional where source
-  strength does not meet the project-wide Verified bar, and making
-  `imperial_beer_barrel` an explicit alias of Pint's `imperial_barrel`.
-- Rename the analytical-bitterness input parameter to
-  `extract_absorbance_275nm` so keyword use carries the method-extract semantic
-  boundary already required by the function documentation.
-- Make `docs/sources.md` the master project source ledger and add the maintained
-  brewing and solution-chemistry source records, including the external-review
-  wort-correction corroboration and upstream Pint compatibility planning source.
 - Lower the supported Python floor from 3.14 to 3.11 and test Python 3.11,
   3.12, 3.13, and 3.14 in CI.
 - Require Pint `>=0.25.3,<0.26`, retaining the fixes required by FermUnits.
