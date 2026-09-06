@@ -348,8 +348,13 @@ accidental public-surface drift.
 
 After these focused stabilization slices, the project enters a deep internal
 pre-1.0 review. Findings from that review should be resolved before the repository
-is handed to an external reviewer. The project-specific pre-release checklist is
-run only after both internal and external review findings are closed.
+is handed to an external reviewer. The first internal-review fix batch closes a
+finite-result validation hole where mathematically finite integers or quantity
+magnitudes outside Python float range could leak raw `OverflowError` before the
+documented `ValueError` boundary was reached.
+
+The project-specific pre-release checklist is run only after both internal and
+external review findings are closed.
 
 A 1.0 release should indicate that the supported public API and documented
 semantics are intentionally stable, not that every conceivable fermentation

@@ -263,3 +263,19 @@ def test_molar_mass_conversions_reject_nonfinite_results(
             registry.Quantity(sys.float_info.max, "mole / liter"),
             registry.Quantity(sys.float_info.max, "gram / mole"),
         )
+
+
+def test_molar_mass_conversions_reject_unrepresentable_quantity_magnitudes(
+    registry: UnitRegistry[Any],
+) -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        mass_concentration_to_amount_concentration(
+            registry.Quantity(10**1000, "gram / liter"),
+            registry.Quantity(1, "gram / mole"),
+        )
+
+    with pytest.raises(ValueError, match="representable finite range"):
+        mass_concentration_to_amount_concentration(
+            registry.Quantity(1, "gram / liter"),
+            registry.Quantity(10**1000, "gram / mole"),
+        )

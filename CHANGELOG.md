@@ -21,6 +21,9 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Fixed
 
+- Normalize finite-but-unrepresentable integer inputs, Pint quantity magnitudes,
+  and context parameters to the documented `ValueError` contract instead of
+  leaking raw `OverflowError` from Python numeric coercion.
 - Reject nonfinite results produced by arithmetic overflow in validated public
   scalar and quantity conversions. Extreme finite inputs now raise `ValueError`
   instead of returning `inf`/`nan` or leaking raw `OverflowError`.

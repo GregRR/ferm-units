@@ -663,3 +663,36 @@ def test_direct_chemical_context_rejects_nonfinite_result(
             "chemical_equivalence",
             equivalence_factor=2.0,
         )
+
+
+def test_ph_value_rejects_unrepresentable_finite_integer() -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        PHValue(10**1000)
+
+
+def test_solution_chemistry_rejects_unrepresentable_finite_integer_parameter(
+    registry: UnitRegistry[Any],
+) -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        amount_to_equivalents(registry.Quantity(1, "mole"), 10**1000)
+
+    with pytest.raises(ValueError, match="representable finite range"):
+        registry.Quantity(1, "mole").to(
+            "equivalent",
+            "chemical_equivalence",
+            equivalence_factor=10**1000,
+        )
+
+
+def test_solution_chemistry_rejects_unrepresentable_quantity_magnitude(
+    registry: UnitRegistry[Any],
+) -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        amount_to_equivalents(registry.Quantity(10**1000, "mole"), 1.0)
+
+    with pytest.raises(ValueError, match="representable finite range"):
+        registry.Quantity(10**1000, "mole").to(
+            "equivalent",
+            "chemical_equivalence",
+            equivalence_factor=1.0,
+        )

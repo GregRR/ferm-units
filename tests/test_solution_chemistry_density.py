@@ -211,3 +211,19 @@ def test_density_assisted_conversions_reject_nonfinite_results(
             registry.Quantity(sys.float_info.max, "dimensionless"),
             registry.Quantity(sys.float_info.max, "kilogram / liter"),
         )
+
+
+def test_density_conversions_reject_unrepresentable_quantity_magnitudes(
+    registry: UnitRegistry[Any],
+) -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        mass_concentration_to_mass_fraction(
+            registry.Quantity(10**1000, "gram / liter"),
+            registry.Quantity(1, "kilogram / liter"),
+        )
+
+    with pytest.raises(ValueError, match="representable finite range"):
+        mass_concentration_to_mass_fraction(
+            registry.Quantity(1, "gram / liter"),
+            registry.Quantity(10**1000, "kilogram / liter"),
+        )

@@ -332,3 +332,18 @@ def test_gravity_conversion_rejects_nonfinite_result_from_finite_inputs(
 ) -> None:
     with pytest.raises(ValueError, match="representable finite range"):
         function(*args)  # type: ignore[operator]
+
+
+@pytest.mark.parametrize(
+    ("function", "args"),
+    [
+        (sg_to_gravity_points, (10**1000,)),
+        (plato_to_wort_refractometer_brix, (1.0, 10**1000)),
+    ],
+)
+def test_gravity_conversion_rejects_unrepresentable_finite_integer(
+    function: object,
+    args: tuple[float, ...],
+) -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        function(*args)  # type: ignore[operator]

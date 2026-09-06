@@ -112,3 +112,8 @@ def test_bitterness_units_to_absorbance_275nm_rejects_invalid_value(
 def test_bitterness_conversion_rejects_nonfinite_result_from_finite_input() -> None:
     with pytest.raises(ValueError, match="representable finite range"):
         absorbance_275nm_to_bitterness_units(sys.float_info.max)
+
+
+def test_bitterness_conversion_rejects_unrepresentable_finite_integer() -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        absorbance_275nm_to_bitterness_units(10**1000)

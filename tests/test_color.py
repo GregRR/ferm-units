@@ -151,3 +151,11 @@ def test_color_conversion_rejects_nonfinite_result_from_finite_input(
 ) -> None:
     with pytest.raises(ValueError, match="representable finite range"):
         function(sys.float_info.max)  # type: ignore[operator]
+
+
+@pytest.mark.parametrize("function", [srm_to_ebc, lovibond_to_srm_approx])
+def test_color_conversion_rejects_unrepresentable_finite_integer(
+    function: object,
+) -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        function(10**1000)  # type: ignore[operator]

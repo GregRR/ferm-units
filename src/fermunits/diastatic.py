@@ -8,7 +8,12 @@ _LINTNER_TO_WK_INTERCEPT = -16.0
 
 def _require_nonnegative_finite(value: float, name: str) -> None:
     """Validate a nonnegative finite diastatic-power value."""
-    if not math.isfinite(value):
+    try:
+        finite = math.isfinite(value)
+    except OverflowError as exc:
+        raise ValueError(f"{name} is outside the representable finite range") from exc
+
+    if not finite:
         raise ValueError(f"{name} must be finite")
 
     if value < 0.0:
@@ -17,7 +22,14 @@ def _require_nonnegative_finite(value: float, name: str) -> None:
 
 def _require_finite_result(value: float, name: str) -> float:
     """Return a finite conversion result or raise a controlled error."""
-    if not math.isfinite(value):
+    try:
+        finite = math.isfinite(value)
+    except OverflowError as exc:
+        raise ValueError(
+            f"{name} result is outside the representable finite range"
+        ) from exc
+
+    if not finite:
         raise ValueError(f"{name} result is outside the representable finite range")
 
     return value

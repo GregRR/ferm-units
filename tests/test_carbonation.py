@@ -178,3 +178,11 @@ def test_co2_mass_concentration_to_volumes_rejects_wrong_dimension() -> None:
 def test_carbonation_conversion_rejects_nonfinite_result_from_finite_input() -> None:
     with pytest.raises(ValueError, match="representable finite range"):
         co2_volumes_to_mass_concentration(sys.float_info.max)
+
+
+def test_carbonation_rejects_unrepresentable_finite_integer() -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        co2_volumes_to_mass_concentration(10**1000)
+
+    with pytest.raises(ValueError, match="representable finite range"):
+        co2_mass_concentration_to_volumes(Q_(10**1000, "gram / liter"))

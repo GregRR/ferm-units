@@ -15,17 +15,39 @@ _CHEMICAL_EQUIVALENCE_CONTEXT = "chemical_equivalence"
 _CHEMICAL_EQUIVALENT_MASS_CONTEXT = "chemical_equivalent_mass"
 
 
-def _require_positive_finite_context_parameter(
-    value: float,
+def _validated_positive_finite_context_parameter(
+    value: Any,
+    *,
+    name: str,
+) -> float:
+    """Return a positive finite context parameter representable as ``float``."""
+    try:
+        normalized = float(value)
+    except OverflowError as exc:
+        raise ValueError(f"{name} is outside the representable finite range") from exc
+
+    if not math.isfinite(normalized):
+        raise ValueError(f"{name} must be finite")
+
+    if normalized <= 0.0:
+        raise ValueError(f"{name} must be greater than zero")
+
+    return normalized
+
+
+def _require_finite_quantity_magnitude(
+    value: PlainQuantity[Any],
     *,
     name: str,
 ) -> None:
-    """Require a finite context parameter greater than zero."""
-    if not math.isfinite(value):
-        raise ValueError(f"{name} must be finite")
+    """Require a scalar quantity magnitude within the finite numeric range."""
+    try:
+        finite = math.isfinite(value.magnitude)
+    except OverflowError as exc:
+        raise ValueError(f"{name} is outside the representable finite range") from exc
 
-    if value <= 0.0:
-        raise ValueError(f"{name} must be greater than zero")
+    if not finite:
+        raise ValueError(f"{name} must be finite")
 
 
 def _require_finite_quantity_result(
@@ -34,8 +56,14 @@ def _require_finite_quantity_result(
     name: str,
 ) -> PlainQuantity[Any]:
     """Return a finite scalar quantity result or raise a controlled error."""
-    magnitude = float(value.magnitude)
-    if not math.isfinite(magnitude):
+    try:
+        finite = math.isfinite(value.magnitude)
+    except OverflowError as exc:
+        raise ValueError(
+            f"{name} result is outside the representable finite range"
+        ) from exc
+
+    if not finite:
         raise ValueError(f"{name} result is outside the representable finite range")
 
     return value
@@ -47,11 +75,11 @@ def _substance_to_chemical_equivalent(
     **kwargs: Any,
 ) -> PlainQuantity[Any]:
     """Convert amount of substance to chemical-equivalent amount."""
-    equivalence_factor = float(kwargs["equivalence_factor"])
-    _require_positive_finite_context_parameter(
-        equivalence_factor,
+    equivalence_factor = _validated_positive_finite_context_parameter(
+        kwargs["equivalence_factor"],
         name="Equivalence factor",
     )
+    _require_finite_quantity_magnitude(value, name="Chemical-equivalence input")
 
     result = cast(
         PlainQuantity[Any],
@@ -69,11 +97,11 @@ def _chemical_equivalent_to_substance(
     **kwargs: Any,
 ) -> PlainQuantity[Any]:
     """Convert chemical-equivalent amount to amount of substance."""
-    equivalence_factor = float(kwargs["equivalence_factor"])
-    _require_positive_finite_context_parameter(
-        equivalence_factor,
+    equivalence_factor = _validated_positive_finite_context_parameter(
+        kwargs["equivalence_factor"],
         name="Equivalence factor",
     )
+    _require_finite_quantity_magnitude(value, name="Chemical-equivalence input")
 
     result = cast(
         PlainQuantity[Any],
@@ -91,11 +119,11 @@ def _mass_concentration_to_chemical_equivalent_concentration(
     **kwargs: Any,
 ) -> PlainQuantity[Any]:
     """Convert mass concentration to chemical-equivalent concentration."""
-    equivalent_mass = float(kwargs["equivalent_mass_grams_per_equivalent"])
-    _require_positive_finite_context_parameter(
-        equivalent_mass,
+    equivalent_mass = _validated_positive_finite_context_parameter(
+        kwargs["equivalent_mass_grams_per_equivalent"],
         name="Equivalent mass",
     )
+    _require_finite_quantity_magnitude(value, name="Equivalent-mass input")
 
     result = cast(
         PlainQuantity[Any],
@@ -113,11 +141,11 @@ def _chemical_equivalent_concentration_to_mass_concentration(
     **kwargs: Any,
 ) -> PlainQuantity[Any]:
     """Convert chemical-equivalent concentration to mass concentration."""
-    equivalent_mass = float(kwargs["equivalent_mass_grams_per_equivalent"])
-    _require_positive_finite_context_parameter(
-        equivalent_mass,
+    equivalent_mass = _validated_positive_finite_context_parameter(
+        kwargs["equivalent_mass_grams_per_equivalent"],
         name="Equivalent mass",
     )
+    _require_finite_quantity_magnitude(value, name="Equivalent-mass input")
 
     result = cast(
         PlainQuantity[Any],

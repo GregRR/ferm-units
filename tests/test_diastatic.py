@@ -104,3 +104,8 @@ def test_lintner_conversion_rejects_value_below_useful_range() -> None:
 def test_diastatic_conversion_rejects_nonfinite_result_from_finite_input() -> None:
     with pytest.raises(ValueError, match="representable finite range"):
         lintner_to_windisch_kolbach(sys.float_info.max)
+
+
+def test_diastatic_conversion_rejects_unrepresentable_finite_integer() -> None:
+    with pytest.raises(ValueError, match="representable finite range"):
+        lintner_to_windisch_kolbach(10**1000)

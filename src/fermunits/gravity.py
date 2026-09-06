@@ -10,13 +10,25 @@ _PLATO_INVERSION_MAX_ITERATIONS = 100
 
 def _require_finite(value: float, name: str) -> None:
     """Raise ValueError when a numeric input is NaN or infinite."""
-    if not math.isfinite(value):
+    try:
+        finite = math.isfinite(value)
+    except OverflowError as exc:
+        raise ValueError(f"{name} is outside the representable finite range") from exc
+
+    if not finite:
         raise ValueError(f"{name} must be finite")
 
 
 def _require_finite_result(value: float, name: str) -> float:
     """Return a finite conversion result or raise a controlled error."""
-    if not math.isfinite(value):
+    try:
+        finite = math.isfinite(value)
+    except OverflowError as exc:
+        raise ValueError(
+            f"{name} result is outside the representable finite range"
+        ) from exc
+
+    if not finite:
         raise ValueError(f"{name} result is outside the representable finite range")
 
     return value

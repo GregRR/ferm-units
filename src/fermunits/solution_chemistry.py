@@ -20,11 +20,31 @@ def _require_positive_finite_value(
     name: str,
 ) -> None:
     """Require a finite value greater than zero."""
-    if not math.isfinite(value):
+    try:
+        finite = math.isfinite(value)
+    except OverflowError as exc:
+        raise ValueError(f"{name} is outside the representable finite range") from exc
+
+    if not finite:
         raise ValueError(f"{name} must be finite")
 
     if value <= 0.0:
         raise ValueError(f"{name} must be greater than zero")
+
+
+def _require_finite_quantity_magnitude(
+    value: Quantity[Any],
+    *,
+    name: str,
+) -> None:
+    """Require a scalar quantity magnitude within the finite numeric range."""
+    try:
+        finite = math.isfinite(value.magnitude)
+    except OverflowError as exc:
+        raise ValueError(f"{name} is outside the representable finite range") from exc
+
+    if not finite:
+        raise ValueError(f"{name} must be finite")
 
 
 def _require_finite_quantity_result(
@@ -33,8 +53,14 @@ def _require_finite_quantity_result(
     name: str,
 ) -> Quantity[Any]:
     """Return a finite scalar quantity result or raise a controlled error."""
-    magnitude = float(value.magnitude)
-    if not math.isfinite(magnitude):
+    try:
+        finite = math.isfinite(value.magnitude)
+    except OverflowError as exc:
+        raise ValueError(
+            f"{name} result is outside the representable finite range"
+        ) from exc
+
+    if not finite:
         raise ValueError(f"{name} result is outside the representable finite range")
 
     return value
@@ -44,11 +70,11 @@ def _validated_solution_density(
     solution_density: Quantity[Any],
 ) -> Quantity[Any]:
     """Return a positive finite density in kilograms per liter."""
+    _require_finite_quantity_magnitude(solution_density, name="Solution density")
     density = solution_density.to("kilogram / liter")
-    magnitude = float(density.magnitude)
 
     _require_positive_finite_value(
-        magnitude,
+        density.magnitude,
         name="Solution density",
     )
 
@@ -59,11 +85,11 @@ def _validated_molar_mass(
     molar_mass: Quantity[Any],
 ) -> Quantity[Any]:
     """Return a positive finite molar mass in grams per mole."""
+    _require_finite_quantity_magnitude(molar_mass, name="Molar mass")
     normalized = molar_mass.to("gram / mole")
-    magnitude = float(normalized.magnitude)
 
     _require_positive_finite_value(
-        magnitude,
+        normalized.magnitude,
         name="Molar mass",
     )
 
@@ -83,7 +109,11 @@ class PHValue:
 
     def __post_init__(self) -> None:
         """Normalize the stored value to a finite ``float``."""
-        normalized = float(self.value)
+        try:
+            normalized = float(self.value)
+        except OverflowError as exc:
+            raise ValueError("pH is outside the representable finite range") from exc
+
         if not math.isfinite(normalized):
             raise ValueError("pH must be finite")
         object.__setattr__(self, "value", normalized)
@@ -142,6 +172,7 @@ def amount_to_equivalents(
         equivalence_factor,
         name="Equivalence factor",
     )
+    _require_finite_quantity_magnitude(amount, name="Amount of substance")
 
     return amount.to(
         "equivalent",
@@ -159,6 +190,7 @@ def equivalents_to_amount(
         equivalence_factor,
         name="Equivalence factor",
     )
+    _require_finite_quantity_magnitude(equivalent_amount, name="Equivalent amount")
 
     return equivalent_amount.to(
         "mole",
@@ -176,6 +208,10 @@ def amount_concentration_to_equivalent_concentration(
         equivalence_factor,
         name="Equivalence factor",
     )
+    _require_finite_quantity_magnitude(
+        amount_concentration,
+        name="Amount concentration",
+    )
 
     return amount_concentration.to(
         "equivalent / liter",
@@ -192,6 +228,10 @@ def equivalent_concentration_to_amount_concentration(
     _require_positive_finite_value(
         equivalence_factor,
         name="Equivalence factor",
+    )
+    _require_finite_quantity_magnitude(
+        equivalent_concentration,
+        name="Equivalent concentration",
     )
 
     return equivalent_concentration.to(
@@ -214,6 +254,10 @@ def mass_concentration_to_equivalent_concentration(
         equivalent_mass_grams_per_equivalent,
         name="Equivalent mass",
     )
+    _require_finite_quantity_magnitude(
+        mass_concentration,
+        name="Mass concentration",
+    )
 
     return mass_concentration.to(
         "equivalent / liter",
@@ -230,6 +274,10 @@ def equivalent_concentration_to_mass_concentration(
     _require_positive_finite_value(
         equivalent_mass_grams_per_equivalent,
         name="Equivalent mass",
+    )
+    _require_finite_quantity_magnitude(
+        equivalent_concentration,
+        name="Equivalent concentration",
     )
 
     return equivalent_concentration.to(
@@ -281,6 +329,10 @@ def mass_concentration_to_mass_fraction(
     ``milligram / kilogram``, ``microgram / kilogram``, or another compatible
     mass ratio. No dilute-water density assumption is made.
     """
+    _require_finite_quantity_magnitude(
+        mass_concentration,
+        name="Mass concentration",
+    )
     concentration = mass_concentration.to("gram / liter")
     density = _validated_solution_density(solution_density)
 
@@ -297,6 +349,7 @@ def mass_fraction_to_mass_concentration(
     ``mass_fraction`` must be dimensionless and may be supplied as an explicit
     ratio such as ``milligram / kilogram`` or ``microgram / kilogram``.
     """
+    _require_finite_quantity_magnitude(mass_fraction, name="Mass fraction")
     fraction = mass_fraction.to("dimensionless")
     density = _validated_solution_density(solution_density)
 
@@ -314,6 +367,10 @@ def mass_concentration_to_amount_concentration(
     state where applicable, as ``mass_concentration``. No chemical identity is
     inferred from either unit expression.
     """
+    _require_finite_quantity_magnitude(
+        mass_concentration,
+        name="Mass concentration",
+    )
     concentration = mass_concentration.to("gram / liter")
     normalized_molar_mass = _validated_molar_mass(molar_mass)
 
@@ -330,6 +387,10 @@ def amount_concentration_to_mass_concentration(
     ``molar_mass`` must identify the same chemical entity, including hydration
     state where applicable, as ``amount_concentration``.
     """
+    _require_finite_quantity_magnitude(
+        amount_concentration,
+        name="Amount concentration",
+    )
     concentration = amount_concentration.to("mole / liter")
     normalized_molar_mass = _validated_molar_mass(molar_mass)
 
