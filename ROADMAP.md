@@ -359,10 +359,10 @@ against the exact release tag before release artifacts may be built or published
 to PyPI, so publishing cannot rely only on an earlier CI run. GitHub Actions
 dependencies used by CI and publishing are pinned to immutable commits.
 
-The third internal-review fix batch makes the release toolchain itself
-deterministic. CI and publishing use an explicit uv version, the Hatchling
-build backend is pinned, and release metadata validation uses an explicit Twine
-version rather than resolving whatever happens to be latest at release time.
+The third internal-review fix batch reduces direct release-toolchain drift. CI
+and publishing use an explicit uv version, the Hatchling build backend is
+pinned, and release metadata validation uses an explicit Twine version rather
+than resolving a different top-level tool version at release time.
 The same packaging pass also reconciles stale third-party and API wording with
 the intentional Pint re-export boundary.
 
@@ -370,6 +370,13 @@ The fourth internal-review fix batch closes a remaining finite-result boundary i
 context-backed solution-chemistry helpers. Pint performs ordinary target-unit
 scaling after a context transformation, so the public helpers now validate the
 fully converted return quantity as well as the transformation itself.
+
+The fifth internal-review fix batch hardens distribution integrity. Release builds
+ignore any local uv source overrides, inspect wheel and source-distribution
+contents for required runtime and license resources, and smoke-test both built
+artifacts in isolated environments before they can be attached or published.
+Packaging metadata also explicitly declares the MIT license file using the
+current standardized license-file field.
 
 The project-specific pre-release checklist is run only after both internal and
 external review findings are closed.

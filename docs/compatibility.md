@@ -84,5 +84,7 @@ The compatibility audit is complete when:
 - public registry construction and dimension-error handling do not require a
   downstream Pint import.
 
-Release-artifact installation and final packaging checks remain part of the
-separate pre-release checklist rather than this compatibility audit.
+The release workflow performs baseline distribution-content inspection and
+isolated install/import smoke tests before publishing. The project-specific
+pre-release checklist remains a separate final release gate and may repeat or
+extend those packaging checks after internal and external review are complete.

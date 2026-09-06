@@ -99,10 +99,95 @@ jobs:
           fi
 
       - name: Build distributions
-        run: uv build
+        run: uv build --no-sources
 
       - name: Validate distributions
         run: uvx --from twine==7.0.0 twine check dist/*
+
+      - name: Inspect distribution contents
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import tarfile
+          import zipfile
+
+          dist = Path("dist")
+          wheels = sorted(dist.glob("*.whl"))
+          sdists = sorted(dist.glob("*.tar.gz"))
+          if len(wheels) != 1 or len(sdists) != 1:
+              raise SystemExit(
+                  f"expected one wheel and one sdist, found {wheels=} {sdists=}"
+              )
+
+          required_wheel = {
+              "fermunits/py.typed",
+              "fermunits/definitions/solution_chemistry.txt",
+              "fermunits/definitions/vessels.txt",
+          }
+          with zipfile.ZipFile(wheels[0]) as archive:
+              names = set(archive.namelist())
+          missing = required_wheel - names
+          if missing:
+              raise SystemExit(f"wheel is missing runtime resources: {sorted(missing)}")
+          if not any(name.endswith(".dist-info/licenses/LICENSE") for name in names):
+              raise SystemExit("wheel is missing LICENSE metadata")
+
+          required_sdist_suffixes = {
+              "/LICENSE",
+              "/pyproject.toml",
+              "/src/fermunits/py.typed",
+              "/src/fermunits/definitions/solution_chemistry.txt",
+              "/src/fermunits/definitions/vessels.txt",
+          }
+          with tarfile.open(sdists[0], "r:gz") as archive:
+              names = set(archive.getnames())
+          for suffix in required_sdist_suffixes:
+              if not any(name.endswith(suffix) for name in names):
+                  raise SystemExit(f"sdist is missing required file ending in {suffix}")
+          PY
+
+      - name: Smoke-test built wheel
+        shell: bash
+        run: |
+          wheel="$(find dist -maxdepth 1 -name '*.whl' -print -quit)"
+          version="$(sed -n 's/^version = "\([^"]*\)"$/\1/p' pyproject.toml | head -1)"
+          FERMUNITS_EXPECTED_VERSION="$version" \
+            uv run --isolated --no-project --with "$wheel" -- python - <<'PY'
+          import os
+          from importlib.metadata import distribution
+          from importlib.resources import files
+
+          from fermunits import PHValue, Q_, UnitRegistry, __version__, create_registry
+
+          assert __version__ == os.environ["FERMUNITS_EXPECTED_VERSION"]
+          assert Q_(1, "firkin").to("imperial_gallon").magnitude == 9
+          assert Q_(1, "milliequivalent").to("equivalent").magnitude == 0.001
+          assert PHValue(7.0).value == 7.0
+          assert isinstance(create_registry(), UnitRegistry)
+          assert files("fermunits").joinpath("py.typed").is_file()
+          assert files("fermunits.definitions").joinpath("vessels.txt").is_file()
+          metadata_files = distribution("ferm-units").files or []
+          assert any(
+              str(path).endswith(".dist-info/licenses/LICENSE")
+              for path in metadata_files
+          )
+          PY
+
+      - name: Smoke-test source distribution
+        shell: bash
+        run: |
+          sdist="$(find dist -maxdepth 1 -name '*.tar.gz' -print -quit)"
+          version="$(sed -n 's/^version = "\([^"]*\)"$/\1/p' pyproject.toml | head -1)"
+          FERMUNITS_EXPECTED_VERSION="$version" \
+            uv run --isolated --no-project --with "$sdist" -- python - <<'PY'
+          import os
+
+          from fermunits import Q_, __version__
+
+          assert __version__ == os.environ["FERMUNITS_EXPECTED_VERSION"]
+          assert Q_(1, "brewing_hogshead").to("imperial_gallon").magnitude == 54
+          assert Q_(1, "milliequivalent").to("equivalent").magnitude == 0.001
+          PY
 
       - name: Attach distributions to GitHub release
         env:

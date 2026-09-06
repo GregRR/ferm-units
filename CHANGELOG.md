@@ -21,6 +21,9 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Fixed
 
+- Inspect and smoke-test the built wheel and source distribution before release
+  artifacts are attached or published, including packaged unit definitions,
+  typing metadata, license metadata, and isolated imports.
 - Validate the final Pint target-unit conversion returned by context-backed
   solution-chemistry helpers so unit scaling cannot silently produce a
   nonfinite public result after the context transformation itself succeeds.
@@ -36,9 +39,10 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
-- Pin the CI/release uv executable, Hatchling build backend, and Twine
-  distribution validator to explicit versions so release behavior does not
-  silently change when upstream tooling publishes a new release.
+- Declare the MIT license file explicitly with PEP 639 `license-files` metadata
+  and remove the deprecated PyPI license classifier.
+- Pin the direct CI/release uv executable, Hatchling build backend, and Twine
+  distribution validator versions to reduce release-toolchain drift.
 - Update third-party and API documentation to reflect the complete intentional
   Pint re-export boundary and current development-line compatibility wording.
 - Complete the pre-1.0 downstream compatibility audit by moving maintained
