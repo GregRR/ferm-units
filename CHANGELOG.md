@@ -21,6 +21,9 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Fixed
 
+- Require the release workflow to rerun the full supported-Python test matrix
+  and quality gates against the exact release tag before building artifacts or
+  publishing to PyPI, and pin GitHub Actions dependencies to immutable commits.
 - Normalize finite-but-unrepresentable integer inputs, Pint quantity magnitudes,
   and context parameters to the documented `ValueError` contract instead of
   leaking raw `OverflowError` from Python numeric coercion.

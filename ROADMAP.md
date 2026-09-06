@@ -353,6 +353,12 @@ finite-result validation hole where mathematically finite integers or quantity
 magnitudes outside Python float range could leak raw `OverflowError` before the
 documented `ValueError` boundary was reached.
 
+The second internal-review fix batch hardens release automation. The publish
+workflow reruns the full Python 3.11-3.14 test matrix and all quality gates
+against the exact release tag before release artifacts may be built or published
+to PyPI, so publishing cannot rely only on an earlier CI run. GitHub Actions
+dependencies used by CI and publishing are pinned to immutable commits.
+
 The project-specific pre-release checklist is run only after both internal and
 external review findings are closed.
 
