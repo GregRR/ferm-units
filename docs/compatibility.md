@@ -98,6 +98,10 @@ release. Ordinary CI and release quality checks both verify the lockfile.
 
 The workflow performs baseline distribution-content inspection and symmetric
 isolated install/import smoke tests for both wheel and source distribution before
-PyPI publishing. The project-specific pre-release checklist remains a separate
-final release gate and may repeat or extend those packaging checks after internal
-and external review are complete.
+publication. Stable GitHub releases publish to production PyPI after those gates;
+GitHub prereleases do not publish automatically to production PyPI, though their
+verified artifacts may still be attached to the GitHub prerelease.
+
+The project-specific pre-release checklist remains a separate final release gate
+and may repeat or extend those packaging checks after internal and external
+review are complete.

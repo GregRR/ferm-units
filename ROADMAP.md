@@ -402,6 +402,10 @@ remain read-only while a separate minimal-permission job attaches release
 assets, and wheel/source-distribution smoke tests exercise the same packaged
 runtime and license resources.
 
+The final external-review reconciliation makes release-channel policy explicit:
+GitHub prereleases may build, verify, and attach artifacts, but only stable GitHub
+releases publish automatically to production PyPI.
+
 The project-specific pre-release checklist is run only after both internal and
 external review findings are closed.
 

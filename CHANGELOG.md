@@ -21,6 +21,8 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Fixed
 
+- Prevent GitHub prereleases from publishing automatically to production PyPI;
+  prerelease artifacts may still be built, verified, and attached to GitHub.
 - Resolve the GitHub release event to one immutable commit SHA and reuse it for
   release testing, quality checks, and artifact builds; isolate GitHub-release
   write permission from dependency-executing build steps; verify the lockfile in
