@@ -3,6 +3,17 @@ name: Publish release
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to publish
+        required: true
+        type: string
+      publish_to_pypi:
+        description: Publish validated distributions to production PyPI
+        required: true
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -13,24 +24,31 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       commit_sha: ${{ steps.release.outputs.commit_sha }}
+      release_tag: ${{ steps.release.outputs.release_tag }}
+      publish_to_pypi: ${{ steps.release.outputs.publish_to_pypi }}
 
     steps:
       - name: Check out release commit
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ github.sha }}
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.sha }}
 
       - name: Verify release context
         id: release
         shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_SHA: ${{ github.sha }}
+          RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.event.release.tag_name }}
+          PUBLISH_TO_PYPI: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_to_pypi || github.event.release.prerelease == false }}
         run: |
           commit="$(git rev-parse HEAD)"
-          if [[ "$commit" != "${{ github.sha }}" ]]; then
-            echo "Checked-out commit $commit does not match release event SHA ${{ github.sha }}" >&2
+          if [[ "$EVENT_NAME" == "release" && "$commit" != "$EVENT_SHA" ]]; then
+            echo "Checked-out commit $commit does not match release event SHA $EVENT_SHA" >&2
             exit 1
           fi
 
-          tag="${{ github.event.release.tag_name }}"
+          tag="$RELEASE_TAG"
           version="$(sed -n 's/^version = "\([^"]*\)"$/\1/p' pyproject.toml | head -1)"
           expected="v${version}"
           if [[ "$tag" != "$expected" ]]; then
@@ -39,6 +57,8 @@ jobs:
           fi
 
           echo "commit_sha=$commit" >> "$GITHUB_OUTPUT"
+          echo "release_tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "publish_to_pypi=$PUBLISH_TO_PYPI" >> "$GITHUB_OUTPUT"
 
   test:
     needs: resolve
@@ -246,12 +266,17 @@ jobs:
       - name: Attach distributions to GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload "${{ github.event.release.tag_name }}" dist/* --clobber
+        run: |
+          gh release upload \
+            "${{ needs.resolve.outputs.release_tag }}" \
+            dist/* \
+            --clobber \
+            --repo "${{ github.repository }}"
 
   publish:
     name: Publish to PyPI
-    needs: release_assets
-    if: ${{ github.event.release.prerelease == false }}
+    needs: [resolve, release_assets]
+    if: ${{ needs.resolve.outputs.publish_to_pypi == 'true' }}
     runs-on: ubuntu-latest
     environment:
       name: pypi

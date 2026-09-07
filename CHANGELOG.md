@@ -2,6 +2,14 @@
 
 All notable changes to FermUnits will be documented in this file.
 
+## Unreleased
+
+### Fixed
+
+- Make GitHub release-asset upload independent of a repository checkout and add
+  an explicit manual recovery path that can rebuild, attach, and publish an
+  existing immutable release tag after release-automation failure.
+
 ## 1.0.0 - 2026-09-06
 
 ### Added
