@@ -820,11 +820,14 @@ remains pending.
 
 #### [BR-EBC-TORRENT-2006] CO2 correction factor for the net contents of containers
 
-- Author: J. Torrent
+- Author: Josep Torrent
 - Submitted on behalf of: Analysis Committee of the European Brewery Convention
-- Publication: *BrewingScience*, 60(11/12), 3–4, 2006
-- URL: `https://brewingscience.de/index.php/brewingscience/article/view/503`
-- Accessed: 2026-08-30
+- Publication: *Journal of the Institute of Brewing*, 112(4), 380–381, 2006
+- DOI: `10.1002/j.2050-0416.2006.tb00743.x`
+- Publisher PDF: `https://onlinelibrary.wiley.com/doi/pdf/10.1002/j.2050-0416.2006.tb00743.x`
+- Accessible parallel publication record: *BrewingScience*, 60(11/12), 3–4, 2006
+- Accessible URL: `https://brewingscience.de/index.php/brewingscience/article/view/503`
+- Accessed: 2026-09-07
 - Tier: 4
 - Supports:
   - `k = 506.07 mL/g` as the conversion constant for CO2 in volumes to CO2 by
