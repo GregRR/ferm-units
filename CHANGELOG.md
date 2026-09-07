@@ -21,6 +21,10 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Fixed
 
+- Resolve the GitHub release event to one immutable commit SHA and reuse it for
+  release testing, quality checks, and artifact builds; isolate GitHub-release
+  write permission from dependency-executing build steps; verify the lockfile in
+  ordinary CI; and make wheel/sdist smoke-test coverage symmetric.
 - Correct pre-1.0 review inconsistencies in wine-vessel source status, pH
   verification scope, CaCO3 reporting attribution, Pint-derived barrel
   terminology, downstream contract coverage, ignore rules, and historical

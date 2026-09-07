@@ -90,7 +90,14 @@ The compatibility audit is complete when:
 - public registry construction and dimension-error handling do not require a
   downstream Pint import.
 
-The release workflow performs baseline distribution-content inspection and
-isolated install/import smoke tests before publishing. The project-specific
-pre-release checklist remains a separate final release gate and may repeat or
-extend those packaging checks after internal and external review are complete.
+The release workflow resolves the GitHub release event to one immutable commit
+SHA and reuses that SHA for the supported-Python test matrix, quality checks, and
+artifact build. The dependency-executing build job remains read-only; a separate
+minimal-permission job attaches the already-built distributions to the GitHub
+release. Ordinary CI and release quality checks both verify the lockfile.
+
+The workflow performs baseline distribution-content inspection and symmetric
+isolated install/import smoke tests for both wheel and source distribution before
+PyPI publishing. The project-specific pre-release checklist remains a separate
+final release gate and may repeat or extend those packaging checks after internal
+and external review are complete.

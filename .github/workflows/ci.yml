@@ -48,6 +48,9 @@ jobs:
           version: "0.12.10"
           python-version: "3.11"
 
+      - name: Verify lockfile
+        run: uv lock --check
+
       - name: Sync locked environment
         run: uv sync --locked --dev
 

@@ -395,6 +395,13 @@ than canonical aliases; the scalar carbonation pair is retained for 1.x; and the
 maintained consumer contracts cover the remaining general equivalence and scalar
 carbonation boundaries. Historical 0.1.2 changelog duplication is corrected.
 
+The third external-review fix batch closes the remaining release-engineering
+hardening findings. The release event commit is resolved once and passed as an
+immutable SHA to every checkout, ordinary CI verifies the lockfile, build jobs
+remain read-only while a separate minimal-permission job attaches release
+assets, and wheel/source-distribution smoke tests exercise the same packaged
+runtime and license resources.
+
 The project-specific pre-release checklist is run only after both internal and
 external review findings are closed.
 
