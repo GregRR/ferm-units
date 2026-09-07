@@ -4,12 +4,12 @@ FermUnits is a Pint-based Python library for units, measurement scales, and
 conversions used in brewing, winemaking, cider making, mead making, distilling,
 and related fermentation industries.
 
-> **Project status:** alpha. **Latest release:** 0.1.3. FermUnits has a released,
-> tested core covering brewing units and calculations plus shared
+> **Project status:** stable. **Latest release:** 1.0.0. FermUnits provides a
+> tested public API covering brewing units and calculations plus shared
 > solution-chemistry conversions for downstream fermentation-engineering work.
-> Public APIs and domain coverage may still evolve before 1.0. Relationships
-> awaiting primary-source verification remain explicitly provisional and are
-> tracked in the project documentation.
+> The documented public API and semantics are intended to remain compatible
+> throughout the 1.x series. Relationships awaiting stronger source verification
+> remain explicitly provisional and are tracked in the project documentation.
 
 ## Installation and development
 

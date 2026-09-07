@@ -183,16 +183,16 @@ requires them; FermUnits does not mirror Pint's top-level namespace.
 Registry aliases require particular care because adding or changing a unit name
 can alter parsing globally for every downstream user of the registry.
 
-FermUnits is currently alpha software. Public APIs and domain coverage may still
-evolve before 1.0, but changes should preserve clear semantics and avoid silent
-reinterpretation of existing names or values. During alpha stabilization, a
-misleading or ambiguous public name may be removed when retaining it would make
-the 1.0 contract less precise. Such removals must be called out in the changelog,
-documented with the preserved or preferred alternative, and covered by tests so
-the removed name cannot silently acquire a different meaning.
+FermUnits 1.x treats the documented package-level public API and its stated
+semantics as intentionally stable. Domain coverage may continue to expand, but
+existing supported names and meanings should not be silently reinterpreted.
+Breaking changes to supported public names or semantics should normally use a
+documented deprecation period and an appropriate major release.
 
-After 1.0, breaking changes to supported public names or semantics should
-normally use a documented deprecation period and an appropriate major release.
+The pre-1.0 stabilization cycle removed one misleading alpha-era name,
+`wine_hogshead`, before the 1.x compatibility contract was established. That
+historical removal remains documented in the changelog and maintained reference
+material; it is not a precedent for unannounced removals during 1.x.
 
 Validated public numeric conversions also have a finite-result contract. When
 FermUnits accepts finite scalar inputs or finite scalar Pint quantities and the

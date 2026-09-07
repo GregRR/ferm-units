@@ -2,7 +2,7 @@
 
 All notable changes to FermUnits will be documented in this file.
 
-## Unreleased
+## 1.0.0 - 2026-09-06
 
 ### Added
 

@@ -1,8 +1,8 @@
 # Compatibility Policy
 
-This document records the runtime and downstream compatibility contract that
-FermUnits intends to stabilize before 1.0. It complements the public API
-reference in [`API.md`](API.md) and the scientific verification audit in
+This document records the runtime and downstream compatibility contract for
+FermUnits 1.x. It complements the public API reference in [`API.md`](API.md) and
+the scientific verification baseline in
 [`verification-status.md`](verification-status.md).
 
 ## Supported Python versions
@@ -71,17 +71,17 @@ into this library.
 
 ## Public package surface
 
-`fermunits.__all__` is treated as an intentional compatibility surface during
-pre-1.0 stabilization. A regression test records the complete current inventory
-so additions and removals require an explicit source change rather than occurring
-accidentally through import refactoring.
+`fermunits.__all__` is an intentional 1.x compatibility surface. A regression
+test records the complete current inventory so additions and removals require an
+explicit source change rather than occurring accidentally through import
+refactoring.
 
 `__version__` remains public package metadata but intentionally sits outside
 `__all__`.
 
-## Pre-1.0 review disposition
+## 1.0 compatibility baseline
 
-The compatibility audit is complete when:
+The 1.0 compatibility audit established that:
 
 - every supported Python version passes the full suite in CI;
 - the supported Pint range and upgrade policy are documented;
@@ -102,6 +102,6 @@ publication. Stable GitHub releases publish to production PyPI after those gates
 GitHub prereleases do not publish automatically to production PyPI, though their
 verified artifacts may still be attached to the GitHub prerelease.
 
-The project-specific pre-release checklist remains a separate final release gate
-and may repeat or extend those packaging checks after internal and external
-review are complete.
+The project-specific pre-release checklist is a separate final release gate and
+may repeat or extend those packaging checks after internal and external review
+are complete.

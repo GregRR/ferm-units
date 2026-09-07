@@ -1,9 +1,9 @@
 # FermUnits roadmap
 
-FermUnits is an alpha-stage library for fermentation-industry units,
-measurement scales, and reusable conversions built on Pint.
+FermUnits is a stable library for fermentation-industry units, measurement
+scales, and reusable conversions built on Pint.
 
-The latest published release is **0.1.3**. This roadmap describes development
+The latest published release is **1.0.0**. This roadmap describes development
 priorities after that release. It is intentionally milestone-oriented rather
 than tied to speculative release numbers or dates.
 
@@ -35,7 +35,7 @@ status are tracked separately.
 
 ## Milestone 1 — Draft-system compatibility
 
-**Status: complete in current development**
+**Status: complete for the 1.0 baseline**
 
 Make FermUnits a reliable unit boundary for the Draft System Engine without
 moving draft-system engineering models into this library.
@@ -75,7 +75,7 @@ boundary.
 
 ## Milestone 2 — Carbonation source verification
 
-**Status: complete for the current development cycle; direct ASBC method-text verification remains pending**
+**Status: complete for the 1.0 baseline; direct ASBC method-text verification remains pending**
 
 Carbonation is already implemented provisionally and is an important dependency
 for draft-system work. Strengthen its source record before treating the
@@ -97,7 +97,7 @@ The unresolved direct ASBC checks remain tracked in `docs/asbc-verification.md`.
 
 ## Milestone 3 — Brewing verification backlog
 
-**Status: complete in current development**
+**Status: complete for the 1.0 baseline**
 
 Continue converting implemented-but-provisional brewing relationships into
 well-sourced, explicitly scoped behavior.
@@ -120,7 +120,7 @@ Priority topics include:
 The goal is not merely more formulas. It is to make the scientific status and
 scope of existing functionality increasingly precise.
 
-Completed verification batches in current development:
+Completed verification batches for the 1.0 baseline:
 
 - gravity/extract measurement semantics and source-status review;
 - SRM/EBC, Lovibond, and analytical bitterness source/status review;
@@ -140,7 +140,7 @@ implementable work.
 
 ## Milestone 4 — Solution-chemistry semantic boundaries
 
-**Status: complete in current development**
+**Status: complete for the 1.0 baseline**
 
 Revisit semantic quantities that go beyond ordinary Pint dimensionality, using
 Water Chemistry Engine and FermentationJSON requirements to decide what belongs in
@@ -301,9 +301,11 @@ new public API was added without a concrete downstream requirement. Future domai
 additions remain demand-driven and must follow the naming and ownership rules in
 `DESIGN.md`.
 
-## Pre-1.0 stabilization
+## 1.0 stabilization and review
 
-Before a 1.0 release, review the project as a whole for:
+**Status: complete for 1.0.0**
+
+The 1.0 stabilization and review cycle covered:
 
 - public API consistency and naming stability;
 - registry aliases and collision behavior;
@@ -333,9 +335,9 @@ conversions.
 The third stabilization slice centralizes the source-verification audit for every
 implemented semantic relationship in `docs/verification-status.md`. It separates
 API stability from scientific verification, records which implemented behavior is
-ready as documented, and identifies the remaining Provisional relationships that
-deserve explicit external-review attention before 1.0. Unimplemented M6 research
-candidates remain outside this stabilization requirement.
+ready as documented, and identified the remaining Provisional relationships for
+explicit external-review attention. Unimplemented M6 research candidates remain
+outside this stabilization requirement.
 
 The fourth stabilization slice closes the downstream compatibility audit. Python
 3.11 through 3.14 remain the supported runtime matrix, Pint remains constrained to
@@ -346,9 +348,9 @@ Water Chemistry Engine and draft-system contract suites no longer import Pint
 directly. The package-level `__all__` inventory is regression-tested to prevent
 accidental public-surface drift.
 
-After these focused stabilization slices, the project enters a deep internal
-pre-1.0 review. Findings from that review should be resolved before the repository
-is handed to an external reviewer. The first internal-review fix batch closes a
+After these focused stabilization slices, the project completed a deep internal
+review followed by a deep external review. Findings from both reviews were
+resolved before release preparation. The first internal-review fix batch closed a
 finite-result validation hole where mathematically finite integers or quantity
 magnitudes outside Python float range could leak raw `OverflowError` before the
 documented `ValueError` boundary was reached.
@@ -379,7 +381,7 @@ Packaging metadata also explicitly declares the MIT license file using the
 current standardized license-file field.
 
 The deep external review found no release blocker and identified a focused
-pre-1.0 remediation list. The first external-review fix batch addresses the
+1.0 remediation list. The first external-review fix batch addresses the
 high-priority public-boundary findings: carbonation can return quantities in an
 explicit isolated registry, solution-chemistry wrapper and raw-context validation
 share one controlled `ValueError` boundary, the intentional public `Quantity`
@@ -406,12 +408,12 @@ The final external-review reconciliation makes release-channel policy explicit:
 GitHub prereleases may build, verify, and attach artifacts, but only stable GitHub
 releases publish automatically to production PyPI.
 
-The project-specific pre-release checklist is run only after both internal and
-external review findings are closed.
+The project-specific pre-release checklist is the final gate after both internal
+and external review findings are closed.
 
-A 1.0 release should indicate that the supported public API and documented
-semantics are intentionally stable, not that every conceivable fermentation
-domain has been implemented.
+The 1.0.0 release indicates that the supported public API and documented
+semantics are intentionally stable; it does not imply that every conceivable
+fermentation domain has been implemented.
 
 ## Roadmap principles
 

@@ -1,11 +1,10 @@
 # FermUnits Public API
 
-This document is the canonical user-facing API reference for the current
-FermUnits development version. The latest published release is 0.1.3; unreleased
-API changes on `main` are recorded in [`../CHANGELOG.md`](../CHANGELOG.md). It
-describes the public names exported by `fermunits`, the FermUnits-specific
+This document is the canonical user-facing API reference for FermUnits 1.0.0.
+It describes the public names exported by `fermunits`, the FermUnits-specific
 unit definitions loaded into its registry, and the Pint functionality available
-through the public FermUnits objects.
+through the public FermUnits objects. Subsequent changes are recorded in
+[`../CHANGELOG.md`](../CHANGELOG.md).
 
 For the scientific basis, source status, assumptions, and limitations behind a
 conversion, follow the links to the domain reference documents. This API page
@@ -71,9 +70,9 @@ that cannot be reached through the public FermUnits objects, that should be
 considered a FermUnits API gap rather than a reason for ordinary downstream code
 to begin depending directly on Pint.
 
-The current development line retains the Pint `>=0.25.3,<0.26` constraint
-used by the 0.1.3 release. See [`compatibility.md`](compatibility.md) for the
-version-support and Pint-upgrade policy.
+FermUnits 1.0.0 uses the Pint `>=0.25.3,<0.26` compatibility range. See
+[`compatibility.md`](compatibility.md) for the version-support and Pint-upgrade
+policy.
 
 ## Public package surface
 
@@ -771,8 +770,8 @@ modules, or implementation-only helpers beginning with an underscore.
   pending legacy relationships.
 - [`sources.md`](sources.md) — project-wide source hierarchy, citation rules, and
   source ledger.
-- [`verification-status.md`](verification-status.md) — centralized pre-1.0 audit
-  of source status for relationships FermUnits already implements.
+- [`verification-status.md`](verification-status.md) — 1.0 scientific-verification
+  baseline for relationships FermUnits already implements.
 - [`compatibility.md`](compatibility.md) — supported Python/Pint policy, public
   dependency boundary, and maintained downstream contracts.
 - [`../DESIGN.md`](../DESIGN.md) — architectural decisions and the FermUnits/Pint
