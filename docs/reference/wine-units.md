@@ -239,9 +239,12 @@ Ownership:
 - overpressure versus absolute pressure is reference semantics, not a separate
   FermUnits unit;
 - dissolved CO2 is an ordinary mass concentration once measured;
-- FermUnits' beverage-wide carbonation helpers may represent mass concentration
-  and the separate `volumes CO2` scale, but they do not provide a universal
-  sparkling-wine pressure↔dissolved-CO2 equilibrium model;
+- FermUnits' beverage-wide carbonation helpers define `volumes CO2` as
+  reference-state gas volume at `273.15 K` and `101.325 kPa` per liquid volume
+  and convert that scale to physical mass concentration. [SH-UF-CO2-01]
+- they do not provide a universal sparkling-wine
+  pressure↔dissolved-CO2 equilibrium model, because temperature and beverage
+  composition affect equilibrium solubility. [SH-LIGER-BELAIR-2025]
 - tirage and dosage sugar amounts expressed in g/L are ordinary mass
   concentrations, while process role is downstream metadata.
 

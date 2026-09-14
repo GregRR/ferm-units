@@ -227,20 +227,20 @@ grams_per_liter = co2_volumes_to_grams_per_liter(2.5)
 volumes = co2_grams_per_liter_to_volumes(grams_per_liter)
 ```
 
-The current factor is supported by an EBC Analysis Committee publication that
-reports an ASBC-adopted packaging equation using `506.07 mL/g` as the
-conversion constant between CO2 volumes and CO2 by weight. Independent
-physical data place CO2 gas density at approximately `1.976 g/L` at 0 °C and
-760 mmHg, while University of Florida IFAS beverage guidance describes
-volumes of CO2 as standard-state gas volume per liquid volume and uses a rounded
-`1.96 g/L` convention. Direct review of the applicable ASBC Beer-13 and Fills-1
-method text is still needed to establish the normative reference state and
-reporting precision, so the FermUnits relationship remains provisional.
+For these APIs, one volume of CO2 means one volume of CO2 gas at `273.15 K`
+and `101.325 kPa` per equal volume of beverage. Peer-reviewed analysis of the
+ASBC Beer-13 chart states that reference condition explicitly. FermUnits uses
+the sourced `506.07 mL/g` volumes-to-weight factor, equivalent to approximately
+`1.976011 g/L` per volume and consistent with independent CO2 density data at
+the same reference state. The direct volumes-to-mass-concentration relationship
+is therefore Verified.
 
 The same factor is used in both directions to preserve round-trip consistency.
-Gauge versus absolute pressure, carbonation-equilibrium pressure, gas blends,
-and draft-system balancing are downstream engineering semantics rather than
-FermUnits unit definitions.
+This reference-state conversion is not a carbonation-equilibrium model: beer
+composition can affect CO2 solubility, so FermUnits does not encode a universal
+pressure/temperature chart or Henry coefficient for beer. Gauge versus absolute
+pressure, equilibrium modeling, gas blends, and draft-system balancing remain
+downstream engineering semantics.
 
 ## Hydrometer temperature correction
 

@@ -41,10 +41,10 @@ new public API.
 
 Known follow-up work includes:
 
-- direct authoritative ASBC method-text verification for the implemented
-  carbonation relationship, especially its normative reference state and
-  reporting precision; unresolved checks remain tracked in
-  `docs/asbc-verification.md`;
+- continued carbonation source review where newer method text or research can
+  refine method history, reporting practice, or composition-aware equilibrium
+  modeling; the implemented reference-state conversion itself is Verified and
+  equilibrium modeling remains downstream;
 - hydrometer temperature correction, which remains intentionally unimplemented
   until a defensible authoritative method and scope are available;
 - strengthening relationships that remain Provisional in
@@ -109,10 +109,13 @@ unit behavior. Draft-system engineering models remain downstream.
 
 ### Milestone 2 — Carbonation source verification
 
-Completed the accessible-source review for carbonation and documented the
-remaining direct ASBC verification gap. The implemented relationship remains
-Provisional where authoritative method text has not established normative
-reference conditions or reporting precision.
+Completed the carbonation source review and verified the implemented
+reference-state conversion. Peer-reviewed Beer-13 analysis establishes
+`273.15 K` and `101.325 kPa` as the gas-volume reporting state, while the
+`506.07 mL/g` brewing-industry factor and independent CO2 density data support
+the reciprocal mass-concentration conversion. Universal pressure/temperature
+equilibrium modeling remains out of scope because beer composition affects CO2
+solubility.
 
 ### Milestone 3 — Brewing verification backlog
 

@@ -8,8 +8,9 @@ from pint import Quantity, UnitRegistry
 import fermunits.registry as _registry
 
 _MILLILITERS_PER_LITER = 1000.0
-_CO2_MILLILITERS_PER_GRAM = 506.07
-_GRAMS_PER_LITER_PER_VOLUME = _MILLILITERS_PER_LITER / _CO2_MILLILITERS_PER_GRAM
+# FermUnits "volumes of CO2" uses gas volume at 273.15 K and 101.325 kPa.
+_CO2_STP_MILLILITERS_PER_GRAM = 506.07
+_GRAMS_PER_LITER_PER_VOLUME = _MILLILITERS_PER_LITER / _CO2_STP_MILLILITERS_PER_GRAM
 
 
 def _require_nonnegative_finite(value: float, name: str) -> None:
@@ -69,16 +70,14 @@ def co2_volumes_to_mass_concentration(
     when the result must participate in arithmetic with quantities from an
     isolated FermUnits registry.
 
-    The factor reuses the 506.07 mL/g volumes-to-weight conversion constant
-    reported by an EBC Analysis Committee publication inside an ASBC-adopted
-    Fills-1 package-density equation. It gives approximately 1.976 g/L per
-    volume.
+    One volume of CO₂ means one volume of CO₂ gas at 273.15 K and
+    101.325 kPa per equal volume of beverage. The factor uses the sourced
+    506.07 mL/g volumes-to-weight conversion constant, giving approximately
+    1.976011 g/L per volume.
 
-    That source does not state the reference temperature or pressure attached
-    to the constant, and FermUnits does not implement the surrounding package-
-    density correction terms. Direct Beer-13/Fills-1 method verification is
-    still pending, so this standalone mass-concentration interpretation remains
-    provisional.
+    This is a verified reference-state reporting conversion. It is not a model
+    of carbonation equilibrium versus temperature, pressure, alcohol, extract,
+    or other beer-composition variables.
     """
     _require_nonnegative_finite(co2_volumes, "CO2 volumes")
 
@@ -97,8 +96,8 @@ def co2_mass_concentration_to_volumes(
     """Convert a dissolved-CO₂ mass concentration to volumes of CO₂.
 
     ``mass_concentration`` may use any Pint unit dimensionally compatible with
-    mass per volume. The carbonation factor and reference conditions remain
-    provisional pending authoritative ASBC verification.
+    mass per volume. Volumes use the verified brewing reference state of
+    273.15 K and 101.325 kPa for the equivalent CO₂ gas volume.
     """
     normalized = _validated_co2_mass_concentration(mass_concentration)
 

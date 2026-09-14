@@ -373,64 +373,61 @@ When an authoritative method is known to exist but is not fully accessible:
 
 ### Volumes of CO2 and physical mass concentration
 
-* Status: **Provisional** — Milestone 2 accessible-source review complete; direct
-  ASBC method-text verification remains pending
+* Status: **Verified** for the FermUnits reference-state conversion
 * Implemented relationship:
 
-  * `grams per liter per volume = 1000 / 506.07`
-  * approximately `1.976 g/L` per volume of CO2;
+  * one volume of CO2 means one volume of CO2 gas at `273.15 K` and
+    `101.325 kPa` per equal volume of beverage;
+  * `grams per liter per volume = 1000 / 506.07`;
+  * approximately `1.976011 g/L` per volume of CO2;
   * inverse calculated from the same factor.
-* Confirmed from accessible sources:
+* Claim-specific verification:
 
-  * current ASBC materials identify Beer-13 as the dissolved-CO2 analytical
-    method family and Beer-13C as a manometric/volumetric method;
-  * current ASBC materials identify Fills-1 as a packaging/net-content method,
-    so Fills-1 must not be described as the primary dissolved-CO2 analytical
-    method;
+  * Speers and MacIntosh (2013) explicitly describe the ASBC Beer-13 chart as
+    reporting volumes of CO2 at STP, defined as `273.15 K` and `101.325 kPa`,
+    dissolved per volume of beer;
   * Torrent (2006), submitted on behalf of the EBC Analysis Committee, reports
     an ASBC-adopted Fills-1 equation using `k = 506.07 mL/g` as the conversion
-    constant for CO2 in volumes to CO2 by weight; the paper places `k` inside a
-    larger package-density equation and does not state its reference temperature
-    or pressure;
-  * independent physical data give CO2 gas density near `1.976 g/L` at `0 °C`
-    and `760 mmHg`, which corroborates the magnitude but does not establish
-    Torrent's or ASBC's normative reference state;
-  * University of Florida beverage guidance defines volumes of CO2 as
-    standard-state gas volume per liquid volume and uses `1.96 g/L` as its
-    calculation convention.
-* Density/specific-gravity interpretation:
+    constant for CO2 in volumes to CO2 by weight;
+  * independent physical-property data give CO2 gas density near `1.976 g/L` at
+    `0 °C` and `760 mmHg`, matching the same reference state and the reciprocal
+    of Torrent's conversion constant;
+  * the combined source set therefore directly supports both the semantic
+    reference state and numerical conversion used by FermUnits.
+* Reporting-precision boundary:
+
+  * FermUnits converts the underlying reference-state quantity and does not
+    prescribe Beer-13 display rounding or analytical reporting precision;
+  * direct access to the current Beer-13 method text may still improve method
+    history and reporting documentation, but it is no longer a blocker to the
+    verification status of this conversion.
+* Equilibrium-solubility boundary:
+
+  * Beer-13 pressure/temperature equilibrium values must not be treated as a
+    universal model for all beer compositions;
+  * Speers and MacIntosh identify alcohol and extract as relevant to beer CO2
+    solubility and describe the historical chart as a "standard beer" model;
+  * Liger-Belair and Cilindre (2021) independently continue to treat beer
+    composition as relevant to CO2 solubility;
+  * Guadalupe-Daqui et al. (2023) use the Speers-and-MacIntosh composition-aware
+    relationship in brewing-fermentation calculations;
+  * Liger-Belair (2025) reviews sparkling-beverage models in terms of the
+    combined effects of temperature, sugar, and ethanol;
+  * FermUnits intentionally implements no universal pressure↔dissolved-CO2
+    equilibrium model.
+* Density/specific-gravity boundary:
 
   * Torrent's package-density equation uses `k` together with separate beverage
     density/specific gravity, residual-CO2, and CO2 partial-molal-volume terms;
-  * FermUnits reuses `k` alone for the direct volumes-to-mass-concentration
-    conversion and does not implement the separate Fills-1/EBC package-correction
-    model;
-  * this standalone reuse is an implementation interpretation supported by
-    Torrent's description of `k` as a volumes-to-weight conversion constant, not
-    yet a normatively verified Beer-13 reference-state definition.
-* Current treatment:
-
-  * one factor is used in both directions to preserve round-trip consistency;
-  * the rounded `1.96` and `0.51` pair from
-    [the legacy brewing inventory](reference/legacy/brewing-inventory.txt) is
-    not used as a reciprocal pair;
-  * the more precise ASBC/EBC-associated approximately `1.976 g/L` factor is
-    retained while the official ASBC reporting precision remains unresolved;
-  * values must be finite and nonnegative;
-  * no validity range from partial-molal-volume/package-density studies is
-    applied to the direct conversion without source support.
-* Still pending direct ASBC verification:
-
-  * inspect the applicable current Beer-13 method text directly;
-  * inspect the applicable current Fills-1 method text directly;
-  * confirm whether ASBC normatively defines one volume of CO2 at `0 °C` and
-    `760 mmHg` (`101.325 kPa`) or another reference state;
-  * confirm official rounding/reporting precision;
-  * document any legitimate alternative standard states used by other beverage
-    industries.
+  * FermUnits uses `k` only for the reference-state volumes-to-mass-concentration
+    conversion and does not implement the separate package-correction model;
+  * validity ranges for those package-density models do not become validity
+    ranges for this reference-state conversion.
 
 The canonical source records and their limitations are in the master ledger,
-[`sources.md`](sources.md), including `BR-ASBC-BEER13-01`,
-`BR-ASBC-FILLS1-01`, `BR-EBC-TORRENT-2006`, `SH-PUBCHEM-CO2-01`, and
-`SH-UF-CO2-01`. Claim-specific copies remain in
+[`sources.md`](sources.md), including `BR-SPEERS-MACINTOSH-2013`,
+`BR-LIGER-BELAIR-CILINDRE-2021`, `BR-GUADALUPE-DAQUI-2023`,
+`SH-LIGER-BELAIR-2025`, `BR-ASBC-BEER13-01`, `BR-ASBC-FILLS1-01`,
+`BR-EBC-TORRENT-2006`, `SH-PUBCHEM-CO2-01`, and `SH-UF-CO2-01`.
+Claim-specific copies remain in
 [`reference/brewing-units.md`](reference/brewing-units.md) for readability.

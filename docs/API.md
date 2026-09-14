@@ -643,8 +643,14 @@ Converts a reported Windisch-Kolbach value to degrees Lintner.
 
 ## Carbonation
 
-See [`reference/brewing-units.md`](reference/brewing-units.md) for the current
-verification status and reference-state limitations.
+See [`reference/brewing-units.md`](reference/brewing-units.md) for the source
+record and the equilibrium-model boundary.
+
+For these APIs, one volume of CO2 is one volume of CO2 gas at `273.15 K` and
+`101.325 kPa` per equal volume of beverage. The verified conversion uses
+`506.07 mL/g`, or approximately `1.976011 g/L` per volume. This is a
+reference-state reporting conversion, not a pressure/temperature equilibrium
+model for beer.
 
 The quantity-aware APIs are preferred when physical concentration is part of a
 larger unit-aware calculation.

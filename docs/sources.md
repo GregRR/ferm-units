@@ -9,9 +9,14 @@ actually relied on for a maintained project claim must also have a record here.
 
 ## Source-quality hierarchy
 
-Prefer sources in this order. A lower-tier source may be used provisionally when
-a higher-tier source is inaccessible, but the status must make that limitation
-clear.
+Use the tiers below as a default source-quality heuristic, not as a rule that a
+lower-numbered source automatically overrides more direct evidence. Authority is
+claim-specific: standards and official methods are primary for prescribed
+procedures, reporting conventions, and regulatory meanings, while peer-reviewed
+original research may be the primary and preferred authority for empirical
+relationships, physical behavior, validation, and demonstrated limitations of a
+standard method. Prefer the source or source set that most directly supports the
+claim being maintained.
 
 1. **Law, regulation, and formal standards**
    - statutes, regulations, metrology standards, official legal definitions;
@@ -72,9 +77,9 @@ Each source record should include:
 
 ### Verified
 
-The cited authoritative source directly supports the numerical definition,
-formula, reference conditions, jurisdiction, and intended meaning needed by the
-entry.
+The cited claim-appropriate source or source set directly supports the numerical
+definition, formula, reference conditions, jurisdiction, and intended meaning
+needed by the entry.
 
 A verified item may still be unimplemented.
 
@@ -249,6 +254,23 @@ current FermUnits specifications.
   - the `1.96 g/L` value is the guide's calculation convention and differs
     from the ASBC/EBC-associated approximately `1.976 g/L` factor retained by
     FermUnits.
+
+### [SH-LIGER-BELAIR-2025] Carbon Dioxide Solubility in Sugar and Water–Ethanol Solutions for Applications to Sparkling Drinks
+
+- Author: Gérard Liger-Belair
+- Publication: *ACS Food Science & Technology*, 5(1), 36–49, 2025
+- DOI: `10.1021/acsfoodscitech.4c00854`
+- URL: `https://doi.org/10.1021/acsfoodscitech.4c00854`
+- Accessed: 2026-09-14
+- Tier: 5 — peer-reviewed critical review
+- Supports:
+  - modern synthesis of CO2-solubility models for sparkling beverages around
+    the combined effects of temperature, sugar, and ethanol;
+  - continued treatment of beverage composition as relevant to equilibrium CO2
+    solubility in complex alcoholic beverages including beer.
+- Limitation:
+  - review evidence used as later synthesis and corroboration, not as a
+    substitute for the underlying primary studies.
 
 ### [SH-OIV-01] Compendium of International Methods of Wine and Must Analysis
 
@@ -607,6 +629,73 @@ support, but this ledger is the canonical project-wide source inventory.
     current standards text establishing the conversion;
   - does not establish a formal valid range or cross-method equivalence claim.
 
+### [BR-SPEERS-MACINTOSH-2013] Carbon Dioxide Solubility in Beer
+
+- Authors: R. A. Speers and A. J. MacIntosh
+- Publication: *Journal of the American Society of Brewing Chemists*, 71(4),
+  242–247, 2013
+- DOI: `10.1094/ASBCJ-2013-1008-01`
+- URL: `https://doi.org/10.1094/ASBCJ-2013-1008-01`
+- Accessed: 2026-09-14
+- Tier: 5 — peer-reviewed original research and analysis
+- Supports:
+  - the ASBC Beer-13 chart reports volumes of CO2 as gas volume at standard
+    temperature and pressure, explicitly `273.15 K` and `101.325 kPa`, per
+    volume of beer;
+  - separation of that reference-state reporting definition from the
+    temperature/pressure equilibrium relationship used to estimate dissolved
+    CO2 in a particular beer;
+  - the conclusion that beer composition, including alcohol and extract, can
+    affect CO2 solubility and that a pressure/temperature-only chart for a
+    historical "standard beer" is not a universal physical model for all beer.
+- Limitations:
+  - does not reproduce the complete current Beer-13 method text;
+  - does not itself state the `506.07 mL/g` conversion constant used by
+    FermUnits;
+  - its evaluation of composition-aware solubility models is constrained by the
+    available beer-solubility data and should not be treated as a universal
+    equilibrium equation without an explicit model scope.
+
+### [BR-LIGER-BELAIR-CILINDRE-2021] How Many CO2 Bubbles in a Glass of Beer?
+
+- Authors: Gérard Liger-Belair and Clara Cilindre
+- Publication: *ACS Omega*, 6(14), 9672–9679, 2021
+- DOI: `10.1021/acsomega.1c00256`
+- URL: `https://doi.org/10.1021/acsomega.1c00256`
+- Accessed: 2026-09-14
+- Tier: 5 — peer-reviewed original research
+- Supports:
+  - later beer-specific thermodynamic treatment recognizing that common
+    theoretical CO2-solubility models do not capture the full range of modern
+    beer composition;
+  - a composition-aware estimate for a 5% ABV lager that is reported as being
+    in good agreement with the main model discussed by Speers and MacIntosh;
+  - a beer-specific Henry coefficient of approximately
+    `2.4 g/(L * bar)` at `6 °C` for the lager studied.
+- Limitations:
+  - the experiment concerns one commercial lager and does not validate a
+    universal beer-equilibrium model;
+  - does not establish the reference-state mass conversion used by FermUnits.
+
+### [BR-GUADALUPE-DAQUI-2023] The effect of CO2 concentration on yeast fermentation
+
+- Authors: Mario Guadalupe-Daqui, Renee M. Goodrich-Schneider, Paul J. Sarnoski,
+  John C. Carriglio, Charles A. Sims, Brian J. Pearson, and Andrew J. MacIntosh
+- Publication: *Journal of Industrial Microbiology and Biotechnology*, 50(1),
+  kuad001, 2023
+- DOI: `10.1093/jimb/kuad001`
+- URL: `https://doi.org/10.1093/jimb/kuad001`
+- Accessed: 2026-09-14
+- Tier: 5 — peer-reviewed original research
+- Supports:
+  - later quantitative use of the Speers-and-MacIntosh composition-aware CO2
+    solubility relationship in brewing-fermentation research;
+  - treatment of dissolved CO2 saturation as dependent on temperature, sugar,
+    ethanol, and pressure rather than pressure and temperature alone.
+- Limitation:
+  - adopts the Speers-and-MacIntosh relationship for its calculations rather
+    than independently validating every coefficient of that model.
+
 ### [BR-ASBC-BEER13-01] ASBC Beer 13 — Dissolved Carbon Dioxide
 
 - Organization: American Society of Brewing Chemists (ASBC)
@@ -642,13 +731,11 @@ support, but this ledger is the canonical project-wide source inventory.
 
 ### [BR-EBC-TORRENT-2006] CO2 correction factor for the net contents of containers
 
-- Author: Josep Torrent
+- Author: J. Torrent
 - Submitted on behalf of: Analysis Committee of the European Brewery Convention
-- Publication: *Journal of the Institute of Brewing*, 112(4), 380–381, 2006
-- DOI: `10.1002/j.2050-0416.2006.tb00743.x`
-- Publisher PDF: `https://onlinelibrary.wiley.com/doi/pdf/10.1002/j.2050-0416.2006.tb00743.x`
-- Accessible parallel publication record: *BrewingScience*, 60(11/12), 3–4, 2006
-- Accessible URL: `https://brewingscience.de/index.php/brewingscience/article/view/503`
+- Publication: *BrewingScience*, 60(11/12), 3–4, 2006
+- Published: 2006-12-20
+- URL: `https://brewingscience.de/index.php/brewingscience/article/view/503`
 - Accessed: 2026-09-07
 - Tier: 4
 - Supports:

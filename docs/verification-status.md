@@ -82,7 +82,7 @@ is no longer implemented. Pint's bare `hogshead` remains Pint-owned behavior.
 | Lovibond ↔ SRM approximation | **Provisional** | Retain provisional | Public names explicitly include `_approx`; primary coefficient provenance, material scope, range, and error remain unverified. |
 | A275 extract absorbance ↔ bitterness units | **Provisional** | Reviewed provisional | Historical numerical factor is implemented; complete current method text and procedural conditions remain unverified. |
 | Lintner ↔ Windisch-Kolbach diastatic power | **Provisional** | Reviewed provisional | Conventional relationship is sourced; primary formula provenance, exactness, range, and method-equivalence scope remain unverified. |
-| volumes of CO2 ↔ CO2 mass concentration | **Provisional** | Reviewed provisional | Physical/industry evidence supports the magnitude, but the normative ASBC reference state and reporting precision remain unverified. |
+| volumes of CO2 ↔ CO2 mass concentration | **Verified** | Verified | Beer-13 reference-state semantics (`273.15 K`, `101.325 kPa`), the `506.07 mL/g` industry factor, and independent CO2 density data support the conversion; equilibrium modeling remains a separate composition-dependent concern. |
 
 The corresponding detailed evidence, limitations, and unresolved questions remain
 in [`reference/brewing-units.md`](reference/brewing-units.md). This table does
@@ -114,7 +114,6 @@ Provisional areas:
 3. The SRM ↔ EBC scale-factor relationship and procedural scope.
 4. The A275 analytical-bitterness factor and method scope.
 5. The Lintner ↔ Windisch-Kolbach relationship and method-equivalence wording.
-6. The volumes-of-CO2 reference state and reporting precision.
 
 The review question is not simply whether each formula is familiar or commonly
 used. It is whether FermUnits' exact public semantics, qualifications, and source

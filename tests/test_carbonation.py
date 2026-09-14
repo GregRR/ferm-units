@@ -13,17 +13,17 @@ from fermunits import (
     create_registry,
 )
 
-EXPECTED_GRAMS_PER_LITER_PER_VOLUME = 1000.0 / 506.07
+EXPECTED_STP_GRAMS_PER_LITER_PER_VOLUME = 1000.0 / 506.07
 
 
 @pytest.mark.parametrize(
     ("co2_volumes", "expected_grams_per_liter"),
     [
         (0.0, 0.0),
-        (1.0, EXPECTED_GRAMS_PER_LITER_PER_VOLUME),
-        (2.0, 2.0 * EXPECTED_GRAMS_PER_LITER_PER_VOLUME),
-        (2.5, 2.5 * EXPECTED_GRAMS_PER_LITER_PER_VOLUME),
-        (3.0, 3.0 * EXPECTED_GRAMS_PER_LITER_PER_VOLUME),
+        (1.0, EXPECTED_STP_GRAMS_PER_LITER_PER_VOLUME),
+        (2.0, 2.0 * EXPECTED_STP_GRAMS_PER_LITER_PER_VOLUME),
+        (2.5, 2.5 * EXPECTED_STP_GRAMS_PER_LITER_PER_VOLUME),
+        (3.0, 3.0 * EXPECTED_STP_GRAMS_PER_LITER_PER_VOLUME),
     ],
 )
 def test_co2_volumes_to_grams_per_liter(
@@ -39,10 +39,10 @@ def test_co2_volumes_to_grams_per_liter(
     ("grams_per_liter", "expected_volumes"),
     [
         (0.0, 0.0),
-        (EXPECTED_GRAMS_PER_LITER_PER_VOLUME, 1.0),
-        (2.0 * EXPECTED_GRAMS_PER_LITER_PER_VOLUME, 2.0),
-        (2.5 * EXPECTED_GRAMS_PER_LITER_PER_VOLUME, 2.5),
-        (3.0 * EXPECTED_GRAMS_PER_LITER_PER_VOLUME, 3.0),
+        (EXPECTED_STP_GRAMS_PER_LITER_PER_VOLUME, 1.0),
+        (2.0 * EXPECTED_STP_GRAMS_PER_LITER_PER_VOLUME, 2.0),
+        (2.5 * EXPECTED_STP_GRAMS_PER_LITER_PER_VOLUME, 2.5),
+        (3.0 * EXPECTED_STP_GRAMS_PER_LITER_PER_VOLUME, 3.0),
     ],
 )
 def test_co2_grams_per_liter_to_volumes(
@@ -85,7 +85,7 @@ def test_quantity_aware_carbonation_round_trip(co2_volumes: float) -> None:
     restored = co2_mass_concentration_to_volumes(concentration)
 
     assert concentration.to("gram / liter").magnitude == pytest.approx(
-        co2_volumes * EXPECTED_GRAMS_PER_LITER_PER_VOLUME
+        co2_volumes * EXPECTED_STP_GRAMS_PER_LITER_PER_VOLUME
     )
     assert restored == pytest.approx(co2_volumes)
 
@@ -93,9 +93,9 @@ def test_quantity_aware_carbonation_round_trip(co2_volumes: float) -> None:
 @pytest.mark.parametrize(
     ("unit_name", "magnitude"),
     [
-        ("gram / liter", 2.5 * EXPECTED_GRAMS_PER_LITER_PER_VOLUME),
-        ("milligram / liter", 2500.0 * EXPECTED_GRAMS_PER_LITER_PER_VOLUME),
-        ("kilogram / meter ** 3", 2.5 * EXPECTED_GRAMS_PER_LITER_PER_VOLUME),
+        ("gram / liter", 2.5 * EXPECTED_STP_GRAMS_PER_LITER_PER_VOLUME),
+        ("milligram / liter", 2500.0 * EXPECTED_STP_GRAMS_PER_LITER_PER_VOLUME),
+        ("kilogram / meter ** 3", 2.5 * EXPECTED_STP_GRAMS_PER_LITER_PER_VOLUME),
     ],
 )
 def test_co2_mass_concentration_to_volumes_accepts_compatible_units(
@@ -115,7 +115,7 @@ def test_co2_volume_result_can_use_isolated_registry() -> None:
     combined = concentration + baseline
 
     assert combined.to("gram / liter").magnitude == pytest.approx(
-        2.0 * EXPECTED_GRAMS_PER_LITER_PER_VOLUME + 1.0
+        2.0 * EXPECTED_STP_GRAMS_PER_LITER_PER_VOLUME + 1.0
     )
 
 

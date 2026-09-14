@@ -64,6 +64,10 @@ All notable changes to FermUnits will be documented in this file.
 
 ### Changed
 
+- Promote the volumes-of-CO2 ↔ mass-concentration relationship to Verified
+  after peer-reviewed Beer-13 analysis established the `273.15 K` and
+  `101.325 kPa` reference state and later literature reinforced the separate
+  composition-dependent equilibrium-model boundary.
 - Treat the scalar carbonation compatibility pair as an intentional supported
   1.x API while continuing to prefer quantity-aware helpers for physical
   concentration calculations.
